@@ -1,0 +1,17 @@
+%table
+  %tbody
+    %tr
+      %th Debtor
+      %td= @transaction.debtor.name
+    %tr
+      %th Creditor
+      %td= @transaction.creditor.name
+    %tr
+      %th Amount
+      %td= @transaction.amount
+    %tr
+      %th Origin
+      %td= @transaction.origin
+    %tr
+      %th Message
+      %td= @transaction.message
