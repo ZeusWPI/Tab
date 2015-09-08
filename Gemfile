@@ -23,6 +23,8 @@ gem 'cancancan'
 
 # Pure for css
 gem 'purecss-rails'
+# Use datatables
+gem 'jquery-datatables-rails', '~> 3.3.0'
 
 
 # Use jquery as the JavaScript library
