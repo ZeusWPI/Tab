@@ -246,7 +246,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.3.0)
   jquery-rails
-  mysql2
+  mysql2 (~> 0.3.0)
   omniauth-oauth2
   purecss-rails
   rails (= 4.2.4)

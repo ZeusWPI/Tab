@@ -71,7 +71,7 @@ group :development do
 end
 
 group :production do
-  gem 'mysql2'
+  gem 'mysql2', '~> 0.3.0'
 end
 
 gem 'high_voltage', '~> 2.4.0'
