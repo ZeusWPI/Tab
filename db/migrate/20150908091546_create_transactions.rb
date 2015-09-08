@@ -1,13 +1,16 @@
 class CreateTransactions < ActiveRecord::Migration
   def change
     create_table :transactions do |t|
-      t.references :debtor, index: true, foreign_key: true, null: false
-      t.references :creditor, index: true, foreign_key: true, null: false
+      t.references :debtor, index: true, null: false
+      t.references :creditor, index: true, null: false
       t.integer :amount, null: false, default: 0
       t.string :origin, null: false
       t.string :message
 
       t.timestamps null: false
     end
+
+    add_foreign_key :transactions, :users, :creditor_id
+    add_foreign_key :transactions, :users, :debtor_id
   end
 end
