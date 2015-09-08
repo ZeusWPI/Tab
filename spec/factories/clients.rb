@@ -11,8 +11,6 @@
 
 FactoryGirl.define do
   factory :client do
-    name "MyString"
-key "MyString"
+    name { Faker::Lorem.word }
   end
-
 end

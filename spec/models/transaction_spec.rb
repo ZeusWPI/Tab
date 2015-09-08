@@ -15,5 +15,24 @@
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "has a valid factory" do
+    expect(create(:transaction)).to be_valid
+  end
+
+  describe "cache" do
+    before :each do
+      @user = create(:user)
+    end
+
+    it "should update creditor cache" do
+      trans = build(:transaction, creditor: @user, amount: 10)
+      expect {trans.save!}.to change {@user.balance}.by(10)
+    end
+
+    it "should update debtor cache" do
+      trans = build(:transaction, debtor: @user, amount: 10)
+      expect {trans.save!}.to change {@user.balance}.by(-10)
+    end
+  end
+
 end

@@ -12,7 +12,11 @@
 
 FactoryGirl.define do
   factory :user do
-    
+    name { Faker::Internet.user_name }
+
+    factory :penning do
+      penning true
+    end
   end
 
 end
