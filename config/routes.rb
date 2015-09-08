@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'callbacks'
   }
 
+  root to: 'high_voltage/pages#show', id: "landing"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
