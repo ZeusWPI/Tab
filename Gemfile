@@ -21,6 +21,9 @@ gem 'omniauth-oauth2'
 # Authorisation
 gem 'cancancan'
 
+# Haml for templating!
+gem "haml-rails", "~> 0.9"
+
 # Pure for css
 gem 'purecss-rails'
 # Use datatables

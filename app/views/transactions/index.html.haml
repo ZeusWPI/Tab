@@ -1,0 +1,18 @@
+%table#transactions.display
+  %thead
+    %tr
+      %th id
+      %th debtor
+      %th creditor
+      %th amount
+  %tbody
+    - @transactions.each do |transaction|
+      %tr
+        %td= transaction.id
+        %td= transaction.debtor.name
+        %td= transaction.creditor.name
+        %td= transaction.amount
+:javascript
+  $(document).ready(function() {
+    $('#transactions').DataTable();
+  });
