@@ -26,4 +26,10 @@ class User < ActiveRecord::Base
                 outgoing_transactions.sum(:amount)
     self.update_attribute :balance, balance
   end
+
+  def self.from_omniauth(auth)
+    where(name: auth.uid).first_or_create do |user|
+      user.name = auth.uid
+    end
+  end
 end
