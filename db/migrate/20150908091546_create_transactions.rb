@@ -10,7 +10,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_foreign_key :transactions, :users, :creditor_id
-    add_foreign_key :transactions, :users, :debtor_id
+    add_foreign_key :transactions, :users, column: :creditor_id
+    add_foreign_key :transactions, :users, column: :debtor_id
   end
 end
