@@ -20,4 +20,10 @@ class User < ActiveRecord::Base
   def transactions
     Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
   end
+
+  def self.from_omniauth(auth)
+    where(name: auth.uid).first_or_create do |user|
+      user.name = auth.uid
+    end
+  end
 end
