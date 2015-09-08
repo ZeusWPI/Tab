@@ -20,4 +20,10 @@ class User < ActiveRecord::Base
   def transactions
     Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
   end
+
+  def calculate_balance!
+    balance = incoming_transactions.sum(:amount) -
+                outgoing_transactions.sum(:amount)
+    self.update_attribute :balance, balance
+  end
 end
