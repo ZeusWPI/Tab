@@ -13,5 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
+//= require select2
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+    $(".select2-selector").select2();
+});
+

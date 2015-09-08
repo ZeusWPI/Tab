@@ -25,6 +25,8 @@ gem 'cancancan'
 gem 'purecss-rails'
 # Use datatables
 gem 'jquery-datatables-rails', '~> 3.3.0'
+# Use Select2 for selecting users
+gem 'select2-rails'
 
 
 # Use jquery as the JavaScript library

@@ -12,5 +12,6 @@
  *
  *= require_tree .
  *= require dataTables/jquery.dataTables
+ *= require select2
  *= require_self
  */
