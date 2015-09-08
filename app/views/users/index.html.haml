@@ -1,0 +1,13 @@
+%h2 Users
+%table
+  %thead
+    %tr
+      %th ID
+      %th Name
+      %th Balance
+  %tbody
+    - @users.each do |u|
+      %tr
+        %td= u.id
+        %td= u.name
+        %td= u.balance
