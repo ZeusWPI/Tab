@@ -17,7 +17,9 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
-    $(".select2-selector").select2();
-});
+ready = function() {
+  $(".select2-selector").select2();
+}
 
+$(document).ready(ready)
+$(document).on('page:load', ready)

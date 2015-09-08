@@ -1,7 +1,6 @@
 class TransactionsController < ApplicationController
 
   def index
-    p params
     respond_to do |format|
       format.html
       format.json { render json: TransactionDatatable.new(view_context) }
@@ -13,10 +12,18 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    creditor = User.find params.require(:transaction).require(:creditor)
-    debtor = current_user
-    amount = params.require(:transaction).require(:amount)
-    @transaction = Transaction.create debtor: debtor, creditor: creditor, amount: amount, origin: I18n.t('origin.created_by_user'), message: "Transaction by #{debtor.name} to #{creditor.name}"
+    @transaction = current_user.outgoing_transactions.build transaction_params.merge(origin: I18n.t('origin.created_by_user'))
+
+    if @transaction.save
+      redirect_to current_user
+    else
+      render 'new'
+    end
   end
 
+  private
+
+  def transaction_params
+    params.require(:transaction).permit(:creditor_id, :amount, :message)
+  end
 end
