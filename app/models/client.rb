@@ -10,4 +10,7 @@
 #
 
 class Client < ActiveRecord::Base
+  def transactions
+    Transaction.where(origin: name)
+  end
 end

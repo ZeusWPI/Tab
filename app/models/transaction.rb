@@ -13,6 +13,10 @@
 #
 
 class Transaction < ActiveRecord::Base
-  belongs_to :debtor
-  belongs_to :creditor
+  belongs_to :debtor, class_name: 'User'
+  belongs_to :creditor, class_name: 'User'
+
+  def client
+    Client.find_by name: origin
+  end
 end
