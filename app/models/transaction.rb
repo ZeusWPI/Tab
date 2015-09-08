@@ -16,7 +16,16 @@ class Transaction < ActiveRecord::Base
   belongs_to :debtor, class_name: 'User'
   belongs_to :creditor, class_name: 'User'
 
+  after_save    :recalculate_balances
+  after_destroy :recalculate_balances
+
   def client
     Client.find_by name: origin
+  end
+
+  private
+  def recalculate_balances
+    creditor.calculate_balance!
+    debtor.calculate_balance!
   end
 end

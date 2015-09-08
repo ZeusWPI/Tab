@@ -21,6 +21,12 @@ class User < ActiveRecord::Base
     Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
   end
 
+  def calculate_balance!
+    balance = incoming_transactions.sum(:amount) -
+                outgoing_transactions.sum(:amount)
+    self.update_attribute :balance, balance
+  end
+
   def self.from_omniauth(auth)
     where(name: auth.uid).first_or_create do |user|
       user.name = auth.uid
