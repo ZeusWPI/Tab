@@ -1,21 +1,20 @@
 %h2= @user.name
-%table
+%table#transactions.display{data: { source: user_path(@user) }}
   %thead
     %tr
-      %th ID
-      %th Debtor
-      %th Creditor
       %th Amount
       %th Origin
       %th Message
+      %th Peer
       %th Time
   %tbody
-    - @user.transactions.each do |t|
-      %tr
-        %td= t.id
-        %td= t.debtor.name
-        %td= t.creditor.name
-        %td= t.amount
-        %td= t.origin
-        %td= t.message
-        %td= t.created_at
+
+:javascript
+  $(document).ready(function() {
+    $('#transactions').DataTable({
+      'processing': true,
+      'serverSide': true,
+      'ajax': $('#transactions').data('source'),
+      'pagingType': 'full_numbers'
+      });
+  });

@@ -1,11 +1,7 @@
 class TransactionsController < ApplicationController
 
   def index
-    p params
-    respond_to do |format|
-      format.html
-      format.json { render json: TransactionDatatable.new(view_context) }
-    end
+    @transactions = Transaction.all
   end
 
   def new
