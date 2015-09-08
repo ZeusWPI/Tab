@@ -97,6 +97,11 @@ GEM
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery-datatables-rails (3.3.0)
+      actionpack (>= 3.1)
+      jquery-rails
+      railties (>= 3.1)
+      sass-rails
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -113,7 +118,7 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.4.0)
+    mysql2 (0.3.20)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -132,6 +137,8 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    purecss-rails (0.6.0)
+      railties (>= 3.2.6, < 5)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -237,9 +244,11 @@ DEPENDENCIES
   faker
   high_voltage (~> 2.4.0)
   jbuilder (~> 2.0)
+  jquery-datatables-rails (~> 3.3.0)
   jquery-rails
   mysql2
   omniauth-oauth2
+  purecss-rails
   rails (= 4.2.4)
   rspec-rails
   sass-rails (~> 5.0)
