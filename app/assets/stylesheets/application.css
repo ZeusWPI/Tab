@@ -13,4 +13,5 @@
  *= require_tree .
  *= require dataTables/jquery.dataTables
  *= require_self
+ *= require purecss
  */
