@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
     class_name: 'Transaction', foreign_key: 'creditor_id'
   has_many :outgoing_transactions,
     class_name: 'Transaction', foreign_key: 'debtor_id'
+
+  def transactions
+    Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
+  end
 end
