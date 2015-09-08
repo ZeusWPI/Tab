@@ -1,3 +1,7 @@
 
-Hello, new transaction
+<%= form_for @transaction do |f| %>
+  <%= f.select :creditor, User.all, {}, { class: 'select2-selector' } %>
+  <%= f.number_field :amount %>
+  <%= f.submit "Send it!" %>
+<% end %>
 
