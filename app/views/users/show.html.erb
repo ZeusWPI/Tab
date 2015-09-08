@@ -1,0 +1,28 @@
+<h2><%= @user.name %></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Debtor</th>
+      <th>Creditor</th>
+      <th>Amount</th>
+      <th>Origin</th>
+      <th>Message</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.id %></td>
+        <td><%= transaction.debtor.name %></td>
+        <td><%= transaction.creditor.name %></td>
+        <td><%= transaction.amount %></td>
+        <td><%= transaction.origin %></td>
+        <td><%= transaction.message %></td>
+        <td><%= transaction.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
