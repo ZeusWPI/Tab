@@ -10,7 +10,14 @@
 #
 
 class Client < ActiveRecord::Base
+  before_create :generate_key
+
   def transactions
     Transaction.where(origin: name)
+  end
+
+  private
+  def generate_key
+    self.key = SecureRandom.base64(16) unless self.key
   end
 end

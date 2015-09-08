@@ -12,5 +12,11 @@
 require 'rails_helper'
 
 RSpec.describe Client, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should have a valid factory" do
+    expect(create(:client)).to be_valid
+  end
+
+  it "should generate a key" do
+    expect(create(:client).key).to be_present
+  end
 end
