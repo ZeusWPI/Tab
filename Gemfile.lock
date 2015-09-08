@@ -131,6 +131,8 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    purecss-rails (0.6.0)
+      railties (>= 3.2.6, < 5)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -238,6 +240,7 @@ DEPENDENCIES
   jquery-rails
   mysql2 (~> 0.3)
   omniauth-oauth2
+  purecss-rails
   rails (= 4.2.4)
   rspec-rails
   sass-rails (~> 5.0)
