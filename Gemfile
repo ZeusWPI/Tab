@@ -64,6 +64,6 @@ group :development do
   gem 'capistrano-passenger'
 end
 
-group :development do
+group :production do
   gem 'mysql2'
 end
