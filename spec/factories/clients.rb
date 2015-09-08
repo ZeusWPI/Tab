@@ -11,7 +11,6 @@
 
 FactoryGirl.define do
   factory :client do
-    name {{ Faker::Lorem.word }}
+    name { Faker::Lorem.word }
   end
-
 end

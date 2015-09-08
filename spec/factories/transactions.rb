@@ -14,8 +14,8 @@
 
 FactoryGirl.define do
   factory :transaction do
-    debtor
-    creditor
+    association :debtor, factory: :user
+    association :creditor, factory: :user
     amount { rand(100) }
     origin 'FactoryGirl'
     message { Faker::Lorem.sentence }
