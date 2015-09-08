@@ -65,5 +65,5 @@ group :development do
 end
 
 group :production do
-  gem 'mysql2' # Database
+  gem 'mysql2', '~> 0.3' # Database
 end

@@ -236,7 +236,7 @@ DEPENDENCIES
   faker
   jbuilder (~> 2.0)
   jquery-rails
-  mysql2
+  mysql2 (~> 0.3)
   omniauth-oauth2
   rails (= 4.2.4)
   rspec-rails
