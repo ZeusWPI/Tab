@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
   has_many :outgoing_transactions,
     class_name: 'Transaction', foreign_key: 'debtor_id'
 
+  validates :name, presence: true, uniqueness: true
+  validates :balance, presence: true
+
   def transactions
     Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
   end

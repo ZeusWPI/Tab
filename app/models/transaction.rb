@@ -19,13 +19,21 @@ class Transaction < ActiveRecord::Base
   after_save    :recalculate_balances
   after_destroy :recalculate_balances
 
+  validates :amount, numericality: { greater_than: 0 }
+  validate :different_debtor_creditor
+
   def client
     Client.find_by name: origin
   end
 
   private
+
   def recalculate_balances
     creditor.calculate_balance!
     debtor.calculate_balance!
+  end
+
+  def different_debtor_creditor
+    self.errors.add :base, "Can't write money to yourself" if self.debtor == self.creditor
   end
 end
