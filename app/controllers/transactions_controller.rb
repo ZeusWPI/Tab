@@ -6,7 +6,13 @@ class TransactionsController < ApplicationController
   before_action :authenticate_user_or_client!, only: :create
 
   def index
-    @grid = TransactionsGrid.new(params[:transactions_grid]) do |scope|
+    gridparams = params[:transactions_grid] || Hash.new
+    gridparams = gridparams.merge(
+      order: :created_at,
+      descending: true,
+      current_user: current_user
+    )
+    @grid = TransactionsGrid.new(gridparams) do |scope|
       scope.page(params[:page])
     end
   end
