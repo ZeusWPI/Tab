@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe UsersController, type: :controller do
+describe UsersController, type: :controller do
    before :each do
      @user = create :penning
      sign_in @user

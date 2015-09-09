@@ -13,9 +13,7 @@
 #  updated_at  :datetime         not null
 #
 
-require 'rails_helper'
-
-RSpec.describe Transaction, type: :model do
+describe Transaction, type: :model do
   it "has a valid factory" do
     expect(create(:transaction)).to be_valid
   end

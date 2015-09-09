@@ -10,9 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-require 'rails_helper'
-
-RSpec.describe User, type: :model do
+describe User, type: :model do
   before :each do
     @user = create :user
   end

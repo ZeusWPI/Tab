@@ -1,7 +1,4 @@
-require 'rails_helper'
-require 'spec_helper'
-
-RSpec.describe TransactionsController, type: :controller do
+describe TransactionsController, type: :controller do
   describe "creating transaction" do
     before :each do
       @debtor = create(:user)

@@ -9,9 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-require 'rails_helper'
-
-RSpec.describe Client, type: :model do
+describe Client, type: :model do
   before :each do
     @client = create :client
   end
