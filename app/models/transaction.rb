@@ -5,8 +5,9 @@
 #  id          :integer          not null, primary key
 #  debtor_id   :integer          not null
 #  creditor_id :integer          not null
+#  issuer_id   :integer          not null
+#  issuer_type :string           not null
 #  amount      :integer          default(0), not null
-#  origin      :string           not null
 #  message     :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
