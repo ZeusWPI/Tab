@@ -2,7 +2,7 @@ class TransactionDatatable < AjaxDatatablesRails::Base
   include TransactionsHelper
 
   def sortable_columns
-    @sortable_columns ||= ['Transaction.amount']
+    @sortable_columns ||= ['Transaction.created_at']
   end
 
   def searchable_columns
