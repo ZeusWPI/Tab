@@ -1,6 +1,4 @@
 class TransactionsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => :create
-
   def index
     @transactions = Transaction.all
   end
@@ -11,7 +9,7 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = current_user.outgoing_transactions.build(
-      transaction_params.merge(origin: I18n.t('origin.created_by_user'))
+      transaction_params.merge(origin: I18n.t('origin.created_by_user')))
 
     if @transaction.save
       redirect_to current_user

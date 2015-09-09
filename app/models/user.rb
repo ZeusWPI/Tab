@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   has_many :outgoing_transactions,
     class_name: 'Transaction', foreign_key: 'debtor_id'
 
+  has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
+
   validates :name, presence: true, uniqueness: true
 
   def transactions

@@ -10,14 +10,11 @@
 #
 
 class Client < ActiveRecord::Base
+  has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
   before_create :generate_key
 
   validates :name, presence: true, uniqueness: true
   validates :key, presence: true, uniqueness: true
-
-  def transactions
-    Transaction.where(origin: name)
-  end
 
   private
   def generate_key
