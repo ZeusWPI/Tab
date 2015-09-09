@@ -1,7 +1,8 @@
-= @transaction.errors.full_messages.join(", ")
+= render 'partials/form_errors', object: @transaction
 = simple_form_for @transaction do |f|
   = f.hidden_field :debtor, value: current_user.name
   = f.collection_select :creditor, User.all, :name, :name, {}, { class: 'select2-selector' }
   = f.input :amount
   = f.input :message, required: true
-  = f.submit "Send it!"
+  .pure-controls
+    = f.button :submit, "Send it!"
