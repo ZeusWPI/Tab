@@ -40,5 +40,26 @@ RSpec.describe TransactionsController, type: :controller do
         expect(@transaction.issuer).to eq(@debtor)
       end
     end
+
+    context "with negative amount" do
+      it "should be refused" do
+        expect do
+          post :create, transaction: attributes_for(:transaction, amount: -20)
+        end.not_to change {Transaction.count}
+      end
+    end
+
+    context "for other user" do
+      it "should be refused" do
+        expect do
+          post :create, transaction: {
+            debtor: @creditor,
+            creditor: @debtor,
+            amount: 10000000000000,
+            message: 'DIT IS OVERVAL'
+          }
+        end.not_to change {Transaction.count}
+      end
+    end
   end
 end
