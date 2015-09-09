@@ -4,7 +4,7 @@ module DataTable
 
   def apply_filter(user, params)
     params = sanitize_params(params)
-    selection_to_json(user, params[:draw], user.transactions)
+    selection_to_json user, params, user.transactions
   end
 
   private
@@ -37,12 +37,11 @@ module DataTable
   end
 
   def selection_to_json(user, draw, selection)
-    selection = selection.to_a
     {
       draw: draw,
       recordsTotal: user.transactions.count,
       recordsFiltered: selection.count,
-      data: selection.map { |transaction| {
+      data: selection.offset(params[:start]).take(params[:length]).map { |transaction| {
         time: transaction.created_at,
         amount: transaction.signed_amount_for(user),
         peer: transaction.peer_of(user).try(:name),
