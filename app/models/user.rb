@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
     class_name: 'Transaction', foreign_key: 'debtor_id'
 
   validates :name, presence: true, uniqueness: true
-  validates :balance, presence: true
 
   def transactions
     Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
@@ -34,5 +33,9 @@ class User < ActiveRecord::Base
     where(name: auth.uid).first_or_create do |user|
       user.name = auth.uid
     end
+  end
+
+  def self.zeus
+    @@zeus ||= find_or_create_by name: 'Zeus'
   end
 end
