@@ -2,11 +2,11 @@
 = simple_form_for @transaction do |f|
   - if current_user.penning
     = f.collection_select :debtor, User.all, :name, :name,
-        {selected: current_user.name}, { class: 'select2-selector'}
+        { selected: @transaction.debtor.try(:name) || current_user.name }, { class: 'select2-selector'}
   - else
     = f.hidden_field :debtor, value: current_user.name
   = f.collection_select :creditor, User.all, :name, :name,
-        {selected: User.zeus.name}, { class: 'select2-selector' }
+        { selected: @transaction.creditor.try(:name) || User.zeus.name }, { class: 'select2-selector' }
   = f.input :message, required: true
   = f.input :euros, input_html: { value: @transaction.amount/100}
   .pure-controls
