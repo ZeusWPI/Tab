@@ -82,3 +82,5 @@ group :production do
 end
 
 gem 'high_voltage', '~> 2.4.0'
+
+gem 'simple_form'

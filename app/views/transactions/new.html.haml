@@ -1,6 +1,6 @@
 = @transaction.errors.full_messages.join(", ")
-= form_for @transaction do |f|
+= simple_form_for @transaction do |f|
   = f.collection_select :creditor_id, User.all, :id, :name, {}, { class: 'select2-selector' }
-  = f.number_field :amount
-  = f.text_field :message, required: true
+  = f.input :amount
+  = f.input :message, required: true
   = f.submit "Send it!"
