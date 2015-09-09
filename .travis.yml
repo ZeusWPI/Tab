@@ -1,13 +1,13 @@
 language: ruby
 sudo: false
-rvm:
-- 2.2.2
+
 before_script:
-- RAILS_ENV=test bundle exec rspec spec
+  - RAILS_ENV=test bundle exec rspec spec
+
 notifications:
   email:
     recipients:
-    - tab@zeus.ugent.be
+      - tab@zeus.ugent.be
     on_success: never
     on_failure: change
   slack:
