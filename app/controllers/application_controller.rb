@@ -8,11 +8,11 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user_or_client!
-    current_user || current_client || raise(Exception.new)
+    current_user || current_client || head(:unauthorized)
   end
 
   def current_client
-    @current_client ||= identify_client
+    @current_client ||= Client.find_by key: request.headers["X-API-KEY"]
   end
 
   def current_ability
@@ -21,12 +21,5 @@ class ApplicationController < ActionController::Base
     elsif current_client
       @current_ability ||= ClientAbility.new(current_client)
     end
-  end
-
-  private
-
-  def identify_client
-    key = request.headers["X-API-KEY"]
-    Client.find_by key: key if key
   end
 end
