@@ -8,6 +8,7 @@ class Ability
       can :manage, :all
     else
       can :read, user, id: user.id
+      can :create, Transaction, debtor: user
     end
   end
 end

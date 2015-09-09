@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  load_and_authorize_resource
   skip_before_filter :verify_authenticity_token, only: :create
 
   before_action :authenticate_user!, except: :create
