@@ -26,8 +26,9 @@ gem "haml-rails", "~> 0.9"
 
 # Pure for css
 gem 'purecss-rails'
-# Use datatables
-gem 'jquery-datatables-rails'
+# Use DataGrid
+gem 'datagrid'
+gem 'kaminari'
 
 # Use Select2 for selecting users
 gem 'select2-rails'
@@ -90,3 +91,4 @@ gem 'simple_form'
 
 # Errors on errbit
 gem 'airbrake'
+

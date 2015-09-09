@@ -6,7 +6,9 @@ class TransactionsController < ApplicationController
   before_action :authenticate_user_or_client!, only: :create
 
   def index
-    @transactions = Transaction.all
+    @grid = TransactionsGrid.new(params[:transactions_grid]) do |scope|
+      scope.page(params[:page])
+    end
   end
 
   def new
