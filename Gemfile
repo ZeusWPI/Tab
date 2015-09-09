@@ -28,7 +28,6 @@ gem "haml-rails", "~> 0.9"
 gem 'purecss-rails'
 # Use datatables
 gem 'jquery-datatables-rails'
-gem 'ajax-datatables-rails'
 
 # Use Select2 for selecting users
 gem 'select2-rails'

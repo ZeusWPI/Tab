@@ -2,6 +2,12 @@
 %table#transactions.display{data: { source: user_path(@user) }}
   %thead
     %tr
+      %td Amount
+      %td Origin
+      %td Message
+      %td Peer
+      %td Time
+    %tr
       %th Amount
       %th Origin
       %th Message
@@ -11,10 +17,28 @@
 
 :javascript
   $(document).ready(function() {
-    $('#transactions').DataTable({
-      'processing': true,
-      'serverSide': true,
-      'ajax': $('#transactions').data('source'),
-      'pagingType': 'full_numbers'
-      });
+    $('#transactions').dataTable({
+      processing: true,
+      serverSide: true,
+      searching: true,
+      ordering: false,
+      ajax: $('#transactions').data('source'),
+      pagingType: 'full_numbers',
+      columns: [
+        { data: 'amount',  name: 'Amount' },
+        { data: 'origin',  name: 'Origin' },
+        { data: 'message', name: 'Message' },
+        { data: 'peer',    name: 'Peer' },
+        { data: 'time',    name: 'Time' }
+      ]
+    }).columnFilter({
+      sPlaceHolder: 'head:before',
+      aoColumns: [
+        { type: 'number-range' },
+        { type: 'text' },
+        { type: 'text' },
+        { type: 'text' },
+        { type: 'date-range' }
+      ]
+    });
   });

@@ -26,6 +26,16 @@ class Transaction < ActiveRecord::Base
     Client.find_by name: origin
   end
 
+  def peer_of(user)
+    return creditor if user == debtor
+    return debtor if user == creditor
+  end
+
+  def signed_amount_for(user)
+    return -amount if user == debtor
+    return amount if user == creditor
+  end
+
   private
 
   def recalculate_balances
