@@ -77,6 +77,10 @@ group :development do
   gem 'capistrano-passenger'
 end
 
+group :test do
+  gem 'coveralls', require: false
+end
+
 group :production do
   gem 'mysql2', '~> 0.3.0'
 end
