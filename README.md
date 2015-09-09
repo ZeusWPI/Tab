@@ -1,1 +1,1 @@
-# Tab
+# Tab [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/Tab/README.md?pixel)](https://github.com/igrigorik/ga-beacon) [![Coverage Status](https://coveralls.io/repos/ZeusWPI/Tab/badge.png?branch=master)](https://coveralls.io/r/ZeusWPI/Tab) [![Build Status](https://travis-ci.org/ZeusWPI/Tab.png?branch=master)](https://travis-ci.org/ZeusWPI/Tab)
