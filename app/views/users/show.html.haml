@@ -2,22 +2,31 @@
 %table#transactions.display{data: { source: user_path(@user) }}
   %thead
     %tr
-      %td Amount
-      %td Origin
-      %td Message
-      %td Peer
-      %td Time
-    %tr
       %th Amount
       %th Origin
       %th Message
       %th Peer
       %th Time
+    %tr
+      %td.bound.input-listen
+        %input.lower-bound{type: 'number', placeholder: 'lower', class: 'pure-u-1-5'}
+        = "<= Amount <="
+        %input.upper-bound{type: 'number', placeholder: 'upper', class: 'pure-u-1-5'}
+      %td.input-listen
+        %input{type: 'text', placeholder: 'Filter on Origin'}
+      %td.input-listen
+        %input{type: 'text', placeholder: 'Filter on Message'}
+      %td.input-listen
+        %input{type: 'text', placeholder: 'Filter on Peer'}
+      %td.bound.input-listen
+        %input.lower-bound{type: 'date', placeholder: 'after'}
+        = "<= Time <="
+        %input.upper-bound{type: 'date', placeholder: 'before'}
   %tbody
 
 :javascript
   $(document).ready(function() {
-    $('#transactions').dataTable({
+    var table = $('#transactions').DataTable({
       processing: true,
       serverSide: true,
       searching: true,
@@ -31,14 +40,24 @@
         { data: 'peer',    name: 'Peer' },
         { data: 'time',    name: 'Time' }
       ]
-    }).columnFilter({
-      sPlaceHolder: 'head:before',
-      aoColumns: [
-        { type: 'number-range' },
-        { type: 'text' },
-        { type: 'text' },
-        { type: 'text' },
-        { type: 'date-range' }
-      ]
+    });
+
+    var tds = $('.input-listen');
+    var i = 0;
+    table.columns().every(function() {
+      var column = this
+      tds.eq(i).find('input').on('keyup change', function() {
+        var value = null;
+        var td = $(this).parent();
+        if(td.hasClass('bound')) {
+          value = td.find('.lower-bound').val() + '~' + td.find('.upper-bound').val();
+        } else {
+          value = $(this).val()
+        }
+        if(column.search() !== value) {
+          column.search(value).draw();
+        }
+      });
+      i = i + 1;
     });
   });
