@@ -12,11 +12,19 @@
 require 'rails_helper'
 
 RSpec.describe Client, type: :model do
+  before :each do
+    @client = create :client
+  end
   it "should have a valid factory" do
-    expect(create(:client)).to be_valid
+    expect(@client).to be_valid
   end
 
   it "should generate a key" do
-    expect(create(:client).key).to be_present
+    expect(@client.key).to be_present
+  end
+
+  it "should have a unique name" do
+    client = build :client, name: @client.name
+    expect(client).to_not be_valid
   end
 end
