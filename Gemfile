@@ -84,3 +84,6 @@ end
 gem 'high_voltage', '~> 2.4.0'
 
 gem 'simple_form'
+
+# Errors on errbit
+gem 'airbrake'
