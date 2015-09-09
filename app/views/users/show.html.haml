@@ -1,5 +1,5 @@
 %h2= @user.name
-%table#transactions.display{data: { source: user_path(@user) }}
+%table#transactions.display.responsive.no-wrap{data: { source: user_path(@user) }}
   %thead
     %tr
       %th Amount
@@ -39,7 +39,8 @@
         { data: 'message', name: 'Message' },
         { data: 'peer',    name: 'Peer' },
         { data: 'time',    name: 'Time' }
-      ]
+      ],
+      autoWidth: false
     });
 
     var tds = $('.input-listen');
