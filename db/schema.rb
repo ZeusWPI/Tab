@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 20150908092731) do
   create_table "transactions", force: :cascade do |t|
     t.integer  "debtor_id",               null: false
     t.integer  "creditor_id",             null: false
+    t.integer  "issuer_id",               null: false
+    t.string   "issuer_type",             null: false
     t.integer  "amount",      default: 0, null: false
-    t.string   "origin",                  null: false
     t.string   "message"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150908092731) do
 
   add_index "transactions", ["creditor_id"], name: "index_transactions_on_creditor_id"
   add_index "transactions", ["debtor_id"], name: "index_transactions_on_debtor_id"
+  add_index "transactions", ["issuer_type", "issuer_id"], name: "index_transactions_on_issuer_type_and_issuer_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
