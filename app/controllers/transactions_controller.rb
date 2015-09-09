@@ -34,12 +34,14 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     t = params.require(:transaction)
-          .permit(:debtor, :creditor, :amount, :message)
+          .permit(:debtor, :creditor, :message, :euros, :cents)
 
-    t.update({
+    {
       debtor: User.find_by(name: t[:debtor]) || User.zeus,
       creditor: User.find_by(name: t[:creditor]) || User.zeus,
-      issuer: current_client || current_user
-    })
+      issuer: current_client || current_user,
+      amount: (t[:euros].to_f*100 + t[:cents].to_f).to_i,
+      message: t[:message]
+    }
   end
 end
