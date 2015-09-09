@@ -1,6 +1,9 @@
 = @transaction.errors.full_messages.join(", ")
 = simple_form_for @transaction do |f|
-  = f.hidden_field :debtor, value: current_user.name
+  - if current_user.penning
+    = f.collection_select :debtor, User.all, :name, :name, {}, { class: 'select2-selector' }
+  - else
+    = f.hidden_field :debtor, value: current_user.name
   = f.collection_select :creditor, User.all, :name, :name, {}, { class: 'select2-selector' }
   = f.input :amount
   = f.input :message, required: true
