@@ -22,7 +22,13 @@ class TransactionsController < ApplicationController
 
   private
 
-  def transaction_params
-    params.require(:transaction).permit(:creditor_id, :amount, :message)
+  def set_params
+    t = params.require(:transaction)
+          .permit(:debtor, :creditor, :amount, :message)
+
+    t.update {
+      debtor: User.find_by(name: t[:debtor]) || User.zeus,
+      creditor: User.find_by(name: t[:creditor]) || User.zeus
+    }
   end
 end
