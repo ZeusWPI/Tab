@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, alert: exception.message
   end
 
+  def current_client
+    @current_client ||= identify_client
+  end
+
   def current_ability
     if current_user
       @current_ability ||= Ability.new(current_user)
@@ -14,4 +18,12 @@ class ApplicationController < ActionController::Base
       @current_ability ||= ClientAbility.new(current_account)
     end
   end
+
+  private
+
+  def identify_client
+    key = request.headers["X-API-KEY"]
+    Client.find_by key: key if key
+  end
+
 end

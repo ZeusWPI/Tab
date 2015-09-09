@@ -8,7 +8,8 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = current_user.outgoing_transactions.build transaction_params.merge(origin: I18n.t('origin.created_by_user'))
+    @transaction = current_user.outgoing_transactions.build(
+      transaction_params.merge(origin: I18n.t('origin.created_by_user'))
 
     if @transaction.save
       redirect_to current_user
