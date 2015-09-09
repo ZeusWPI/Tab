@@ -12,6 +12,7 @@ RSpec.describe TransactionsController, type: :controller do
     context "with valid attributes" do
       before :each do
         @attributes = { transaction: {
+          debtor: @debtor.name,
           creditor: @creditor.name,
           amount: 20,
           message: 'hoi'
