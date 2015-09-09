@@ -16,10 +16,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    if current_user
-      @current_ability ||= Ability.new(current_user)
-    elsif current_client
-      @current_ability ||= ClientAbility.new(current_client)
-    end
+    @current_ability ||=
+      current_client.try { |c| ClientAbility.new(c) } ||
+      Ability.new(current_user)
   end
 end
