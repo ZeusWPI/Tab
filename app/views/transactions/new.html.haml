@@ -5,7 +5,7 @@
   - else
     = f.hidden_field :debtor, value: current_user.name
   = f.collection_select :creditor, User.all, :name, :name, {}, { class: 'select2-selector' }
-  = f.input :amount
+  = f.input :cents, input_html: { value: @transaction.amount }
   = f.input :message, required: true
   .pure-controls
     = f.button :submit, "Send it!"
