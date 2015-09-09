@@ -4,7 +4,12 @@ module DataTable
 
   def apply_filter(user, params)
     params = sanitize_params(params)
-    selection_to_json user, params, user.transactions
+    selection_to_json user, params[:draw], user.transactions
+      .where(created_at: params[:columns][:time][:lower]..params[:columns][:time][:upper])
+      .where("('debtor' = :id AND 'creditor' LIKE :peer) OR ('creditor' = :id AND 'debtor' LIKE :peer)", id: user.id, peer: "%#{params[:columns][:peer][:value]}%")
+      .where("'issuer' LIKE :re", re: "%#{params[:columns][:issuer][:value]}%")
+      .where("'message' LIKE :re", re: "%#{params[:columns][:message][:value]}%")
+    # TODO: what about nil?
   end
 
   private
