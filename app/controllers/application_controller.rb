@@ -1,10 +1,14 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message
+  end
+
+  def authenticate_user_or_client!
+    current_user || current_client || raise(Exception.new)
   end
 
   def current_client
@@ -15,7 +19,7 @@ class ApplicationController < ActionController::Base
     if current_user
       @current_ability ||= Ability.new(current_user)
     elsif current_client
-      @current_ability ||= ClientAbility.new(current_account)
+      @current_ability ||= ClientAbility.new(current_client)
     end
   end
 
@@ -25,5 +29,4 @@ class ApplicationController < ActionController::Base
     key = request.headers["X-API-KEY"]
     Client.find_by key: key if key
   end
-
 end
