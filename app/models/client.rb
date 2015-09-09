@@ -13,7 +13,6 @@ class Client < ActiveRecord::Base
   before_create :generate_key
 
   validates :name, presence: true, uniqueness: true
-  validates :key, presence: true, uniqueness: true
 
   def transactions
     Transaction.where(origin: name)

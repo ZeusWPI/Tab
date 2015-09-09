@@ -10,11 +10,13 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = current_user.outgoing_transactions.build(
-      transaction_params.merge(origin: I18n.t('origin.created_by_user'))
+    @transaction = Transaction.new(set_params.merge(origin: I18n.t('origin.created_by_user')))
 
     if @transaction.save
-      redirect_to current_user
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { head :created }
+      end
     else
       render 'new'
     end
@@ -26,9 +28,9 @@ class TransactionsController < ApplicationController
     t = params.require(:transaction)
           .permit(:debtor, :creditor, :amount, :message)
 
-    t.update {
+    t.update({
       debtor: User.find_by(name: t[:debtor]) || User.zeus,
       creditor: User.find_by(name: t[:creditor]) || User.zeus
-    }
+    })
   end
 end
