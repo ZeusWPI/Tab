@@ -68,7 +68,7 @@ RSpec.describe TransactionsController, type: :controller do
           post :create, transaction: {
             debtor: @creditor.name,
             creditor: @debtor.name,
-            euros: 10000000000000,
+            euros: 10000000,
             message: 'DIT IS OVERVAL'
           }
         end.not_to change {Transaction.count}
