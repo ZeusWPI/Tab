@@ -16,3 +16,6 @@
  *= require_self
  *= require purecss
  */
+body {
+  padding: 30px;
+}

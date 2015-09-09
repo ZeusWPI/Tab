@@ -6,4 +6,18 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message
   end
+
+  def authenticate_user_or_client!
+    current_user || current_client || head(:unauthorized)
+  end
+
+  def current_client
+    @current_client ||= Client.find_by key: request.headers["X-API-KEY"]
+  end
+
+  def current_ability
+    @current_ability ||=
+      current_client.try { |c| ClientAbility.new(c) } ||
+      Ability.new(current_user)
+  end
 end

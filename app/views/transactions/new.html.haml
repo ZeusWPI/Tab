@@ -1,6 +1,13 @@
-= @transaction.errors.full_messages.join(", ")
-= form_for @transaction do |f|
-  = f.collection_select :creditor_id, User.all, :id, :name, {}, { class: 'select2-selector' }
-  = f.number_field :amount
-  = f.text_field :message, required: true
-  = f.submit "Send it!"
+= render 'partials/form_errors', object: @transaction
+= simple_form_for @transaction do |f|
+  - if current_user.penning
+    = f.collection_select :debtor, User.all, :name, :name,
+        { selected: @transaction.debtor.try(:name) || current_user.name }, { class: 'select2-selector'}
+  - else
+    = f.hidden_field :debtor, value: current_user.name
+  = f.collection_select :creditor, User.all, :name, :name,
+        { selected: @transaction.creditor.try(:name) || User.zeus.name }, { class: 'select2-selector' }
+  = f.input :message, required: true
+  = f.input :euros, input_html: { value: @transaction.amount/100}
+  .pure-controls
+    = f.button :submit, "Send it!"

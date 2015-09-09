@@ -32,7 +32,7 @@ module DataTable
   def selection_to_json(user, selection)
     { data: selection.map { |transaction| {
         amount: transaction.signed_amount_for(user),
-        origin: transaction.origin,
+        issuer: transaction.issuer.name,
         message: transaction.message,
         peer: transaction.peer_of(user).try(:name),
         time: transaction.created_at

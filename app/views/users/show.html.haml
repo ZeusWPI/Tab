@@ -3,7 +3,7 @@
   %thead
     %tr
       %th Amount
-      %th Origin
+      %th Issuer
       %th Message
       %th Peer
       %th Time
@@ -13,7 +13,7 @@
         = "<= Amount <="
         %input.upper-bound{type: 'number', placeholder: 'upper', class: 'pure-u-1-5'}
       %td.input-listen
-        %input{type: 'text', placeholder: 'Filter on Origin'}
+        %input{type: 'text', placeholder: 'Filter on Issuer'}
       %td.input-listen
         %input{type: 'text', placeholder: 'Filter on Message'}
       %td.input-listen
@@ -35,7 +35,7 @@
       pagingType: 'full_numbers',
       columns: [
         { data: 'amount',  name: 'Amount' },
-        { data: 'origin',  name: 'Origin' },
+        { data: 'issuer',  name: 'Issuer' },
         { data: 'message', name: 'Message' },
         { data: 'peer',    name: 'Peer' },
         { data: 'time',    name: 'Time' }

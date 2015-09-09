@@ -7,5 +7,17 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = content_tag :div, flash[:alert] if flash[:alert]
-    = yield
+    .pure-g
+      .pure-u-1
+        .pure-menu.pure-menu-horizontal
+          %ul.pure-menu-list
+            - if current_user
+              %li.pure-menu-item
+                = link_to current_user.name.capitalize, current_user, class: "pure-menu-link"
+              %li.pure-menu-item
+                = link_to "New Transaction", new_transaction_path, class: "pure-menu-link"
+            - else
+              = link_to "Sign in", user_omniauth_authorize_path(:zeuswpi), class: "pure-menu-link" unless current_user
+      .pure-u-1
+        = render 'partials/flash'
+        = yield
