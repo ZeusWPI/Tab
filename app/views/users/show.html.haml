@@ -6,7 +6,9 @@
   .panel-body
     .pure-g
       .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range' }
-        %input.lower-bound{type: 'date', placeholder: 'after'}
+        %fieldset.pure-group-inline
+          %span.fa.fa-calendar.pure-group-addon
+          %input.lower-bound{type: 'date', placeholder: 'after'}
         \-
         %input.upper-bound{type: 'date', placeholder: 'before'}
     .pure-g

@@ -88,3 +88,5 @@ gem 'high_voltage', '~> 2.4.0'
 
 # Errors on errbit
 gem 'airbrake'
+
+gem 'font-awesome-sass'
