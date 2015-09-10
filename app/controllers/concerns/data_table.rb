@@ -1,4 +1,3 @@
-
 module DataTable
   extend ActiveSupport::Concern
 
@@ -47,6 +46,12 @@ module DataTable
     end
 
     selection_to_json(user, params[:draw], selection)
+
+    transactions = TransactionsQuery.new(@user)
+    query = transactions.query
+
+    selection = ActiveRecord::Base.connection.execute(query.to_sql).to_a
+    response_json(params[:draw], selection)
   end
 
   private
@@ -78,18 +83,19 @@ module DataTable
     return clean
   end
 
-  def selection_to_json(user, draw, selection)
+  def response_json(draw, selection)
     {
       draw: draw,
       recordsTotal: user.transactions.count,
       recordsFiltered: selection.count,
-      data: selection.offset(params[:start]).take(params[:length]).map { |transaction| {
-        time: transaction.created_at,
-        amount: transaction.signed_amount_for(user),
-        peer: transaction.peer_of(user).try(:name),
-        issuer: transaction.issuer.name,
-        message: transaction.message,
-      }}
+      #data: selection.offset(params[:start]).take(params[:length]).map { |transaction| {
+        #time: transaction.created_at,
+        #amount: transaction.signed_amount_for(user),
+        #peer: transaction.peer_of(user).try(:name),
+        #issuer: transaction.issuer.name,
+        #message: transaction.message,
+      #}}
+      data: selection
     }
   end
 end

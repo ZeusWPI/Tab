@@ -31,7 +31,7 @@ class TransactionsQuery
       .where(@perspectived[:issuer_type].eq(klass.name))
       .project(
         @perspectived[:amount],
-        @perspectived[:date],
+        @perspectived[:time],
         @perspectived[:message],
         @peers[:name].as('peer'),
         issuers[:name].as('issuer')
@@ -51,7 +51,7 @@ class TransactionsQuery
       .project(
         (@transactions[:amount]*Arel::Nodes::SqlLiteral.new("-1")).as('amount'),
         @transactions[:creditor_id].as('peer_id'),
-        @transactions[:created_at].as('date'),
+        @transactions[:created_at].as('time'),
         @transactions[:issuer_id],
         @transactions[:issuer_type],
         @transactions[:message]
@@ -65,7 +65,7 @@ class TransactionsQuery
       .project(
         @transactions[:amount],
         @transactions[:debtor_id].as('peer_id'),
-        @transactions[:created_at].as('date'),
+        @transactions[:created_at].as('time'),
         @transactions[:issuer_id],
         @transactions[:issuer_type],
         @transactions[:message]
