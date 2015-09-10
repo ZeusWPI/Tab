@@ -1,22 +1,38 @@
-.error_panel {
+.panel {
   margin-bottom: 1em;
   border-radius: 3px;
-  border: 1px solid #ebccd1;
-  .error_header {
-    .error_title {
+  border: 1px solid transparent;
+  .panel-header {
+    .panel-title {
       font-size: 16px;
       margin-top: 0;
       margin-bottom: 0;
     }
     padding: 10px 15px;
-    color: #a94442;
-    background-color: #f2dede;
+    border-bottom: 1px solid transparent;
   }
-  .error_body {
+  .panel-body {
     padding: 15px;
     ul {
       margin-bottom: 0px;
       margin-top: 0px;
     }
   }
+}
+
+.panel-default {
+  border-color: #ddd;
+  .panel-header {
+    border-color: #ddd;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+}
+
+.panel-error {
+  .panel-header {
+    color: #a94442;
+    background-color: #f2dede;
+  }
+  border: 1px solid #ebccd1;
 }

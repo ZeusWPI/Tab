@@ -1,5 +1,30 @@
 %h2= @user.name
 
+.panel.panel-default.data-table-filters
+  .panel-header
+    %h3.panel-title Filters
+  .panel-body
+    .pure-g
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range' }
+        = "Between"
+        %input.lower-bound{type: 'date', placeholder: 'after'}
+        = "and"
+        %input.upper-bound{type: 'date', placeholder: 'before'}
+    .pure-g
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range' }
+        = "Between"
+        %input.lower-bound{type: 'number', placeholder: 'lower', class: 'pure-u-1-5'}
+        = "and"
+        %input.upper-bound{type: 'number', placeholder: 'upper', class: 'pure-u-1-5'}
+    .pure-g
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
+        %input{type: 'text', placeholder: 'Filter on Issuer'}
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
+        %input{type: 'text', placeholder: 'Filter on Peer'}
+      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text' }
+        %input{type: 'text', placeholder: 'Filter on Message'}
+
+
 %table#transactions.pure-table.pure-table-striped{data: { source: user_path(@user) }}
   %thead
     %tr
@@ -9,22 +34,6 @@
       %th Issuer
       %th Message
   %tbody
-  %tfoot
-    %tr
-      %td.bound.input-listen{ 'data-input-type': 'date-range' }
-        %input.lower-bound{type: 'date', placeholder: 'after'}
-        = "<= Time <="
-        %input.upper-bound{type: 'date', placeholder: 'before'}
-      %td.bound.input-listen{ 'data-input-type': 'number-range' }
-        %input.lower-bound{type: 'number', placeholder: 'lower', class: 'pure-u-1-5'}
-        = "<= Amount <="
-        %input.upper-bound{type: 'number', placeholder: 'upper', class: 'pure-u-1-5'}
-      %td.input-listen{ 'data-input-type': 'text' }
-        %input{type: 'text', placeholder: 'Filter on Issuer'}
-      %td.input-listen{ 'data-input-type': 'text' }
-        %input{type: 'text', placeholder: 'Filter on Peer'}
-      %td.input-listen{ 'data-input-type': 'text' }
-        %input{type: 'text', placeholder: 'Filter on Message'}
 
 :javascript
   $(document).ready(function() {
@@ -39,11 +48,11 @@
       autoWidth: false,
       responsive: true,
       columns: [
-        { data: 'time',    name: 'Time',    className: 'min-tablet-l'},
-        { data: 'amount',  name: 'Amount',  className: 'min-mobile'},
-        { data: 'peer',    name: 'Peer',    className: 'min-mobile'},
-        { data: 'issuer',  name: 'Issuer',  className: 'min-desktop'},
-        { data: 'message', name: 'Message', className: 'min-tablet-p'},
+        { data: 'time',    name: 'Time',    width: "15%", className: 'min-tablet-l'},
+        { data: 'amount',  name: 'Amount',  width: "10%", className: 'min-mobile'},
+        { data: 'peer',    name: 'Peer',    width: "15%", className: 'min-mobile'},
+        { data: 'issuer',  name: 'Issuer',  width: "15%", className: 'min-desktop'},
+        { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'},
       ]
     });
 
