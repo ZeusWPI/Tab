@@ -6,8 +6,6 @@ class TransactionsGrid
 
   scope do
     Transaction
-    #@current_user.transactions
-    # TODO how to get current user here?
   end
 
   self.default_column_options = { order: false }
@@ -18,7 +16,7 @@ class TransactionsGrid
   column(:amount)
   filter(:amount, :integer, range: true)
 
-  column(:peer) { |model, scope, grid| model.peer_of(grid.current_user).try(:name) }
+  column(:peer) { |model, grid| model.peer_of(grid.current_user).try(:name) }
   filter(:peer, :string, header: 'Peer') do |value, scope, grid|
     scope.joins(debtor: 'id', creditor: 'id')
       .where("(debtor_id = :user AND creditor.name LIKE :name) OR (creditor_id = :user AND debtor.name LIKE :name)", user: grid.current_user.id, name: "%#{value}%")
