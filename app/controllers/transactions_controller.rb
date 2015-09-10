@@ -11,19 +11,16 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.all
   end
 
-  def new
-    @transaction = Transaction.new
-  end
-
   def create
     @transaction = Transaction.new(transaction_params)
     respond_to do |format|
       format.html do
+        @user = current_user
         if @transaction.save
           flash[:success] = "Transaction created"
-          redirect_to new_transaction_path
+          redirect_to current_user
         else
-          render 'new'
+          render "users/show"
         end
       end
 
