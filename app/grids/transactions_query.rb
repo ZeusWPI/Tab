@@ -1,15 +1,25 @@
 class TransactionsQuery
+  attr_reader :arel_table
+
   def initialize user
     @user = user
     @transactions = Arel::Table.new(:transactions)
     @perspectived = Arel::Table.new(:perspectived_transactions)
     @peers = Arel::Table.new(:users).alias('peers')
+    @arel_table = Arel::Table.new(@user.name.concat('_transactions'))
+  end
+
+  def query
+    Arel::SelectManager.new(ActiveRecord::Base)
+      .from(arel)
+      .project(Arel.star)
   end
 
   def arel
-    Arel::SelectManager.new(ActiveRecord::Base)
-      .from(issued_by(User).union(:all, issued_by(Client)))
-      .project(Arel.star)
+    Arel::Nodes::TableAlias.new(
+      issued_by(User).union(:all, issued_by(Client)),
+      arel_table.name
+    )
   end
 
   def issued_by klass
