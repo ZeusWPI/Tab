@@ -31,8 +31,22 @@ table.pure-table-striped {
 }
 
 .data-table-filters {
+  .panel-body h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
   .pure-g {
     padding: 10px;
+    /* margin-bottom: 20px; */
+    padding-top: 20px;
+    /* border-top: 1px solid #bbb; */
+    &:first-child {
+      border-top: none;
+      padding-top: 0px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
     .pure-u-md-1-4, .pure-u-md-1-2 {
       input {
         width: 90%;

@@ -6,15 +6,13 @@
   .panel-body
     .pure-g
       .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range' }
-        = "Between"
         %input.lower-bound{type: 'date', placeholder: 'after'}
-        = "and"
+        \-
         %input.upper-bound{type: 'date', placeholder: 'before'}
     .pure-g
       .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range' }
-        = "Between"
         %input.lower-bound{type: 'number', placeholder: 'lower', class: 'pure-u-1-5'}
-        = "and"
+        \-
         %input.upper-bound{type: 'number', placeholder: 'upper', class: 'pure-u-1-5'}
     .pure-g
       .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
