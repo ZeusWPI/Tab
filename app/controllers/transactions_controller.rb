@@ -14,20 +14,11 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.new(transaction_params)
-    respond_to do |format|
-      format.html do
-        if @transaction.save
-          flash[:success] = "Transaction created"
-          redirect_to new_transaction_path
-        else
-          render 'new'
-        end
-      end
-
-      format.json do
-        head(@transaction.save ? :created : :unprocessable_entity)
-      end
+    transaction = Transaction.new(transaction_params)
+    if transaction.save
+      head :created
+    else
+      render json: transaction.errors.full_messages, status: :unprocessable_entity
     end
   end
 
