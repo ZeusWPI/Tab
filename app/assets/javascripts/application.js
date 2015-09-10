@@ -19,7 +19,6 @@
 ready = function() {
   $(".select2-selector").select2({
     width: 'resolve',
-    allowClear: true,
     placeholder: "Ontvanger"
   });
 }
