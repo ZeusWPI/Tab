@@ -1,9 +1,11 @@
 class TransactionsController < ApplicationController
-  load_and_authorize_resource
   skip_before_filter :verify_authenticity_token, only: :create
 
   before_action :authenticate_user!, except: :create
   before_action :authenticate_user_or_client!, only: :create
+
+  # This line MUST be placed after authentication
+  load_and_authorize_resource
 
   def index
     gridparams = params[:transactions_grid] || Hash.new

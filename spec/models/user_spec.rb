@@ -10,10 +10,17 @@
 #  updated_at :datetime         not null
 #
 
-require 'rails_helper'
+describe User, type: :model do
+  before :each do
+    @user = create :user
+  end
 
-RSpec.describe User, type: :model do
   it "has a valid factory" do
-    expect(create(:user)).to be_valid
+    expect(@user).to be_valid
+  end
+
+  it "has a unique name" do
+    user = build :user, name: @user.name
+    expect(user).to_not be_valid
   end
 end
