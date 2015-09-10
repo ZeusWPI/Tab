@@ -8,19 +8,31 @@ class TransactionsQuery
 
   def arel
     Arel::SelectManager.new(ActiveRecord::Base)
+      .from(issued_by(User).union(issued_by(Client)))
+      .project(Arel.star)
+  end
+
+  def issued_by klass
+    issuers = klass.arel_table.alias('issuer')
+    Arel::SelectManager.new(ActiveRecord::Base)
       .from(transactions)
       .join(@peers).on(@peers[:id].eq(@perspectived[:peer_id]))
+      .join(issuers).on(issuers[:id].eq(@perspectived[:issuer_id]))
+      .where(@perspectived[:issuer_type].eq(klass.name))
       .project(
         @perspectived[:amount],
         @perspectived[:date],
+        @perspectived[:message],
         @peers[:name].as('peer'),
-        @perspectived[:issuer_id],
-        @perspectived[:message]
+        issuers[:name].as('issuer')
       )
   end
 
   def transactions
-    Arel::Nodes::TableAlias.new(incoming.union(outgoing), @perspectived.name)
+    Arel::Nodes::TableAlias.new(
+      incoming.union(outgoing),
+      @perspectived.name
+    )
   end
 
   def outgoing
