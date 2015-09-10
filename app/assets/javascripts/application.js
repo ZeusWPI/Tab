@@ -18,7 +18,11 @@
 //= require_tree .
 
 ready = function() {
-  $(".select2-selector").select2();
+  $(".select2-selector").select2({
+    width: 'resolve',
+    allowClear: true,
+    placeholder: "Ontvanger"
+  });
 }
 
 $(document).ready(ready)

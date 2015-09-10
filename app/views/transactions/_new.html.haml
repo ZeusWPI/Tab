@@ -1,0 +1,14 @@
+= render 'partials/form_errors', object: @transaction
+= form_for @transaction, html: { class: "pure-form" } do |f|
+  - if current_user.penning
+    = f.collection_select :debtor, User.all, :name, :name,
+        { selected: @transaction.debtor.try(:name) || current_user.name }, { class: 'select2-selector'}
+  - else
+    = f.hidden_field :debtor, value: current_user.name
+    = f.select :creditor,
+        options_from_collection_for_select(User.all.order(:name), :name, :name),
+        { include_blank: true },
+        { class: 'select2-selector', size: 50 }
+  = f.text_field :message, required: true, placeholder: "Message", size: 75
+  = f.number_field :euros, value: (@transaction.amount.zero? ? nil : @transaction.amount/100), placeholder: "Bedrag", step: 0.01, min: 0.01
+  = f.submit "Send it!", class: "pure-button pure-button-primary"
