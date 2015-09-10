@@ -40,8 +40,13 @@ class TransactionsController < ApplicationController
       debtor: User.find_by(name: t[:debtor]) || User.zeus,
       creditor: User.find_by(name: t[:creditor]) || User.zeus,
       issuer: current_client || current_user,
-      amount: (t[:euros].to_f*100 + t[:cents].to_f).to_i,
+      amount: (float(t[:euros]) * 100 + float(t[:cents])).to_i,
       message: t[:message]
     }
+  end
+
+  def float arg
+    if arg.is_a? String then arg.sub!(',', '.') end
+    arg.to_f
   end
 end
