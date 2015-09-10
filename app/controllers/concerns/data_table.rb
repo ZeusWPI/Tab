@@ -4,12 +4,49 @@ module DataTable
 
   def apply_filter(user, params)
     params = sanitize_params(params)
-    selection_to_json user, params[:draw], user.transactions
-      .where(created_at: params[:columns][:time][:lower]..params[:columns][:time][:upper])
-      .where("('debtor' = :id AND 'creditor' LIKE :peer) OR ('creditor' = :id AND 'debtor' LIKE :peer)", id: user.id, peer: "%#{params[:columns][:peer][:value]}%")
-      .where("'issuer' LIKE :re", re: "%#{params[:columns][:issuer][:value]}%")
-      .where("'message' LIKE :re", re: "%#{params[:columns][:message][:value]}%")
-    # TODO: what about nil?
+    selection = user.transactions
+
+    # filter time
+    lower = params[:columns][:time][:lower]
+    upper = params[:columns][:time][:upper]
+    if lower and upper
+      selection = selection.where(created_at: lower..upper)
+    elsif lower
+      selection = selection.where('created_at > :lower', lower: lower)
+    elsif upper
+      selection = selection.where('created_at < :upper', upper: upper)
+    end
+
+    # filter amount TODO this filters on absolute value
+    lower = params[:columns][:amount][:lower]
+    upper = params[:columns][:amount][:upper]
+    if lower and upper
+      selection = selection.where(amount: lower..upper)
+    elsif lower
+      selection = selection.where('amount > :lower', lower: lower)
+    elsif upper
+      selection = selection.where('amount < :upper', upper: upper)
+    end
+
+    # filter peer # TODO peer.name
+    peer = params[:columns][:peer][:value]
+    if peer
+      selection = selection.where("(debtor_id = :id AND creditor_id LIKE :peer) OR (creditor_id = :id AND debtor_id LIKE :peer)", id: user.id, peer: "%#{peer}%")
+    end
+
+    # filter issuer # TODO issuer.name
+    issuer = params[:columns][:issuer][:value]
+    if issuer
+      selection = selection.where("issuer_id LIKE :re", re: "%#{issuer}%")
+    end
+
+    # filter message
+    message = params[:columns][:message][:value]
+    if message
+      selection = selection.where("message LIKE :re", re: "%#{message}%")
+    end
+
+    selection_to_json(user, params[:draw], selection)
   end
 
   private
