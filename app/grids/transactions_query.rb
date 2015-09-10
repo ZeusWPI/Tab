@@ -2,22 +2,25 @@ class TransactionsQuery
   def initialize user
     @user = user
     @transactions = Arel::Table.new(:transactions)
+    @perspectived = Arel::Table.new(:perspectived_transactions)
+    @peers = Arel::Table.new(:users).alias('peers')
   end
 
   def arel
     Arel::SelectManager.new(ActiveRecord::Base)
       .from(transactions)
+      .join(@peers).on(@peers[:id].eq(@perspectived[:peer_id]))
       .project(
-        @transactions[:amount],
-        @transactions[:date],
-        @transactions[:peer_id],
-        @transactions[:issuer_id],
-        @transactions[:message]
+        @perspectived[:amount],
+        @perspectived[:date],
+        @peers[:name].as('peer'),
+        @perspectived[:issuer_id],
+        @perspectived[:message]
       )
   end
 
   def transactions
-    Arel::Nodes::UnionAll.new(outgoing, incoming)
+    Arel::Nodes::TableAlias.new(incoming.union(outgoing), @perspectived.name)
   end
 
   def outgoing
@@ -28,7 +31,8 @@ class TransactionsQuery
         @transactions[:creditor_id].as('peer_id'),
         @transactions[:created_at].as('date'),
         @transactions[:issuer_id],
-        @transactions[:issuer_type]
+        @transactions[:issuer_type],
+        @transactions[:message]
       )
   end
 
@@ -41,7 +45,8 @@ class TransactionsQuery
         @transactions[:debtor_id].as('peer_id'),
         @transactions[:created_at].as('date'),
         @transactions[:issuer_id],
-        @transactions[:issuer_type]
+        @transactions[:issuer_type],
+        @transactions[:message]
       )
   end
 end
