@@ -12,6 +12,6 @@
   = f.text_field :message, required: true, placeholder: "Message", size: 75
   %fieldset.pure-group-inline
     %span.euro.pure-group-addon
-    = f.number_field :euros, value: (@transaction.amount.zero? ? nil : @transaction.amount/100),
+    = f.number_field :euros, value: amount(@transaction.amount),
         placeholder: "Bedrag", step: 0.01, min: 0.01, class: "pure-group-addon price", size: 20, required: true
   = f.submit "Send it!", class: "pure-button pure-button-primary"
