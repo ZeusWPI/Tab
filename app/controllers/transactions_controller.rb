@@ -15,7 +15,7 @@ class TransactionsController < ApplicationController
       current_user: current_user
     )
     @grid = TransactionsGrid.new(gridparams) do |scope|
-      scope.where('debtor_id = :id OR creditor_id = :id', id: current_user).page(params[:page])
+      scope.page(params[:page])
     end
   end
 
