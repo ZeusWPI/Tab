@@ -8,7 +8,7 @@ class TransactionsQuery
 
   def arel
     Arel::SelectManager.new(ActiveRecord::Base)
-      .from(issued_by(User).union(issued_by(Client)))
+      .from(issued_by(User).union(:all, issued_by(Client)))
       .project(Arel.star)
   end
 
@@ -30,7 +30,7 @@ class TransactionsQuery
 
   def transactions
     Arel::Nodes::TableAlias.new(
-      incoming.union(outgoing),
+      incoming.union(:all, outgoing),
       @perspectived.name
     )
   end
