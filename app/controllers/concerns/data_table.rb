@@ -1,4 +1,5 @@
 class DataTable
+
   def initialize user, params
     @user = user
     @params = sanitize_params(params)
@@ -6,11 +7,28 @@ class DataTable
     @table = @transactions.arel_table
   end
 
+  def json
+    response_json(@params[:draw], data)
+  end
+
+  def data
+    ActiveRecord::Base.connection.execute(self.query.to_sql)
+  end
+
   def query
-    @transactions.query
+    pred = predicates
+    q = @transactions.query
+    q = q.where(pred) if pred
+    q
   end
 
   def predicates
+    [ *range_predicates(:amount),
+      *range_predicates(:time),
+      eq_predicate(:peer),
+      eq_predicate(:issuer),
+      like_predicate(:message)
+    ].compact.inject { |l, r| l.and(r) }
   end
 
   def range_predicates name
@@ -21,62 +39,14 @@ class DataTable
     ]
   end
 
-  def json
-    #if columns[:time][:lower]
-      #query = query.where(table[:time].gteq(columns[:time][:lower]))
-    #end
+  def eq_predicate name
+    value = @params[:columns][:name][:value]
+    @table[:name].eq(value) if value
+  end
 
-    #if columns[:time][:upper]
-      #query = query.where(table
-
-
-
-    # filter time
-    #lower = params[:columns][:time][:lower]
-    #upper = params[:columns][:time][:upper]
-    #if lower and upper
-      #selection = selection.where(created_at: lower..upper)
-    #elsif lower
-      #selection = selection.where('created_at > :lower', lower: lower)
-    #elsif upper
-      #selection = selection.where('created_at < :upper', upper: upper)
-    #end
-
-    ## filter amount TODO this filters on absolute value
-    #lower = params[:columns][:amount][:lower]
-    #upper = params[:columns][:amount][:upper]
-    #if lower and upper
-      #selection = selection.where(amount: lower..upper)
-    #elsif lower
-      #selection = selection.where('amount > :lower', lower: lower)
-    #elsif upper
-      #selection = selection.where('amount < :upper', upper: upper)
-    #end
-
-    ## filter peer # TODO peer.name
-    #peer = params[:columns][:peer][:value]
-    #if peer
-      #selection = selection.where("(debtor_id = :id AND creditor_id LIKE :peer) OR (creditor_id = :id AND debtor_id LIKE :peer)", id: user.id, peer: "%#{peer}%")
-    #end
-
-    ## filter issuer # TODO issuer.name
-    #issuer = params[:columns][:issuer][:value]
-    #if issuer
-      #selection = selection.where("issuer_id LIKE :re", re: "%#{issuer}%")
-    #end
-
-    ## filter message
-    #message = params[:columns][:message][:value]
-    #if message
-      #selection = selection.where("message LIKE :re", re: "%#{message}%")
-    #end
-
-    ##selection_to_json(user, params[:draw], selection)
-
-    #query = transactions.query
-
-    selection = ActiveRecord::Base.connection.execute(query.to_sql).to_a
-    response_json(@params[:draw], selection)
+  def like_predicate name
+    value = @params[:columns][:name][:value]
+    @table[:name].matches("%#{value}%") if value
   end
 
   private
