@@ -12,7 +12,6 @@
 
 class User < ActiveRecord::Base
   devise :timeoutable, :omniauthable, :omniauth_providers => [:zeuswpi]
-
   has_many :incoming_transactions,
     class_name: 'Transaction', foreign_key: 'creditor_id'
   has_many :outgoing_transactions,

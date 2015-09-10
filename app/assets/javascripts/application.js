@@ -12,15 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
+//= require dataTables/extras/dataTables.responsive
+//= require dataTables/jquery.dataTables
 //= require select2
 //= require turbolinks
 //= require_tree .
 
 ready = function() {
-  $(".select2-selector").select2({
-    width: 'resolve',
-    placeholder: "Ontvanger"
-  });
+  $(".select2-selector").select2();
 }
 
 $(document).ready(ready)

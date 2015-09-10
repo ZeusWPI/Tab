@@ -1,30 +1,33 @@
 class TransactionsController < ApplicationController
+  load_and_authorize_resource
   skip_before_filter :verify_authenticity_token, only: :create
 
   before_action :authenticate_user!, except: :create
   before_action :authenticate_user_or_client!, only: :create
 
-  # This line MUST be placed after authentication
-  load_and_authorize_resource
-
   def index
-    gridparams = params[:transactions_grid] || Hash.new
-    gridparams = gridparams.merge(
-      order: :created_at,
-      descending: true,
-      current_user: current_user
-    )
-    @grid = TransactionsGrid.new(gridparams) do |scope|
-      scope.page(params[:page])
-    end
+    @transactions = Transaction.all
+  end
+
+  def new
+    @transaction = Transaction.new
   end
 
   def create
-    transaction = Transaction.new(transaction_params)
-    if transaction.save
-      head :created
-    else
-      render json: transaction.errors.full_messages, status: :unprocessable_entity
+    @transaction = Transaction.new(transaction_params)
+    respond_to do |format|
+      format.html do
+        if @transaction.save
+          flash[:success] = "Transaction created"
+          redirect_to new_transaction_path
+        else
+          render 'new'
+        end
+      end
+
+      format.json do
+        head(@transaction.save ? :created : :unprocessable_entity)
+      end
     end
   end
 
@@ -38,13 +41,8 @@ class TransactionsController < ApplicationController
       debtor: User.find_by(name: t[:debtor]) || User.zeus,
       creditor: User.find_by(name: t[:creditor]) || User.zeus,
       issuer: current_client || current_user,
-      amount: (float(t[:euros]) * 100 + float(t[:cents])).to_i,
+      amount: (t[:euros].to_f*100 + t[:cents].to_f).to_i,
       message: t[:message]
     }
-  end
-
-  def float arg
-    if arg.is_a? String then arg.sub!(',', '.') end
-    arg.to_f
   end
 end

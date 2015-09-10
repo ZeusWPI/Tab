@@ -1,4 +1,4 @@
-class ClientAbility
+class Ability
   include CanCan::Ability
 
   def initialize(client)

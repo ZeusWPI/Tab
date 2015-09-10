@@ -13,7 +13,9 @@
 #  updated_at  :datetime         not null
 #
 
-describe Transaction, type: :model do
+require 'rails_helper'
+
+RSpec.describe Transaction, type: :model do
   it "has a valid factory" do
     expect(create(:transaction)).to be_valid
   end
@@ -34,20 +36,4 @@ describe Transaction, type: :model do
     end
   end
 
-  describe "amount" do
-    it "should be positive" do
-      expect(build :transaction, amount: -5).to_not be_valid
-    end
-
-    it "should not be 0" do
-      expect(build :transaction, amount: 0).to_not be_valid
-    end
-  end
-
-  describe "debtor/creditor" do
-    it "should be different" do
-      @user = create :user
-      expect(build :transaction, debtor: @user, creditor: @user).to_not be_valid
-    end
-  end
 end

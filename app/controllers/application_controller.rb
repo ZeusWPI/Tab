@@ -12,12 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   def current_client
-    @current_client ||= Client.find_by key: (request.headers["X_API_KEY"] || request.headers["HTTP_X_API_KEY"])
+    @current_client ||= Client.find_by key: request.headers["X-API-KEY"]
   end
 
   def current_ability
     @current_ability ||=
       current_client.try { |c| ClientAbility.new(c) } ||
-      UserAbility.new(current_user)
+      Ability.new(current_user)
   end
 end
