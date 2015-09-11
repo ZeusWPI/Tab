@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||=
       current_client.try { |c| ClientAbility.new(c) } ||
-      ClientAbility.new(current_user)
+      UserAbility.new(current_user)
   end
 end
