@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'callbacks'
   }
 
-  root to: 'high_voltage/pages#show', id: "landing"
+  root to: 'pages#landing'
 
   resources :transactions, only: [:index, :create]
   resources :users, only: [:show, :index]

@@ -6,4 +6,8 @@
   Log een keer in!
   %p= link_to "Log in met Zeus WPI", user_omniauth_authorize_path(:zeuswpi)
 %h2 Cute Little Statistics
- %p None here yet.
+%p None here yet.
+%h2 Wall of Shame
+%ul
+  - @statistics.shameful_users.each do |user|
+    %li="Shame on #{user.name}!"
