@@ -31,10 +31,9 @@ class DataTable
   end
 
   def query
-    return @query if @query # Do not build query twice
-    @query = @transactions.query
-    @query.where(predicate) if predicate
-    @query
+    q = @transactions.query
+    q.where(predicate) if predicate
+    q
   end
 
   def predicate

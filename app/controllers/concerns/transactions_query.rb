@@ -60,10 +60,10 @@ class TransactionsQuery
   def incoming
     @user.incoming_transactions.arel
     @transactions
-      .where(@transactions[:debtor_id].eq(@user.id))
+      .where(@transactions[:creditor_id].eq(@user.id))
       .project(
         @transactions[:amount],
-        @transactions[:creditor_id].as('peer_id'),
+        @transactions[:debtor_id].as('peer_id'),
         @transactions[:created_at].as('time'),
         @transactions[:issuer_id],
         @transactions[:issuer_type],
