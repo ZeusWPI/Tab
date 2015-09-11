@@ -6,36 +6,42 @@
   .panel-heading
     %h3.panel-title Filters
   .panel-body
-    .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range', 'data-filter-name': 'Time' }
-        %form.form-inline
-          .input-group
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-calendar
-            %input.lower-bound.form-control.filter-align{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
-          .input-group
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-calendar
-            %input.upper-bound.form-control.filter-align{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
-    .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-filter-name': 'Amount' }
-        %form.form-inline
-          .input-group
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-euro
-            %input.lower-bound.form-control.filter-align{type: 'number', placeholder: 'Minimum'}
-          .input-group
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-euro
-            %input.upper-bound.form-control.filter-align{type: 'number', placeholder: 'Maximum'}
-    .pure-g
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
-        %input{type: 'text', placeholder: 'Filter on Issuer'}
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-filter-name': 'Peer' }
-        %input{type: 'text', placeholder: 'Filter on Peer'}
-      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text', 'data-filter-name': 'Message' }
-        %input{type: 'text', placeholder: 'Filter on Message'}
-
+    .row
+      .col-md-8.col-md-offset-2
+        .bound.input-listen{ 'data-input-type': 'date-range', 'data-filter-name': 'Time' }
+          .row
+            .col-md-6
+              .input-group
+                %span.input-group-addon
+                  %span.glyphicon.glyphicon-calendar
+                %input.lower-bound.form-control.filter-align{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
+            .col-md-6
+              .input-group
+                %span.input-group-addon
+                  %span.glyphicon.glyphicon-calendar
+                %input.upper-bound.form-control.filter-align{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
+        .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-filter-name': 'Amount' }
+          .row
+            .col-md-6
+              .input-group
+                %span.input-group-addon
+                  %span.glyphicon.glyphicon-euro
+                %input.lower-bound.form-control.filter-align{type: 'number', placeholder: 'Minimum'}
+            .col-md-6
+              .input-group
+                %span.input-group-addon
+                  %span.glyphicon.glyphicon-euro
+                %input.upper-bound.form-control.filter-align{type: 'number', placeholder: 'Maximum'}
+        .row
+          .col-md-4
+            .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
+              %input{type: 'text', placeholder: 'Filter on Issuer', class: "form-control" }
+          .col-md-4
+            .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Peer' }
+              %input{type: 'text', placeholder: 'Filter on Peer', class: "form-control" }
+          .col-md-4
+            .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Message' }
+              %input{type: 'text', placeholder: 'Filter on Message', class: "form-control" }
 
 %table#transactions.pure-table.pure-table-striped{data: { source: user_path(@user) }}
   %thead

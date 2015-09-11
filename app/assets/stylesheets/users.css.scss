@@ -31,7 +31,7 @@ table.pure-table-striped {
 }
 
 .data-table-filters {
-  .pure-g {
+  .row {
     padding: 10px;
     padding-top: 20px;
     &:first-child {
@@ -40,28 +40,5 @@ table.pure-table-striped {
     &:last-child {
       margin-bottom: 0;
     }
-    .pure-u-md-1-4, .pure-u-md-1-2 {
-      input {
-        width: 90%;
-      }
-    }
   }
-  input {
-    padding: .5em .6em;
-    border: 1px solid #ccc;
-    box-shadow: inset 0 1px 3px #ddd;
-    border-radius: 4px;
-    vertical-align: middle;
-    &[type="date"] {
-      height: 34px;
-      vertical-align: bottom;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing:    border-box;
-      box-sizing:         border-box;
-    }
-  }
-}
-
-.panel-body .form-inline > .input-group > .filter-align {
-  width: 200px;
 }
