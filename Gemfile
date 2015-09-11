@@ -35,6 +35,8 @@ gem 'jquery-datatables-rails'
 # Use Select2 for selecting users
 gem 'select2-rails'
 
+# Chartkick for fancy graphs
+gem 'chartkick'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -8,14 +8,19 @@
 %h2 Cute Little Statistics
 %p None here yet.
 %h2 Wall of Shame
-%table.pure-table
-  %thead
-    %th Shame on
-    %th Contribution to Zeus' lack of money
-  %tbody
-    - @statistics.shameful_users.each do |user|
-      %tr
-        %td.shameful-person= user.name
-        // Won't divide by zero because there won't be any users with
-        // a shameful debt if the total debt is zero.
-        %td.shame-percentage= "#{100 * user.balance / @statistics.total_debt}%"
+.pure-g
+  .pure-u-1-2
+    %table.pure-table
+      %thead
+        %th Shame on
+        %th Contribution to Zeus' lack of money
+      %tbody
+        - @statistics.shameful_users.each do |user|
+          %tr
+            %td.shameful-person= user.name
+            // Won't divide by zero because there won't be any users with
+            // a shameful debt if the total debt is zero.
+            %td.shame-percentage= "#{100 * user.balance / @statistics.total_debt}%"
+  .pure-u-1-2
+    = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+    = pie_chart @statistics.shamehash
