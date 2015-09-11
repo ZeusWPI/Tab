@@ -8,22 +8,37 @@ class DataTable
   end
 
   def json
-    response_json(@params[:draw], data)
+    {
+      draw: @params[:draw],
+      recordsTotal: @user.transactions.count,
+      recordsFiltered: count,
+      data: data
+    }
   end
 
+  private
+
   def data
-    ActiveRecord::Base.connection.execute(self.query.to_sql)
+    run_query(paginated_query.project(Arel.star))
+  end
+
+  def count
+    run_query(query.project(Arel.star.count)).first[0]
+  end
+
+  def paginated_query
+    query.skip(@params[:start]).take(@params[:length])
   end
 
   def query
-    pred = predicates
     q = @transactions.query
-    q = q.where(pred) if pred
+    q.where(predicate) if predicate
     q
   end
 
-  def predicates
-    [ *range_predicates(:amount),
+  def predicate
+    @predicate ||= [
+      *range_predicates(:amount),
       *range_predicates(:time),
       eq_predicate(:peer),
       eq_predicate(:issuer),
@@ -49,7 +64,9 @@ class DataTable
     @table[name].matches("%#{value}%") if value
   end
 
-  private
+  def run_query query
+    ActiveRecord::Base.connection.execute(query.to_sql)
+  end
 
   def sanitize_params(params)
     # Parsing according to https://datatables.net/manual/server-side
@@ -60,7 +77,8 @@ class DataTable
       columns: Hash.new
     }
     params.require(:columns).each do |i, column|
-      type, value = column.require(:search)[:value].split(':')
+      type, *values = column.require(:search)[:value].split(':')
+      value = values.join(':') unless values.empty?
       h = clean[:columns][column.require(:data).to_sym] = {
         name: column[:name],
         searchable: column[:searchable] == 'true',
@@ -68,30 +86,18 @@ class DataTable
         type: type
       }
       if type == 'number-range'
-        h[:lower], h[:upper] = value.split('~').map &:to_i
+        h[:lower], h[:upper] = value.split('~').map do |euros|
+          (euros.to_f * 100).to_i rescue nil
+        end
       elsif type == 'date-range'
-        h[:lower], h[:upper] = value.split('~').map &:to_datetime
+        h[:lower], h[:upper] = value.split('~').map do |string|
+          string.to_datetime rescue nil
+        end
       else
         h[:value] = value
       end
     end
     return clean
-  end
-
-  def response_json(draw, selection)
-    {
-      draw: draw,
-      recordsTotal: @user.transactions.count,
-      recordsFiltered: selection.count,
-      #data: selection.offset(params[:start]).take(params[:length]).map { |transaction| {
-        #time: transaction.created_at,
-        #amount: transaction.signed_amount_for(user),
-        #peer: transaction.peer_of(user).try(:name),
-        #issuer: transaction.issuer.name,
-        #message: transaction.message,
-      #}}
-      data: selection
-    }
   end
 end
 
