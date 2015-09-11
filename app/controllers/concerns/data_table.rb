@@ -86,7 +86,7 @@ class DataTable
       }
       if type == 'number-range'
         h[:lower], h[:upper] = value.split('~').map do |euros|
-          (euros.to_f * 100).to_i rescue nil
+          (Float(euros) * 100).to_i rescue nil
         end
       elsif type == 'date-range'
         h[:lower], h[:upper] = value.split('~').map do |string|

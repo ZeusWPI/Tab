@@ -24,6 +24,9 @@ gem 'cancancan'
 # Haml for templating!
 gem "haml-rails", "~> 0.9"
 
+# Friendly ids!
+gem 'friendly_id', '~> 5.1.0'
+
 # Pure for css
 gem 'purecss-rails'
 # Use datatables
