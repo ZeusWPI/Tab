@@ -5,14 +5,14 @@
     %h3.panel-title Filters
   .panel-body
     .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range', 'data-input-value': ''}
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range' }
         %fieldset.pure-group-inline
           %span.fa.fa-calendar.pure-group-addon
           %input.lower-bound{type: 'date', placeholder: 'after'}
         \-
         %input.upper-bound{type: 'date', placeholder: 'before'}
     .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-input-value': ''}
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range' }
         %fieldset.pure-group-inline
           %span.icon-euro.pure-group-addon
           %input.lower-bound.pure-group-addon{type: 'number', placeholder: 'Minimum'}
@@ -21,11 +21,11 @@
           %span.icon-euro.pure-group-addon
           %input.upper-bound.pure-group-addon{type: 'number', placeholder: 'Maximum'}
     .pure-g
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-input-value': ''}
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
         %input{type: 'text', placeholder: 'Filter on Issuer'}
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-input-value': ''}
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
         %input{type: 'text', placeholder: 'Filter on Peer'}
-      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text', 'data-input-value': ''}
+      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text' }
         %input{type: 'text', placeholder: 'Filter on Message'}
 
 
@@ -63,6 +63,7 @@
     $('.input-listen').each(function(index, element) {
       var filter = $(element);
       var type   = filter.attr('data-input-type');
+      var column = table.column(index);
       filter.find('input').on('keyup change', function() {
         var value = null
         if(filter.hasClass('bound')) {
@@ -72,10 +73,9 @@
         } else {
           value = type + ':' + $(this).val();
         }
-        if(filter.attr('data-input-value') !== value) {
-          console.log(value);
-          filter.attr('data-input-value', value);
-          // TODO $.post(...)
+        value = filter.attr('data-input-type') + ':' + value;
+        if(column.search() !== value) {
+          column.search(value).draw();
         }
       });
     });
