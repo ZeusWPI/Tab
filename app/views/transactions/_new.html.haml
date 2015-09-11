@@ -3,11 +3,7 @@
 = render 'partials/form_errors', object: @transaction
 
 = form_for @transaction, remote: true, html: { class: "pure-form form-inline" } do |f|
-  - if current_user.penning
-    = f.collection_select :debtor, User.all, :name, :name,
-        { selected: @transaction.debtor.try(:name) || current_user.name }, { class: 'select2-selector form-control'}
-  - else
-    = f.hidden_field :debtor, value: current_user.name
+  = f.hidden_field :debtor, value: @user.name
   = f.select :creditor,
       options_from_collection_for_select(User.all.order(:name), :name, :name),
       { include_blank: true },
@@ -19,6 +15,7 @@
     %span.input-group-addon
       %span.glyphicon.glyphicon-euro
     = f.number_field :euros, value: amount(@transaction.amount),
-        placeholder: "Bedrag", step: 0.01, min: 0.01, class: "form-control", size: 20
+        placeholder: "Bedrag", step: 0.01, min: (0.01 unless current_user.penning),
+        class: "form-control", size: 20
     -# placeholder: "Bedrag", step: 0.01, min: 0.01, class: "pure-group-addon price", size: 20, required: true
   = f.submit "Send it!", class: "pure-button pure-button-primary"
