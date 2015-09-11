@@ -5,14 +5,14 @@
     %h3.panel-title Filters
   .panel-body
     .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range' }
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range', 'data-filter-name': 'Time' }
         %fieldset.pure-group-inline
           %span.fa.fa-calendar.pure-group-addon
           %input.lower-bound{type: 'date', placeholder: 'after'}
         \-
         %input.upper-bound{type: 'date', placeholder: 'before'}
     .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range' }
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-filter-name': 'Amount' }
         %fieldset.pure-group-inline
           %span.icon-euro.pure-group-addon
           %input.lower-bound.pure-group-addon{type: 'number', placeholder: 'Minimum'}
@@ -21,11 +21,11 @@
           %span.icon-euro.pure-group-addon
           %input.upper-bound.pure-group-addon{type: 'number', placeholder: 'Maximum'}
     .pure-g
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
         %input{type: 'text', placeholder: 'Filter on Issuer'}
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-filter-name': 'Peer' }
         %input{type: 'text', placeholder: 'Filter on Peer'}
-      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text', 'data-filter-name': 'Message' }
         %input{type: 'text', placeholder: 'Filter on Message'}
 
 
@@ -65,15 +65,16 @@
     $('.input-listen').each(function(index, element) {
       var filter = $(element);
       var type   = filter.attr('data-input-type');
-      var column = table.column(index);
+      var column = table.column(filter.attr('data-filter-name') + ':name');
+      console.log(column);
       filter.find('input').on('keyup change', function() {
         var value = null
         if(filter.hasClass('bound')) {
           var lower = filter.find('.lower-bound');
           var upper = filter.find('.upper-bound');
-          value = type + ':' + lower.val() + '~' + upper.val();
+          value = lower.val() + '~' + upper.val();
         } else {
-          value = type + ':' + $(this).val();
+          value = $(this).val();
         }
         value = filter.attr('data-input-type') + ':' + value;
         if(column.search() !== value) {
