@@ -12,6 +12,7 @@ class TransactionsQuery
   def query
     Arel::SelectManager.new(ActiveRecord::Base)
       .from(arel)
+      .order(@arel_table[:time].desc)
   end
 
   def arel
