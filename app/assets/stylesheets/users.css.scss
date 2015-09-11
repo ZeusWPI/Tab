@@ -30,7 +30,10 @@ table.pure-table-striped {
   }
 }
 
-.data-table-filters {
+#transactions-filters {
+  .panel-heading {
+    cursor: pointer;
+  }
   .row {
     padding: 10px;
     padding-top: 20px;

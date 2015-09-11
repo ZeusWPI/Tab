@@ -2,36 +2,42 @@
 
 = render 'transactions/new'
 
-.panel.panel-default.data-table-filters
+#transactions-filters.panel.panel-default
   .panel-heading
     %h3.panel-title Filters
   .panel-body
     .row
       .col-md-8.col-md-offset-2
-        .bound.input-listen{ 'data-input-type': 'date-range', 'data-filter-name': 'Time' }
+        .bound.input-listen{ 'data-input-type': 'date-range',
+          'data-filter-name': 'Time' }
           .row
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-calendar
-                %input.lower-bound.form-control.filter-align{type: 'date', placeholder: 'After', class: 'pure-group-addon'}
+                %input.lower-bound.form-control.filter-align{type: 'date',
+                  placeholder: 'After', class: 'pure-group-addon'}
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-calendar
-                %input.upper-bound.form-control.filter-align{type: 'date', placeholder: 'Before', class: 'pure-group-addon'}
-        .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-filter-name': 'Amount' }
+                %input.upper-bound.form-control.filter-align{type: 'date',
+                  placeholder: 'Before', class: 'pure-group-addon'}
+        .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range',
+          'data-filter-name': 'Amount' }
           .row
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-euro
-                %input.lower-bound.form-control.filter-align{type: 'number', placeholder: 'Minimum'}
+                %input.lower-bound.form-control.filter-align{type: 'number',
+                  placeholder: 'Minimum'}
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-euro
-                %input.upper-bound.form-control.filter-align{type: 'number', placeholder: 'Maximum'}
+                %input.upper-bound.form-control.filter-align{type: 'number',
+                  placeholder: 'Maximum'}
         .row
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
@@ -40,10 +46,12 @@
                 { data: { placeholder: "Filter on Issuer" }, class: "select2-selector form-control" }
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Peer' }
-              %input{type: 'text', placeholder: 'Filter on Peer', class: "form-control" }
+              %input{type: 'text', placeholder: 'Filter on Peer',
+                class: "form-control" }
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Message' }
-              %input{type: 'text', placeholder: 'Filter on Message', class: "form-control" }
+              %input{type: 'text', placeholder: 'Filter on Message',
+                class: "form-control" }
 
 %table#transactions.pure-table.pure-table-striped{data: { source: user_path(@user) }}
   %thead
