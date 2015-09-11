@@ -4,6 +4,7 @@ ready = function() {
   errors        = $("#transaction_errors")
   panel_ul      = $(errors).find(".panel-body ul")
   flash_success = $("#transaction_success")
+
   var table = $('#transactions').DataTable({
     processing: true,
     serverSide: true,
@@ -59,6 +60,14 @@ ready = function() {
     }
     });
   });
+
+  // filters
+  filters = $("#transactions-filters");
+  filters_body = filters.find(".panel-body");
+  filters.find(".panel-heading").click( function() {
+    filters_body.slideToggle();
+  });
+  filters_body.hide();
 
   $(form).on("ajax:before", function(xhr, settings) {
     $(flash_success).addClass("hidden")
