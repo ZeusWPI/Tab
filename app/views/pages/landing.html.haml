@@ -1,6 +1,9 @@
-%h1 Hallo
+%h1 Tab!
+%h2 Authentication
 - if user_signed_in?
   %p Yeah! Je bent ingelogd.
 - else
   Log een keer in!
   %p= link_to "Log in met Zeus WPI", user_omniauth_authorize_path(:zeuswpi)
+%h2 Cute Little Statistics
+ %p None here yet.
