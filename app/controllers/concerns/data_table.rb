@@ -30,7 +30,7 @@ class DataTable
   end
 
   def query
-    q = @transactions.query
+    q = @transactions.query.order(@table[:time].desc)
     q.where(predicate) if predicate
     q
   end
