@@ -1,5 +1,4 @@
 class DataTable
-
   def initialize user, params
     @user = user
     @params = sanitize_params(params)
@@ -15,11 +14,11 @@ class DataTable
       data: data
     }
   end
-
   private
-
   def data
-    run_query(paginated_query.project(Arel.star))
+    run_query(paginated_query.project(Arel.star)).map do |record|
+      record.reject! {|k,v| k.is_a? Numeric} # Remove unneeded query results
+    end
   end
 
   def count
