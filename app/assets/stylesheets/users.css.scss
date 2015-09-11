@@ -30,7 +30,10 @@ table.pure-table-striped {
   }
 }
 
-.data-table-filters {
+#transactions-filters {
+  .panel-heading {
+    cursor: pointer;
+  }
   .row {
     padding: 10px;
     padding-top: 20px;
@@ -41,4 +44,8 @@ table.pure-table-striped {
       margin-bottom: 0;
     }
   }
+}
+
+#s2id_transaction_creditor {
+  min-width: 150px;
 }

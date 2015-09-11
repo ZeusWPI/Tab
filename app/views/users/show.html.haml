@@ -2,46 +2,57 @@
 
 = render 'transactions/new'
 
-.panel.panel-default.data-table-filters
+#transactions-filters.panel.panel-default
   .panel-heading
     %h3.panel-title Filters
   .panel-body
     .row
       .col-md-8.col-md-offset-2
-        .bound.input-listen{ 'data-input-type': 'date-range', 'data-filter-name': 'Time' }
+        .bound.input-listen{ 'data-input-type': 'date-range',
+          'data-filter-name': 'Time' }
           .row
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-calendar
-                %input.lower-bound.form-control.filter-align{type: 'date', placeholder: 'After', class: 'pure-group-addon'}
+                %input.lower-bound.form-control.filter-align{type: 'date',
+                  placeholder: 'After', class: 'pure-group-addon'}
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-calendar
-                %input.upper-bound.form-control.filter-align{type: 'date', placeholder: 'Before', class: 'pure-group-addon'}
-        .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-filter-name': 'Amount' }
+                %input.upper-bound.form-control.filter-align{type: 'date',
+                  placeholder: 'Before', class: 'pure-group-addon'}
+        .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range',
+          'data-filter-name': 'Amount' }
           .row
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-euro
-                %input.lower-bound.form-control.filter-align{type: 'number', placeholder: 'Minimum'}
+                %input.lower-bound.form-control.filter-align{type: 'number',
+                  placeholder: 'Minimum'}
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-euro
-                %input.upper-bound.form-control.filter-align{type: 'number', placeholder: 'Maximum'}
+                %input.upper-bound.form-control.filter-align{type: 'number',
+                  placeholder: 'Maximum'}
         .row
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
-              %input{type: 'text', placeholder: 'Filter on Issuer', class: "form-control" }
+              = grouped_collection_select nil, nil, [User, Client], :all, :name, :name, :name,
+                { include_blank: true },
+                { data: { placeholder: "Filter on Issuer" }, class: "select2-selector form-control" }
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Peer' }
-              %input{type: 'text', placeholder: 'Filter on Peer', class: "form-control" }
+              = select_tag nil,
+                options_from_collection_for_select(User.all.order(:name), :name, :name),
+                include_blank: true, class: "select2-selector form-control", data: { placeholder: "Filter on Peer" }
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Message' }
-              %input{type: 'text', placeholder: 'Filter on Message', class: "form-control" }
+              %input{type: 'text', placeholder: 'Filter on Message',
+                class: "form-control" }
 
 %table#transactions.pure-table.pure-table-striped{data: { source: user_path(@user) }}
   %thead
@@ -52,62 +63,3 @@
       %th Issuer
       %th Message
   %tbody
-
-:javascript
-  $(document).ready(function() {
-    var table = $('#transactions').DataTable({
-      processing: true,
-      serverSide: true,
-      searching: true,
-      lengthChange: false,
-      ordering: false,
-      ajax: $('#transactions').data('source'),
-      pagingType: 'full_numbers',
-      autoWidth: false,
-      responsive: true,
-      columns: [
-        { data: 'time',    name: 'Time',    width: "15%", className: 'min-tablet-l'},
-        { data: 'amount',  name: 'Amount',  width: "10%", className: 'min-mobile'},
-        { data: 'peer',    name: 'Peer',    width: "15%", className: 'min-mobile'},
-        { data: 'issuer',  name: 'Issuer',  width: "15%", className: 'min-desktop'},
-        { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'}
-      ],
-      columnDefs: [
-        {
-          targets: 0,
-          render: function(data, type, full, meta) {
-            return $.format.date(data, 'E dd/MM/yyyy HH:mm');
-          }
-        },
-        {
-          targets: 1,
-          render: function(data, type, full, meta) {
-            return (data/100).toFixed(2);
-          }
-        }
-      ]
-    });
-
-    $('.dataTables_filter').hide();
-
-    $('.input-listen').each(function(index, element) {
-      var filter = $(element);
-      var type   = filter.attr('data-input-type');
-      var column = table.column(filter.attr('data-filter-name') + ':name');
-      console.log(column);
-      filter.find('input').on('keyup change', function() {
-        var value = null
-        if(filter.hasClass('bound')) {
-          var lower = filter.find('.lower-bound');
-          var upper = filter.find('.upper-bound');
-          value = lower.val() + '~' + upper.val();
-        } else {
-          value = $(this).val();
-        }
-        value = filter.attr('data-input-type') + ':' + value;
-        if(column.search() !== value) {
-          column.search(value).draw();
-        }
-      });
-    });
-  });

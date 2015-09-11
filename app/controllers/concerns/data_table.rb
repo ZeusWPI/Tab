@@ -16,13 +16,11 @@ class DataTable
   end
   private
   def data
-    run_query(paginated_query.project(Arel.star)).map do |record|
-      record.reject! {|k,v| k.is_a? Numeric} # Remove unneeded query results
-    end
+    run_query(paginated_query.project(Arel.star))
   end
 
   def count
-    run_query(query.project(Arel.star.count)).first[0]
+    run_query(query.project(Arel.star.count)).first["COUNT(*)"]
   end
 
   def paginated_query
@@ -64,7 +62,7 @@ class DataTable
   end
 
   def run_query query
-    ActiveRecord::Base.connection.execute(query.to_sql)
+    ActiveRecord::Base.connection.exec_query(query.to_sql)
   end
 
   def sanitize_params(params)

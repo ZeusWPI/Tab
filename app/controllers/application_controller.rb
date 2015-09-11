@@ -15,12 +15,17 @@ class ApplicationController < ActionController::Base
   end
 
   def current_client
-    @current_client ||= Client.find_by key: request.headers["X-API-KEY"]
+    Client.find_by key: request.headers.inspect.to_s
+    @current_client ||= Client.find_by key: (request.headers["X_API_KEY"] || request.headers["HTTP_X_API_KEY"])
   end
 
   def current_ability
     @current_ability ||=
       current_client.try { |c| ClientAbility.new(c) } ||
       UserAbility.new(current_user)
+  end
+
+  def after_sign_in_path_for(resource)
+    current_user
   end
 end
