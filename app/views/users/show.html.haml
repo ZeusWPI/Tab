@@ -29,7 +29,7 @@
         %input{type: 'text', placeholder: 'Filter on Message'}
 
 
-%table#transactions.display.responsive.no-wrap{data: { source: user_path(@user) }}
+%table#transactions.pure-table.pure-table-striped{data: { source: user_path(@user) }}
   %thead
     %tr
       %th Time
@@ -45,6 +45,7 @@
       processing: true,
       serverSide: true,
       searching: true,
+      lengthChange: false,
       ordering: false,
       ajax: $('#transactions').data('source'),
       pagingType: 'full_numbers',
@@ -58,6 +59,8 @@
         { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'}
       ]
     });
+
+    $('.dataTables_filter').hide();
 
     $('.input-listen').each(function(index, element) {
       var filter = $(element);
