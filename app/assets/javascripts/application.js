@@ -21,10 +21,13 @@
 //= require_tree .
 
 ready = function() {
-  $(".select2-selector").select2({
-    width: 'resolve',
-    placeholder: "Ontvanger"
-  });
+  $.each($(".select2-selector"), function(index, val) {
+    $(val).select2({
+      width: 'resolve',
+      placeholder: $(".select2-selector")
+    });
+  }
+  )
 }
 
 $(document).ready(ready)
