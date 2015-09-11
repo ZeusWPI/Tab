@@ -5,14 +5,14 @@
     %h3.panel-title Filters
   .panel-body
     .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range' }
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range', 'data-input-value': ''}
         %fieldset.pure-group-inline
           %span.fa.fa-calendar.pure-group-addon
           %input.lower-bound{type: 'date', placeholder: 'after'}
         \-
         %input.upper-bound{type: 'date', placeholder: 'before'}
     .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range' }
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-input-value': ''}
         %fieldset.pure-group-inline
           %span.icon-euro.pure-group-addon
           %input.lower-bound.pure-group-addon{type: 'number', placeholder: 'Minimum'}
@@ -21,11 +21,11 @@
           %span.icon-euro.pure-group-addon
           %input.upper-bound.pure-group-addon{type: 'number', placeholder: 'Maximum'}
     .pure-g
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-input-value': ''}
         %input{type: 'text', placeholder: 'Filter on Issuer'}
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-input-value': ''}
         %input{type: 'text', placeholder: 'Filter on Peer'}
-      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text', 'data-input-value': ''}
         %input{type: 'text', placeholder: 'Filter on Message'}
 
 
@@ -56,27 +56,27 @@
         { data: 'amount',  name: 'Amount',  width: "10%", className: 'min-mobile'},
         { data: 'peer',    name: 'Peer',    width: "15%", className: 'min-mobile'},
         { data: 'issuer',  name: 'Issuer',  width: "15%", className: 'min-desktop'},
-        { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'},
+        { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'}
       ]
     });
 
-    var tds = $('.input-listen');
-    var i = 0;
-    table.columns().every(function() {
-      var column = this
-      tds.eq(i).find('input').on('keyup change', function() {
-        var value = null;
-        var td = $(this).parent();
-        if(td.hasClass('bound')) {
-          value = td.find('.lower-bound').val() + '~' + td.find('.upper-bound').val();
+    $('.input-listen').each(function(index, element) {
+      var filter = $(element);
+      var type   = filter.attr('data-input-type');
+      filter.find('input').on('keyup change', function() {
+        var value = null
+        if(filter.hasClass('bound')) {
+          var lower = filter.find('.lower-bound');
+          var upper = filter.find('.upper-bound');
+          value = type + ':' + lower.val() + '~' + upper.val();
         } else {
-          value = $(this).val()
+          value = type + ':' + $(this).val();
         }
-        value = td.attr('data-input-type') + ':' + value
-        if(column.search() !== value) {
-          column.search(value).draw();
+        if(filter.attr('data-input-value') !== value) {
+          console.log(value);
+          filter.attr('data-input-value', value);
+          // TODO $.post(...)
         }
       });
-      i = i + 1;
     });
   });
