@@ -7,15 +7,12 @@
   = f.select :creditor,
       options_from_collection_for_select(User.all.order(:name), :name, :name),
       { include_blank: true },
-      { class: 'select2-selector form-control', size: 50 }
-  -# { class: 'select2-selector', size: 50, required: true }
-  = f.text_field :message, placeholder: "Message", size: 75, class: "form-control"
-  -# = f.text_field :message, required: true, placeholder: "Message", size: 75
+      { class: 'select2-selector form-control', size: 50, required: true }
+  = f.text_field :message, placeholder: "Message", size: 75, class: "form-control", required: true
   .input-group
     %span.input-group-addon
       %span.glyphicon.glyphicon-euro
     = f.number_field :euros, value: amount(@transaction.amount),
         placeholder: "Bedrag", step: 0.01, min: (0.01 unless current_user.penning),
-        class: "form-control", size: 20
-    -# placeholder: "Bedrag", step: 0.01, min: 0.01, class: "pure-group-addon price", size: 20, required: true
+        class: "form-control", size: 20, required: true
   = f.submit "Send it!", class: "pure-button pure-button-primary"

@@ -10,16 +10,11 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.all
   end
 
-  def new
-    @transaction = Transaction.new
-  end
-
   def create
-    transaction = Transaction.new(transaction_params)
-    if transaction.save
+    if @transaction.save
       head :created
     else
-      render json: transaction.errors.full_messages, status: :unprocessable_entity
+      render json: @transaction.errors.full_messages, status: :unprocessable_entity
     end
   end
 
