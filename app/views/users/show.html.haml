@@ -94,7 +94,6 @@
       var filter = $(element);
       var type   = filter.attr('data-input-type');
       var column = table.column(filter.attr('data-filter-name') + ':name');
-      console.log(column);
       filter.find('input').on('keyup change', function() {
         var value = null
         if(filter.hasClass('bound')) {
