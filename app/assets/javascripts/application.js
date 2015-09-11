@@ -16,6 +16,7 @@
 //= require dataTables/extras/dataTables.responsive
 //= require dataTables/jquery.dataTables
 //= require select2
+//= require jquery-dateFormat
 //= require turbolinks
 //= require_tree .
 

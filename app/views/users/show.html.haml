@@ -61,6 +61,20 @@
         { data: 'peer',    name: 'Peer',    width: "15%", className: 'min-mobile'},
         { data: 'issuer',  name: 'Issuer',  width: "15%", className: 'min-desktop'},
         { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'}
+      ],
+      columnDefs: [
+        {
+          targets: 0,
+          render: function(data, type, full, meta) {
+            return $.format.date(data, 'E dd/MM/yyyy HH:mm');
+          }
+        },
+        {
+          targets: 1,
+          render: function(data, type, full, meta) {
+            return data/100;
+          }
+        }
       ]
     });
 
