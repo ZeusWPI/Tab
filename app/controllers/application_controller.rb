@@ -23,4 +23,8 @@ class ApplicationController < ActionController::Base
       current_client.try { |c| ClientAbility.new(c) } ||
       UserAbility.new(current_user)
   end
+
+  def after_sign_in_path_for(resource)
+    current_user
+  end
 end
