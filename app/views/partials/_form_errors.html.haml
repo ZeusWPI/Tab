@@ -1,10 +1,6 @@
-- if object.errors.any?
-  .panel.panel-error
-    .panel-header
-      %h3.panel-title
-        This transaction could not be saved.
-    .panel-body
-      %ul
-        - object.errors.full_messages.each do |tr|
-          %li
-            = tr
+#transaction_errors.panel.panel-error.hidden
+  .panel-header
+    %h3.panel-title
+      This transaction could not be saved.
+  .panel-body
+    %ul

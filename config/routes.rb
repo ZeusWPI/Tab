@@ -5,6 +5,6 @@ Rails.application.routes.draw do
 
   root to: 'high_voltage/pages#show', id: "landing"
 
-  resources :transactions, only: [:new, :index, :create]
+  resources :transactions, only: [:index, :create]
   resources :users, only: [:show, :index]
 end

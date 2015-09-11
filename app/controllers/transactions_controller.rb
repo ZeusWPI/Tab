@@ -4,6 +4,7 @@ class TransactionsController < ApplicationController
 
   before_action :authenticate_user!, except: :create
   before_action :authenticate_user_or_client!, only: :create
+  respond_to :js, only: :create
 
   def index
     @transactions = Transaction.all

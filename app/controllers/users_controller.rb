@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     respond_to do |format|
-      format.html
+      format.html do
+        @transaction = Transaction.new
+      end
       format.json do
         datatable = DataTable.new(@user, params)
         render json: datatable.json
