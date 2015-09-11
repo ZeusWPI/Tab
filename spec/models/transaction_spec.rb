@@ -35,5 +35,4 @@ RSpec.describe Transaction, type: :model do
       expect {trans.save!}.to change {@user.balance}.by(-10)
     end
   end
-
 end

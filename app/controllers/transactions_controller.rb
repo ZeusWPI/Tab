@@ -1,20 +1,20 @@
 class TransactionsController < ApplicationController
-  load_and_authorize_resource
   skip_before_filter :verify_authenticity_token, only: :create
 
   before_action :authenticate_user!, except: :create
   before_action :authenticate_user_or_client!, only: :create
   respond_to :js, only: :create
 
-  def index
-    @transactions = Transaction.all
-  end
-
   def create
+    @transaction = Transaction.new(transaction_params)
+    @transaction.reverse if @transaction.amount < 0
+    authorize!(:create, @transaction)
+
     if @transaction.save
       head :created
     else
-      render json: @transaction.errors.full_messages, status: :unprocessable_entity
+      render json: @transaction.errors.full_messages,
+        status: :unprocessable_entity
     end
   end
 
