@@ -7,10 +7,12 @@
     .pure-g
       .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range' }
         %fieldset.pure-group-inline
-          %span.fa.fa-calendar.pure-group-addon
-          %input.lower-bound{type: 'date', placeholder: 'after'}
+          %i.fa.fa-calendar.pure-group-addon
+          %input.lower-bound{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
         \-
-        %input.upper-bound{type: 'date', placeholder: 'before'}
+        %fieldset.pure-group-inline
+          %i.fa.fa-calendar.pure-group-addon
+          %input.upper-bound{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
     .pure-g
       .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range' }
         %fieldset.pure-group-inline
