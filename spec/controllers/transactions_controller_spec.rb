@@ -17,28 +17,33 @@ RSpec.describe TransactionsController, type: :controller do
           cents: 70,
           message: 'hoi'
         }}
-        post :create, @attributes
-        @transaction = Transaction.last
       end
 
       it "should create a new transaction" do
         expect {post :create, @attributes}.to change {Transaction.count}.by(1)
       end
 
-      it "should set debtor" do
-        expect(@transaction.debtor).to eq(@debtor)
-      end
+      describe "fields" do
+        before :each do
+          post :create, @attributes
+          @transaction = Transaction.last
+        end
 
-      it "should set amount" do
-        expect(@transaction.amount).to eq(70)
-      end
+        it "should set debtor" do
+          expect(@transaction.debtor).to eq(@debtor)
+        end
 
-      it "should set creditor" do
-        expect(@transaction.creditor).to eq(@creditor)
-      end
+        it "should set amount" do
+          expect(@transaction.amount).to eq(70)
+        end
 
-      it "should set issuer" do
-        expect(@transaction.issuer).to eq(@debtor)
+        it "should set creditor" do
+          expect(@transaction.creditor).to eq(@creditor)
+        end
+
+        it "should set issuer" do
+          expect(@transaction.issuer).to eq(@debtor)
+        end
       end
     end
 
