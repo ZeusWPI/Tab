@@ -8,6 +8,14 @@
 %h2 Cute Little Statistics
 %p None here yet.
 %h2 Wall of Shame
-%ul
-  - @statistics.shameful_users.each do |user|
-    %li="Shame on #{user.name}!"
+%table
+  %thead
+    %th People who should be ashamed
+    %th Part of total debt to Zeus
+  %tbody
+    - @statistics.shameful_users.each do |user|
+      %tr
+        %td= "Shame on #{user.name}"
+        // Won't divide by zero because there won't be any users with
+        // a shameful debt if the total debt is zero.
+        %td= "#{100 * user.balance / @statistics.total_debt}%"
