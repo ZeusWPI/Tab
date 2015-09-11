@@ -16,9 +16,9 @@ class DataTable
   end
 
   def query
-    #pred = predicates
+    pred = predicates
     q = @transactions.query
-    #q = q.where(pred) if pred
+    q = q.where(pred) if pred
     q
   end
 
@@ -34,19 +34,19 @@ class DataTable
   def range_predicates name
     col = @params[:columns][name]
     [
-      (@table[:name].gteq(col[:lower]) if col[:lower]),
-      (@table[:name].lteq(col[:upper]) if col[:upper])
+      (@table[name].gteq(col[:lower]) if col[:lower]),
+      (@table[name].lteq(col[:upper]) if col[:upper])
     ]
   end
 
   def eq_predicate name
-    value = @params[:columns][:name][:value]
-    @table[:name].eq(value) if value
+    value = @params[:columns][name][:value]
+    @table[name].eq(value) if value
   end
 
   def like_predicate name
-    value = @params[:columns][:name][:value]
-    @table[:name].matches("%#{value}%") if value
+    value = @params[:columns][name][:value]
+    @table[name].matches("%#{value}%") if value
   end
 
   private

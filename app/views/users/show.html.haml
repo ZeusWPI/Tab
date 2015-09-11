@@ -5,7 +5,7 @@
     %h3.panel-title Filters
   .panel-body
     .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range' }
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range', 'data-filter-name': 'Time' }
         %fieldset.pure-group-inline
           %i.fa.fa-calendar.pure-group-addon
           %input.lower-bound{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
@@ -14,7 +14,7 @@
           %i.fa.fa-calendar.pure-group-addon
           %input.upper-bound{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
     .pure-g
-      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range' }
+      .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-filter-name': 'Amount' }
         %fieldset.pure-group-inline
           %span.icon-euro.pure-group-addon
           %input.lower-bound.pure-group-addon{type: 'number', placeholder: 'Minimum'}
@@ -23,11 +23,11 @@
           %span.icon-euro.pure-group-addon
           %input.upper-bound.pure-group-addon{type: 'number', placeholder: 'Maximum'}
     .pure-g
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
         %input{type: 'text', placeholder: 'Filter on Issuer'}
-      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-filter-name': 'Peer' }
         %input{type: 'text', placeholder: 'Filter on Peer'}
-      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text' }
+      .input-listen.pure-u-md-1-2{ 'data-input-type': 'text', 'data-filter-name': 'Message' }
         %input{type: 'text', placeholder: 'Filter on Message'}
 
 
@@ -46,7 +46,7 @@
     var table = $('#transactions').DataTable({
       processing: true,
       serverSide: true,
-      searching: false,
+      searching: true,
       lengthChange: false,
       ordering: false,
       ajax: $('#transactions').data('source'),
@@ -58,27 +58,30 @@
         { data: 'amount',  name: 'Amount',  width: "10%", className: 'min-mobile'},
         { data: 'peer',    name: 'Peer',    width: "15%", className: 'min-mobile'},
         { data: 'issuer',  name: 'Issuer',  width: "15%", className: 'min-desktop'},
-        { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'},
+        { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'}
       ]
     });
 
-    var tds = $('.input-listen');
-    var i = 0;
-    table.columns().every(function() {
-      var column = this
-      tds.eq(i).find('input').on('keyup change', function() {
-        var value = null;
-        var td = $(this).parent();
-        if(td.hasClass('bound')) {
-          value = td.find('.lower-bound').val() + '~' + td.find('.upper-bound').val();
+    $('.dataTables_filter').hide();
+
+    $('.input-listen').each(function(index, element) {
+      var filter = $(element);
+      var type   = filter.attr('data-input-type');
+      var column = table.column(filter.attr('data-filter-name') + ':name');
+      console.log(column);
+      filter.find('input').on('keyup change', function() {
+        var value = null
+        if(filter.hasClass('bound')) {
+          var lower = filter.find('.lower-bound');
+          var upper = filter.find('.upper-bound');
+          value = lower.val() + '~' + upper.val();
         } else {
-          value = $(this).val()
+          value = $(this).val();
         }
-        value = td.attr('data-input-type') + ':' + value
+        value = filter.attr('data-input-type') + ':' + value;
         if(column.search() !== value) {
           column.search(value).draw();
         }
       });
-      i = i + 1;
     });
   });
