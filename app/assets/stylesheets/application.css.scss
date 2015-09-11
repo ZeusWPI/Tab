@@ -16,9 +16,11 @@
  *= require select2
  *= require_self
  *= require purecss
+ *= require select2-bootstrap
  */
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 body {
   padding: 30px;
 }

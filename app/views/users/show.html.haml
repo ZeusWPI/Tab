@@ -3,27 +3,31 @@
 = render 'transactions/new'
 
 .panel.panel-default.data-table-filters
-  .panel-header
+  .panel-heading
     %h3.panel-title Filters
   .panel-body
     .pure-g
       .bound.input-listen.pure-u-1{ 'data-input-type': 'date-range', 'data-filter-name': 'Time' }
-        %fieldset.pure-group-inline
-          %i.fa.fa-calendar.pure-group-addon
-          %input.lower-bound{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
-        \-
-        %fieldset.pure-group-inline
-          %i.fa.fa-calendar.pure-group-addon
-          %input.upper-bound{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
+        %form.form-inline
+          .input-group
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+            %input.lower-bound.form-control.filter-align{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
+          .input-group
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+            %input.upper-bound.form-control.filter-align{type: 'date', placeholder: 'after', class: 'pure-group-addon'}
     .pure-g
       .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range', 'data-filter-name': 'Amount' }
-        %fieldset.pure-group-inline
-          %span.icon-euro.pure-group-addon
-          %input.lower-bound.pure-group-addon{type: 'number', placeholder: 'Minimum'}
-        \-
-        %fieldset.pure-group-inline
-          %span.icon-euro.pure-group-addon
-          %input.upper-bound.pure-group-addon{type: 'number', placeholder: 'Maximum'}
+        %form.form-inline
+          .input-group
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-euro
+            %input.lower-bound.form-control.filter-align{type: 'number', placeholder: 'Minimum'}
+          .input-group
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-euro
+            %input.upper-bound.form-control.filter-align{type: 'number', placeholder: 'Maximum'}
     .pure-g
       .input-listen.pure-u-md-1-4{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
         %input{type: 'text', placeholder: 'Filter on Issuer'}
