@@ -24,13 +24,6 @@ class Transaction < ActiveRecord::Base
   validates :amount, numericality: { greater_than: 0 }
   validate :different_debtor_creditor
 
-  def initialize *args, **kwargs
-    super *args, **kwargs
-    if amount < 0
-      self.creditor, self.debtor = debtor, creditor
-      self.amount = self.amount.abs
-    end
-  end
 
   def peer_of(user)
     return creditor if user == debtor
@@ -40,6 +33,11 @@ class Transaction < ActiveRecord::Base
   def signed_amount_for(user)
     return -amount if user == debtor
     return amount if user == creditor
+  end
+
+  def reverse
+    self.creditor, self.debtor = self.debtor, self.creditor
+    self.amount *= -1
   end
 
   private
