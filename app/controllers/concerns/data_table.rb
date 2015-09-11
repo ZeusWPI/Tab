@@ -16,9 +16,9 @@ class DataTable
   end
 
   def query
-    #pred = predicates
+    pred = predicates
     q = @transactions.query
-    #q = q.where(pred) if pred
+    q = q.where(pred) if pred
     q
   end
 
