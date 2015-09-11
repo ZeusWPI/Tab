@@ -12,7 +12,6 @@ class TransactionsQuery
   def query
     Arel::SelectManager.new(ActiveRecord::Base)
       .from(arel)
-      .project(Arel.star)
   end
 
   def arel

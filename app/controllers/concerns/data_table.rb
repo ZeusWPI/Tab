@@ -8,22 +8,38 @@ class DataTable
   end
 
   def json
-    response_json(@params[:draw], data)
+    {
+      draw: @params[:draw],
+      recordsTotal: @user.transactions.count,
+      recordsFiltered: count,
+      data: data
+    }
   end
 
+  private
+
   def data
-    ActiveRecord::Base.connection.execute(self.query.to_sql)
+    run_query(paginated_query.project(Arel.star))
+  end
+
+  def count
+    run_query(query.project(Arel.star.count)).first[0]
+  end
+
+  def paginated_query
+    query.skip(@params[:start]).take(@params[:length])
   end
 
   def query
-    pred = predicates
-    q = @transactions.query
-    q = q.where(pred) if pred
-    q
+    return @query if @query # Do not build query twice
+    @query = @transactions.query
+    @query.where(predicate) if predicate
+    @query
   end
 
-  def predicates
-    [ *range_predicates(:amount),
+  def predicate
+    @predicate ||= [
+      *range_predicates(:amount),
       *range_predicates(:time),
       eq_predicate(:peer),
       eq_predicate(:issuer),
@@ -49,7 +65,9 @@ class DataTable
     @table[name].matches("%#{value}%") if value
   end
 
-  private
+  def run_query query
+    ActiveRecord::Base.connection.execute(query.to_sql)
+  end
 
   def sanitize_params(params)
     # Parsing according to https://datatables.net/manual/server-side
@@ -81,22 +99,6 @@ class DataTable
       end
     end
     return clean
-  end
-
-  def response_json(draw, selection)
-    {
-      draw: draw,
-      recordsTotal: @user.transactions.count,
-      recordsFiltered: selection.count,
-      #data: selection.offset(params[:start]).take(params[:length]).map { |transaction| {
-        #time: transaction.created_at,
-        #amount: transaction.signed_amount_for(user),
-        #peer: transaction.peer_of(user).try(:name),
-        #issuer: transaction.issuer.name,
-        #message: transaction.message,
-      #}}
-      data: selection
-    }
   end
 end
 
