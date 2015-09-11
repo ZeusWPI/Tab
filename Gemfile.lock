@@ -103,6 +103,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     font-awesome-sass (4.4.0)
       sass (>= 3.2)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -295,6 +297,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   font-awesome-sass
+  friendly_id (~> 5.1.0)
   haml-rails (~> 0.9)
   high_voltage (~> 2.4.0)
   jbuilder (~> 2.0)

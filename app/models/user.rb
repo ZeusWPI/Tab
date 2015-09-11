@@ -11,6 +11,8 @@
 #
 
 class User < ActiveRecord::Base
+  include FriendlyId
+  friendly_id :name, use: :finders
   devise :timeoutable, :omniauthable, :omniauth_providers => [:zeuswpi]
   has_many :incoming_transactions,
     class_name: 'Transaction', foreign_key: 'creditor_id'
