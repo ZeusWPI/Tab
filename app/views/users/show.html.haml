@@ -29,7 +29,7 @@
         %input{type: 'text', placeholder: 'Filter on Message'}
 
 
-%table#transactions.pure-table.pure-table-striped{data: { source: user_path(@user) }}
+%table#transactions.display.responsive.no-wrap{data: { source: user_path(@user) }}
   %thead
     %tr
       %th Time
@@ -44,8 +44,7 @@
     var table = $('#transactions').DataTable({
       processing: true,
       serverSide: true,
-      searching: false,
-      lengthChange: false,
+      searching: true,
       ordering: false,
       ajax: $('#transactions').data('source'),
       pagingType: 'full_numbers',
