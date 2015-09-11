@@ -17,6 +17,18 @@ class Statistics < Rails::Application
     end
   end
 
+  def by_issuer
+    Transaction.group(:issuer_id).count.inject(Hash.new) do |hash, (id, count)|
+      hash.merge({User.find(id).name => count})
+    end
+  end
+
+  def amount_distribution
+    Transaction.group("round(amount / 10)").count.inject(Hash.new) do |hash, (group, count)|
+      hash.merge({10 * group.to_i => count})
+    end
+  end
+
   private
 
   def zeus_balance

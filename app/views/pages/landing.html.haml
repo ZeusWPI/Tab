@@ -6,10 +6,10 @@
   Log een keer in!
   %p= link_to "Log in met Zeus WPI", user_omniauth_authorize_path(:zeuswpi)
 %h2 Cute Little Statistics
-%p None here yet.
-%h2 Wall of Shame
+= javascript_include_tag "//www.google.com/jsapi", "chartkick"
 .pure-g
   .pure-u-1-2
+    %h3 Table of Shame
     %table.pure-table
       %thead
         %th Shame on
@@ -22,5 +22,12 @@
             // a shameful debt if the total debt is zero.
             %td.shame-percentage= "#{100 * user.balance / @statistics.total_debt}%"
   .pure-u-1-2
-    = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+    %h3 Pie of Shame
     = pie_chart @statistics.shamehash
+.pure-g
+  .pure-u-1-2
+    %h3 Distribution of Debt Sources
+    = pie_chart @statistics.by_issuer
+  .pure-u-1-2
+    %h3 Distribution of Transaction Amounts
+    = column_chart @statistics.amount_distribution
