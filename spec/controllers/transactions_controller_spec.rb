@@ -1,7 +1,4 @@
-require 'rails_helper'
-require 'spec_helper'
-
-RSpec.describe TransactionsController, type: :controller do
+describe TransactionsController, type: :controller do
   describe "creating transaction" do
     before :each do
       @debtor = create(:user)
@@ -15,12 +12,12 @@ RSpec.describe TransactionsController, type: :controller do
           debtor: @debtor.name,
           creditor: @creditor.name,
           cents: 70,
-          message: 'hoi'
-        }}
+          message: "hoi"
+        } }
       end
 
       it "should create a new transaction" do
-        expect {post :create, @attributes}.to change {Transaction.count}.by(1)
+        expect { post :create, @attributes }.to change { Transaction.count }.by(1)
       end
 
       describe "fields" do
@@ -63,7 +60,7 @@ RSpec.describe TransactionsController, type: :controller do
       it "should be refused" do
         expect do
           post :create, transaction: attributes_for(:transaction, cents: -20)
-        end.not_to change {Transaction.count}
+        end.not_to change { Transaction.count }
       end
     end
 
@@ -74,9 +71,9 @@ RSpec.describe TransactionsController, type: :controller do
             debtor: @creditor.name,
             creditor: @debtor.name,
             euros: 10000000,
-            message: 'DIT IS OVERVAL'
+            message: "DIT IS OVERVAL"
           }
-        end.not_to change {Transaction.count}
+        end.not_to change { Transaction.count }
       end
     end
   end

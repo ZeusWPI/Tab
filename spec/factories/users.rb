@@ -18,5 +18,4 @@ FactoryGirl.define do
       penning true
     end
   end
-
 end
