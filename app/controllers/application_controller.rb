@@ -15,8 +15,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_client
-    Client.find_by key: request.headers.inspect.to_s
-    @current_client ||= Client.find_by key: (request.headers["X_API_KEY"] || request.headers["HTTP_X_API_KEY"])
+    @current_client ||= authenticate_with_http_token do |token, options|
+      Client.find_by key: token
+    end
   end
 
   def current_ability
