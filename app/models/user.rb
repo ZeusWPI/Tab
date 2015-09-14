@@ -40,6 +40,6 @@ class User < ActiveRecord::Base
   end
 
   def self.zeus
-    @@zeus ||= find_or_create_by name: 'Zeus'
+    find_or_create_by name: 'Zeus'
   end
 end
