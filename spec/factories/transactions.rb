@@ -19,7 +19,7 @@ FactoryGirl.define do
     association :debtor, factory: :user
     association :creditor, factory: :user
     issuer { debtor }
-    amount { 1 + rand(100) }
+    amount { 1 + rand(10000) }
     message { Faker::Lorem.sentence }
     factory :client_transaction do
       association :issuer, factory: :client
