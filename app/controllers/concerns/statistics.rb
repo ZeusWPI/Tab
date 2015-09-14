@@ -24,7 +24,7 @@ class Statistics < Rails::Application
   end
 
   def amount_distribution
-    Transaction.group("round(amount / 10)").count.inject(Hash.new) do |hash, (group, count)|
+    Transaction.group("round(amount / 1000, 2)").count.inject(Hash.new) do |hash, (group, count)|
       hash.merge({10 * group.to_i => count})
     end
   end
