@@ -30,4 +30,5 @@
     = pie_chart @statistics.by_issuer
   .pure-u-1-2
     %h3 Distribution of Transaction Amounts
+    = @statistics.amount_distribution
     = column_chart @statistics.amount_distribution
