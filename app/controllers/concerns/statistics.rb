@@ -18,9 +18,9 @@ class Statistics < Rails::Application
   end
 
   def by_issuer
-    Transaction.group(:issuer_id).count.inject(Hash.new) do |hash, (id, count)|
-      hash.merge({User.find(id).name => count})
-    end
+    Client.joins(:issued_transactions).group(:name).count.merge({
+      "User created" => Transaction.where(issuer_type: "User").count
+    })
   end
 
   def amount_distribution
