@@ -2,15 +2,16 @@
 #
 # Table name: transactions
 #
-#  id          :integer          not null, primary key
-#  debtor_id   :integer          not null
-#  creditor_id :integer          not null
-#  issuer_id   :integer          not null
-#  issuer_type :string           not null
-#  amount      :integer          default(0), not null
-#  message     :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  debtor_id    :integer          not null
+#  creditor_id  :integer          not null
+#  issuer_id    :integer          not null
+#  issuer_type  :string           not null
+#  amount       :integer          default(0), not null
+#  message      :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  id_at_client :integer
 #
 
 describe Transaction, type: :model do
@@ -48,6 +49,27 @@ describe Transaction, type: :model do
     it "should be different" do
       @user = create :user
       expect(build :transaction, debtor: @user, creditor: @user).to_not be_valid
+    end
+  end
+
+  describe "client as issuer" do
+    before :each do
+      @transaction = create :client_transaction
+    end
+
+    it "should have a id_at_client" do
+      @transaction.id_at_client = nil
+      expect(@transaction).to_not be_valid
+    end
+
+    it "should have a unique id_at_client" do
+      t = build :client_transaction, issuer: @transaction.issuer, id_at_client: @transaction.id_at_client
+      expect(t).to_not be_valid
+    end
+
+    it "should have a unique id_at_client per client" do
+      t = build :client_transaction, id_at_client: @transaction.id_at_client
+      expect(t).to be_valid
     end
   end
 end

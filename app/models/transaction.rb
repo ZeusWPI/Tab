@@ -2,15 +2,16 @@
 #
 # Table name: transactions
 #
-#  id          :integer          not null, primary key
-#  debtor_id   :integer          not null
-#  creditor_id :integer          not null
-#  issuer_id   :integer          not null
-#  issuer_type :string           not null
-#  amount      :integer          default(0), not null
-#  message     :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  debtor_id    :integer          not null
+#  creditor_id  :integer          not null
+#  issuer_id    :integer          not null
+#  issuer_type  :string           not null
+#  amount       :integer          default(0), not null
+#  message      :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  id_at_client :integer
 #
 
 class Transaction < ActiveRecord::Base
@@ -22,6 +23,7 @@ class Transaction < ActiveRecord::Base
   after_destroy :recalculate_balances
 
   validates :amount, numericality: { greater_than: 0 }
+  validates :id_at_client, presence: true, uniqueness: { scope: :issuer_id }, if: :is_client_transaction?
   validate :different_debtor_creditor
 
 
@@ -51,5 +53,9 @@ class Transaction < ActiveRecord::Base
     if self.debtor == self.creditor
       self.errors.add :base, "Can't write money to yourself"
     end
+  end
+
+  def is_client_transaction?
+    issuer_type == "Client"
   end
 end

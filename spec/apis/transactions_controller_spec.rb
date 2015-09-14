@@ -3,11 +3,12 @@ describe TransactionsController, type: :api do
     @debtor   = create :user
     @creditor = create :user
     @api_attributes = {
-      debtor:   @debtor.name,
-      creditor: @creditor.name,
-      message:  Faker::Lorem.sentence,
-      euros:    1,
-      cents:    25
+      debtor:       @debtor.name,
+      creditor:     @creditor.name,
+      message:      Faker::Lorem.sentence,
+      euros:        1,
+      cents:        25,
+      id_at_client: 1
     }
     @client = Client.create name: "Tap"
     @key = @client.key
