@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
+  scope :humans, -> { where.not(id: self.zeus) }
+
   def transactions
     Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
   end
@@ -42,4 +44,5 @@ class User < ActiveRecord::Base
   def self.zeus
     find_or_create_by name: 'Zeus'
   end
+
 end
