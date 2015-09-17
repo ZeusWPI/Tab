@@ -24,7 +24,8 @@ ready = function() {
   $.each($(".select2-selector"), function(index, val) {
     $(val).select2({
       width: 'resolve',
-      placeholder: $(".select2-selector")
+      placeholder: $(".select2-selector"),
+      allowClear: true
     });
   }
   )

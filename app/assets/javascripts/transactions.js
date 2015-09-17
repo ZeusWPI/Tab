@@ -16,11 +16,11 @@ ready = function() {
     autoWidth: false,
     responsive: true,
     columns: [
-      { data: 'time',    name: 'Time',    width: "15%", className: 'min-tablet-l'},
-      { data: 'amount',  name: 'Amount',  width: "10%", className: 'min-mobile'},
-      { data: 'peer',    name: 'Peer',    width: "15%", className: 'min-mobile'},
-      { data: 'issuer',  name: 'Issuer',  width: "15%", className: 'min-desktop'},
-      { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p'}
+      { data: 'time',    name: 'Time',    width: "15%", className: 'min-tablet-l date-column'},
+      { data: 'amount',  name: 'Amount',  width: "10%", className: 'min-mobile   amount-column'},
+      { data: 'peer',    name: 'Peer',    width: "15%", className: 'min-mobile   peer-column'},
+      { data: 'issuer',  name: 'Issuer',  width: "15%", className: 'min-desktop  issuer-column'},
+      { data: 'message', name: 'Message', width: "45%", className: 'min-tablet-p message-column'}
     ],
     columnDefs: [
     {
@@ -44,21 +44,22 @@ ready = function() {
     var filter = $(element);
     var type   = filter.attr('data-input-type');
     var column = table.column(filter.attr('data-filter-name') + ':name');
-    console.log(column);
-    filter.find('input').on('keyup change', function() {
-    var value = null
-    if(filter.hasClass('bound')) {
-      var lower = filter.find('.lower-bound');
-      var upper = filter.find('.upper-bound');
-      value = lower.val() + '~' + upper.val();
-    } else {
-      value = $(this).val();
-    }
-    value = filter.attr('data-input-type') + ':' + value;
-    if(column.search() !== value) {
-      column.search(value).draw();
-    }
-    });
+    var refreshTable = function() {
+      var value = null
+      if(filter.hasClass('bound')) {
+        var lower = filter.find('.lower-bound');
+        var upper = filter.find('.upper-bound');
+        value = lower.val() + '~' + upper.val();
+      } else {
+        value = $(this).val();
+      }
+      value = filter.attr('data-input-type') + ':' + value;
+      if(column.search() !== value) {
+        column.search(value).draw();
+      }
+    };
+    filter.find('.value-thing').on('change', refreshTable);
+    filter.find('.value-thing.live-updating').on('keyup', refreshTable);
   });
 
   // filters
