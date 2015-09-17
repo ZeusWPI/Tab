@@ -1,0 +1,26 @@
+
+// Alignment of datatable columns.
+.date-column,
+.amount-column {
+  text-align: right;
+}
+
+.peer-column,
+.issuer-column {
+  text-align: center;
+}
+
+.message-column {
+  text-align: left;
+}
+
+// Dates aren't that important
+td.date-column {
+  color: #BBB;
+}
+
+// Love them euro signs
+td.amount-column:before {
+  content: '€';
+}
+
