@@ -17,8 +17,6 @@
               - if current_user.penning
                 %li.pure-menu-item
                   =link_to "Zeus", User.zeus, class: "pure-menu-link"
-            - else
-              = link_to "Sign in", user_omniauth_authorize_path(:zeuswpi), class: "pure-menu-link" unless current_user
       .pure-u-1
         = render 'partials/flash'
         = yield
