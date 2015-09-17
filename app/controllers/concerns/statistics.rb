@@ -24,10 +24,13 @@ class Statistics < Rails::Application
     })
   end
 
-  def amount_distribution
-    Transaction.group("round(amount / 1000)").count.inject(Hash.new) do |hash, (group, count)|
-      hash.merge({10 * group.to_f => count})
-    end
+  def creation_counts
+    User
+      .joins(:issued_transactions)
+      .group(:name)
+      .order("count_all DESC")
+      .count
+      .take([shameful_users.count, 4].max)
   end
 
   private
@@ -37,3 +40,4 @@ class Statistics < Rails::Application
   end
 
 end
+

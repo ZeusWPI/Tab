@@ -1,34 +1,43 @@
-%h1 Tab!
-%h2 Authentication
-- if user_signed_in?
-  %p Yeah! Je bent ingelogd.
-- else
-  Log een keer in!
-  %p= link_to "Log in met Zeus WPI", user_omniauth_authorize_path(:zeuswpi)
-%h2 Cute Little Statistics
+%h1.columns-title Tab
 = javascript_include_tag "//www.google.com/jsapi", "chartkick"
-.pure-g
-  .pure-u-1-2
-    %h3 Table of Shame
-    %table.pure-table
-      %thead
-        %th Shame on
-        %th Contribution to Zeus' lack of money
-      %tbody
-        - @statistics.shameful_users.each do |user|
-          %tr
-            %td.shameful-person= user.name
-            // Won't divide by zero because there won't be any users with
-            // a shameful debt if the total debt is zero.
-            %td.shame-percentage= "#{-100 * user.balance / @statistics.total_debt}%"
-  .pure-u-1-2
-    %h3 Pie of Shame
-    = pie_chart @statistics.shamehash
-.pure-g
-  .pure-u-1-2
-    %h3 Distribution of Debt Sources
-    = pie_chart @statistics.by_issuer
-  .pure-u-1-2
-    %h3 Distribution of Transaction Amounts
-    = @statistics.amount_distribution
-    = column_chart @statistics.amount_distribution
+- unless user_signed_in?
+  .pure-g
+    .pure-u-1-2.left-column
+      %h2 Authentication
+      Log een keer in en betaal uw schulden!
+      = link_to "Log in met Zeus WPI", user_omniauth_authorize_path(:zeuswpi), class: "pure-button pure-button-primary login-button"
+    .pure-u-1-2.right-column
+      %h2 Pie of Shame
+      = pie_chart @statistics.shamehash
+- else
+  %h2.columns-title Cute Little Statistics
+  .pure-g
+    .pure-u-1-2.landing-column
+      %h3.columns-title Pie of Shame
+      = pie_chart @statistics.shamehash
+      %h3.columns-title Table of Shame
+      %table.pure-table.full-table
+        %thead
+          %th Shame on
+          %th Contribution to Zeus' lack of money
+        %tbody
+          - @statistics.shameful_users.each do |user|
+            %tr
+              %td.shameful-person= user.name
+              // Won't divide by zero because there won't be any users with
+              // a shameful debt if the total debt is zero.
+              %td.shame-percentage= "#{-100 * user.balance / @statistics.total_debt}%"
+    .pure-u-1-2.landing-column
+      %h3.columns-title Distribution of Debt Sources
+      = pie_chart @statistics.by_issuer
+      %h3.columns-title Top Debt Creators
+      %table.pure-table.full-table
+        %thead
+          %th Issuer
+          %th Number of Transactions issued
+        %tbody
+          - @statistics.creation_counts.each do |name, count|
+            %tr
+              %td.shameful-person= name
+              %td.shame-percentage= count
+
