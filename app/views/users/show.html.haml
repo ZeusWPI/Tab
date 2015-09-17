@@ -15,14 +15,13 @@
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-calendar
-                %input.lower-bound.form-control.filter-align{type: 'date',
-                  placeholder: 'After', class: 'pure-group-addon'}
+                %input.lower-bound.form-control.filter-align.value-thing.pure-group-addon{type: 'date',
+                  placeholder: 'After'}
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-calendar
-                %input.upper-bound.form-control.filter-align{type: 'date',
-                  placeholder: 'Before', class: 'pure-group-addon'}
+                %input.upper-bound.form-control.filter-align.value-thing.pure-group-addon{type: 'date', placeholder: 'Before' }
         .bound.input-listen.pure-u-1{ 'data-input-type': 'number-range',
           'data-filter-name': 'Amount' }
           .row
@@ -30,28 +29,28 @@
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-euro
-                %input.lower-bound.form-control.filter-align{type: 'number',
+                %input.lower-bound.form-control.filter-align.value-thing{type: 'number',
                   placeholder: 'Minimum'}
             .col-md-6
               .input-group
                 %span.input-group-addon
                   %span.glyphicon.glyphicon-euro
-                %input.upper-bound.form-control.filter-align{type: 'number',
+                %input.upper-bound.form-control.filter-align.value-thing{type: 'number',
                   placeholder: 'Maximum'}
         .row
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
               = grouped_collection_select nil, nil, [User, Client], :all, :name, :name, :name,
                 { include_blank: true },
-                { data: { placeholder: "Filter on Issuer" }, class: "select2-selector form-control" }
+                { data: { placeholder: "Filter on Issuer" }, class: "select2-selector form-control value-thing" }
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Peer' }
               = select_tag nil,
                 options_from_collection_for_select(User.all.order(:name), :name, :name),
-                include_blank: true, class: "select2-selector form-control", data: { placeholder: "Filter on Peer" }
+                include_blank: true, class: "select2-selector form-control value-thing", data: { placeholder: "Filter on Peer" }
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Message' }
-              %input{type: 'text', placeholder: 'Filter on Message',
+              %input.live-updating.value-thing{type: 'text', placeholder: 'Filter on Message',
                 class: "form-control" }
 
 %table#transactions.pure-table.pure-table-striped{data: { source: user_path(@user) }}

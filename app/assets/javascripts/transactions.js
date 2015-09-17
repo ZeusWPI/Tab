@@ -44,21 +44,22 @@ ready = function() {
     var filter = $(element);
     var type   = filter.attr('data-input-type');
     var column = table.column(filter.attr('data-filter-name') + ':name');
-    console.log(column);
-    filter.find('input').on('keyup change', function() {
-    var value = null
-    if(filter.hasClass('bound')) {
-      var lower = filter.find('.lower-bound');
-      var upper = filter.find('.upper-bound');
-      value = lower.val() + '~' + upper.val();
-    } else {
-      value = $(this).val();
-    }
-    value = filter.attr('data-input-type') + ':' + value;
-    if(column.search() !== value) {
-      column.search(value).draw();
-    }
-    });
+    var refreshTable = function() {
+      var value = null
+      if(filter.hasClass('bound')) {
+        var lower = filter.find('.lower-bound');
+        var upper = filter.find('.upper-bound');
+        value = lower.val() + '~' + upper.val();
+      } else {
+        value = $(this).val();
+      }
+      value = filter.attr('data-input-type') + ':' + value;
+      if(column.search() !== value) {
+        column.search(value).draw();
+      }
+    };
+    filter.find('.value-thing').on('change', refreshTable);
+    filter.find('.value-thing.live-updating').on('keyup', refreshTable);
   });
 
   // filters
