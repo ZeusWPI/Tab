@@ -7,4 +7,6 @@ Rails.application.routes.draw do
 
   resources :transactions, only: [:index, :create]
   resources :users, only: [:show, :index]
+
+  get 'datatables/:id' => 'datatables#transactions_for_user', as: "user_transactions"
 end
