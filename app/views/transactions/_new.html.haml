@@ -7,7 +7,7 @@
   = f.select :creditor,
       options_from_collection_for_select(User.all.order(:name), :name, :name),
       { include_blank: true },
-      { class: 'select2-selector', size: 50, required: true, data: { placeholder: "Creditor" } }
+      { class: 'select2-selector', required: true, data: { placeholder: "Creditor", width: 150 } }
   = f.text_field :message, placeholder: "Message", size: 75, class: "form-control", required: true
   .input-group
     %span.input-group-addon

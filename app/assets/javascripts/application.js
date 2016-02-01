@@ -23,12 +23,11 @@
 ready = function() {
   $.each($(".select2-selector"), function(index, val) {
     $(val).select2({
-      width: 'resolve',
+      width: $(val).data('width'),
       placeholder: $(".select2-selector"),
       allowClear: true
     });
-  }
-  )
+  })
 }
 
 $(document).ready(ready)
