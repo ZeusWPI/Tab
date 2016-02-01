@@ -14,9 +14,9 @@
  *= require dataTables/extras/dataTables.responsive
  *= require dataTables/jquery.dataTables
  *= require select2
+ *= require select2-bootstrap
  *= require_self
  *= require purecss
- *= require select2-bootstrap
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
