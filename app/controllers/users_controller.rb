@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource except: :show
 
   def show
-    @user = User.find_by_name(params[:id]) || User.new
+    @user = User.find_or_create_by(name: params[:id])
     respond_to do |format|
       format.html { @transaction = Transaction.new }
       format.json { render json: @user }

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user_or_client!
-    current_user || current_client || head(:unauthorized)
+    current_user || current_client || redirect_to(root_path, flash: { notice: "You have been redirected." })
   end
 
   def current_client

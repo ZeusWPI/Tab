@@ -78,7 +78,7 @@ ready = function() {
     $(flash_success).removeClass("hidden");
     $(errors).addClass("hidden");
     $(form)[0].reset();
-    $('#transaction_creditor').select2('data', null);
+    $('#transaction_creditor').select2('val', null);
   }).on("ajax:error", function(xhr, status, error) {
     $(errors).removeClass("hidden");
     $(panel_ul).empty();
