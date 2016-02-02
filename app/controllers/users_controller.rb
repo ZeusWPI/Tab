@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :authenticate_user_or_client!, only: :show
 
-  load_and_authorize_resource
+  load_and_authorize_resource except: :show
 
   def show
     @user = User.find_by_name(params[:id]) || User.new
