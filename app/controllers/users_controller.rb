@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_name(params[:id]) || User.new
     respond_to do |format|
       format.html { @transaction = Transaction.new }
       format.json { render json: @user }
