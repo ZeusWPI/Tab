@@ -25,5 +25,6 @@ module Tab
 
     # Which is the lowest balance you should be ashamed of.
     config.shameful_balance = 5000 # In eurocents!
+    config.maximum_amount = 3000
   end
 end

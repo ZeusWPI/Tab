@@ -6,6 +6,8 @@ class UserAbility
 
     can :manage, :all if user.penning?
     can :read, user, id: user.id
-    can :create, Transaction, debtor: user
+    can :create, Transaction do |t|
+      t.debtor == user && t.amount <= Rails.application.config.maximum_amount
+    end
   end
 end

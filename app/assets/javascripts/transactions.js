@@ -70,6 +70,17 @@ ready = function() {
   });
   filters_body.hide();
 
+  $(form).submit(function(e) {
+    euros = parseInt($(form).find('input[name="transaction[euros]"]').val());
+    console.log(euros);
+    if (euros < 6) {
+      return true;
+    } else {
+      e.preventDefault();
+      return confirm("Are you sure? " + euros + " monies is a lot of money ...");
+    }
+  });
+
   $(form).on("ajax:before", function(xhr, settings) {
     $(flash_success).addClass("hidden");
     $(submit_button).val("Processing");
