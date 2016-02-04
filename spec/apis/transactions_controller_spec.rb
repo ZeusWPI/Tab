@@ -22,7 +22,7 @@ describe TransactionsController, type: :api do
   describe "Authentication" do
     it "should require a client authentication key" do
       post '/transactions'
-      expect(last_response.status).to eq(401)
+      expect(last_response.status).to eq(302)
     end
 
     it "should work with valid key" do
