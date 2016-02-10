@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(name: params[:id]) || User.new
+    authorize! :read, @user
     respond_to do |format|
       format.html { @transaction = Transaction.new }
       format.json { render json: @user }
