@@ -13,6 +13,7 @@
     %span.input-group-addon
       %span.glyphicon.glyphicon-euro
     = f.number_field :euros, value: amount(@transaction.amount),
-        placeholder: "Bedrag", step: 0.01, min: (0.01 unless current_user.penning),
-        class: "form-control", size: 20, max: Rails.application.config.maximum_amount/100, required: true
+        placeholder: "Amount", step: 0.01, min: (0.01 unless current_user.penning),
+        class: "form-control", size: 20, required: true,
+        max: (Rails.application.config.maximum_amount/100 unless current_user.penning)
   = f.submit "Send it!", class: "pure-button pure-button-primary btn"
