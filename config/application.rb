@@ -24,7 +24,7 @@ module Tab
     config.active_record.raise_in_transactional_callbacks = true
 
     # Which is the lowest balance you should be ashamed of.
-    config.shameful_balance = 5000 # In eurocents!
+    config.shameful_balance = 0 # In eurocents!
     config.maximum_amount = 3000
   end
 end
