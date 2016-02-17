@@ -1,0 +1,44 @@
+.landing_columns {
+  & > div {
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    text-align: center;
+    @media screen and (min-width: 48em) {
+      border-width: 0 1px;
+      padding: 1em 3em;
+      &:first-child {
+        text-align: right;
+        border-left: 0;
+      }
+      &:last-child {
+        text-align: left;
+        border-right: 0;
+      }
+
+      a.login-button {
+        margin: 2em 2em 0 0;
+      }
+    }
+  }
+}
+
+a.login-button {
+  font-size: 200%;
+}
+
+.full-table {
+  width: 100%;
+}
+
+.landing-column {
+  padding: 1em;
+}
+
+.columns-title {
+  text-align: center;
+}
+
+.shame-percentage {
+  text-align: right
+}
