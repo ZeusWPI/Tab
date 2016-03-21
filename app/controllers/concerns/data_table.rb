@@ -1,4 +1,6 @@
 class DataTable
+  include ActionView::Helpers::JavaScriptHelper
+  include ERB::Util
   def initialize user, params
     @user = user
     @params = sanitize_params(params)
@@ -11,7 +13,7 @@ class DataTable
       draw: @params[:draw],
       recordsTotal: @user.transactions.count,
       recordsFiltered: count,
-      data: data
+      data: data.map { |d| (d["message"] = json_escape(d["message"])) && d }
     }
   end
   private
