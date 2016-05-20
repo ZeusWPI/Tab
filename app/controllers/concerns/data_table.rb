@@ -13,7 +13,7 @@ class DataTable
       draw: @params[:draw],
       recordsTotal: @user.transactions.count,
       recordsFiltered: count,
-      data: data.map { |d| (d["message"] = json_escape(d["message"])) && d }
+      data: data
     }
   end
   private
