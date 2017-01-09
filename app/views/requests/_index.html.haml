@@ -14,7 +14,7 @@
       %tr
         %td= r.creditor.name
         %td= r.issuer.name
-        %td= "€#{r.amount/100.0}"
+        %td= r.amount_f
         %td= r.message
         - if actions
           %td
