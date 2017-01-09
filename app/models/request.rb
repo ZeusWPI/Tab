@@ -14,12 +14,16 @@ class Request < ActiveRecord::Base
     Transaction.create attributes.symbolize_keys.extract!(
       :debtor_id, :creditor_id, :issuer_id, :issuer_type, :amount, :message
     )
+
+    creditor.notifications.create message: "Your request for #{amount} for \"#{message}\" has been accepted by #{debtor.name}."
+
     update_attributes status: :confirmed
   end
 
   def decline!
     return unless open?
 
+    creditor.notifications.create message: "#{debtor.name} refuses to pay #{amount} for \"#{message}\"."
     update_attributes status: :declined
   end
 

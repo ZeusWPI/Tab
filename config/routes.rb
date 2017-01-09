@@ -7,9 +7,12 @@ Rails.application.routes.draw do
 
   resources :transactions, only: [:index, :create]
   resources :users,        only: [:index, :show] do
-    resources :requests,     only: [:index], shallow: true do
+    resources :requests, only: [:index], shallow: true do
       post :confirm
       post :decline
+    end
+    resources :notifications, only: [:index], shallow: true do
+      post :read
     end
   end
 

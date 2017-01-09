@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
     class_name: 'Request', foreign_key: 'debtor_id'
   has_many :outgoing_requests,
     class_name: 'Request', foreign_key: 'debtor_id'
+  has_many :notifications
 
   has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
 

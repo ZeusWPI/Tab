@@ -19,6 +19,8 @@
                   =link_to "Zeus", User.zeus, class: "pure-menu-link"
               %li.pure-menu-item
                 = link_to 'Requests', user_requests_path(current_user), class: 'pure-menu-link'
+              %li.pure-menu-item
+                = link_to 'Notifications', user_notifications_path(current_user), class: 'pure-menu-link'
       .pure-u-1
         = render 'partials/flash'
         = yield

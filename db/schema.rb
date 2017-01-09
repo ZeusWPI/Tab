@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109123717) do
+ActiveRecord::Schema.define(version: 20170109150245) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name",       null: false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20170109123717) do
 
   add_index "clients", ["key"], name: "index_clients_on_key"
   add_index "clients", ["name"], name: "index_clients_on_name"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id",                    null: false
+    t.string   "message"
+    t.boolean  "read",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "requests", force: :cascade do |t|
     t.integer  "debtor_id",               null: false
