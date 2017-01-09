@@ -15,7 +15,7 @@ class Request < ActiveRecord::Base
       :debtor_id, :creditor_id, :issuer_id, :issuer_type, :amount, :message
     )
 
-    creditor.notifications.create message: "Your request for #{amount} for \"#{message}\" has been accepted by #{debtor.name}."
+    creditor.notifications.create message: "Your request for €#{amount/100.0} for \"#{message}\" has been accepted by #{debtor.name}."
 
     update_attributes status: :confirmed
   end
@@ -23,7 +23,7 @@ class Request < ActiveRecord::Base
   def decline!
     return unless open?
 
-    creditor.notifications.create message: "#{debtor.name} refuses to pay #{amount} for \"#{message}\"."
+    creditor.notifications.create message: "#{debtor.name} refuses to pay €#{amount/100.0} for \"#{message}\"."
     update_attributes status: :declined
   end
 
