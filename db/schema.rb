@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914095049) do
+ActiveRecord::Schema.define(version: 20170109123717) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name",       null: false
@@ -22,6 +22,22 @@ ActiveRecord::Schema.define(version: 20150914095049) do
 
   add_index "clients", ["key"], name: "index_clients_on_key"
   add_index "clients", ["name"], name: "index_clients_on_name"
+
+  create_table "requests", force: :cascade do |t|
+    t.integer  "debtor_id",               null: false
+    t.integer  "creditor_id",             null: false
+    t.integer  "issuer_id",               null: false
+    t.string   "issuer_type",             null: false
+    t.integer  "amount",      default: 0, null: false
+    t.string   "message"
+    t.integer  "status",      default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "requests", ["creditor_id"], name: "index_requests_on_creditor_id"
+  add_index "requests", ["debtor_id"], name: "index_requests_on_debtor_id"
+  add_index "requests", ["issuer_type", "issuer_id"], name: "index_requests_on_issuer_type_and_issuer_id"
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "debtor_id",                null: false

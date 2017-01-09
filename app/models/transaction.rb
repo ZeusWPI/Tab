@@ -42,6 +42,10 @@ class Transaction < ActiveRecord::Base
     self.amount *= -1
   end
 
+  def info
+    attributes.symbolize_keys.extract!(:debtor_id, :creditor_id, :issuer_id, :issuer_type, :message, :amount)
+  end
+
   private
 
   def recalculate_balances

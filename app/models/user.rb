@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     class_name: 'Transaction', foreign_key: 'creditor_id'
   has_many :outgoing_transactions,
     class_name: 'Transaction', foreign_key: 'debtor_id'
+  has_many :incoming_requests,
+    class_name: 'Request', foreign_key: 'debtor_id'
+  has_many :outgoing_requests,
+    class_name: 'Request', foreign_key: 'debtor_id'
 
   has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
 
