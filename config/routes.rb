@@ -3,7 +3,11 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'callbacks'
   }
 
-  root to: 'pages#landing'
+  authenticated :user do
+    root 'pages#landing', as: :authenticated_root
+  end
+
+  root to: 'pages#sign_in'
 
   resources :transactions, only: [:index, :create]
   resources :users,        only: [:index, :show] do

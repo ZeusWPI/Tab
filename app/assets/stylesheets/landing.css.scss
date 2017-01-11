@@ -42,3 +42,51 @@ a.login-button {
 .shame-percentage {
   text-align: right
 }
+
+.transaction {
+  border-bottom: 1px solid #c7d0d5;
+  padding: 15px 10px;
+  font-size: 16px;
+  color: rgb(45, 54, 59);
+
+  .transaction-calendar {
+    float: left;
+    text-align: center;
+    color: #adbac2;
+    line-height: 1.1;
+    margin-top: 0.125em;
+
+    .transaction-day {
+      font-size: 1.125em;
+      display: block;
+    }
+
+    .transaction-month {
+      font-size: 0.750em;
+      text-transform: uppercase;
+      display: block;
+    }
+  }
+
+  .transaction-block {
+    padding-left: 3.500em;
+
+    .transaction-block-l {
+      width: 75%;
+      float: left;
+
+      .transaction-message {
+        margin: 0;
+        color: #0072ae;
+        font-size: 1em;
+        text-transform: uppercase;
+      }
+    }
+
+    .transaction-block-r {
+      width: 25%;
+      float: left;
+      text-align: right;
+    }
+  }
+}

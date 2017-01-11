@@ -18,7 +18,7 @@ module BaseTransaction
   end
 
   def amount_f
-    number_to_currency amount/100.0, unit: '€'
+    euro_from_cents amount
   end
 
   private
