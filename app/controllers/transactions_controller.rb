@@ -19,6 +19,7 @@ class TransactionsController < ApplicationController
       end
     else
       request = Request.new @transaction.info
+      authorize!(:create, request)
       if request.save
         render json: request, status: :created
       else
