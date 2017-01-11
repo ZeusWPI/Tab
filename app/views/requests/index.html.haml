@@ -1,0 +1,3 @@
+= render 'index', actions: true, title: 'Open Requests', requests: @requests['open']
+= render 'index', actions: false, title: 'Confirmed Requests', requests: @requests['confirmed'] 
+= render 'index', actions: false, title: 'Declined Requests', requests: @requests['declined']

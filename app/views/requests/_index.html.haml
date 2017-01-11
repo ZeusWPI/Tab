@@ -1,0 +1,25 @@
+%h4= title
+%table.pure-table
+  %thead
+    %tr
+      %th Peer
+      %th Issuer
+      %th Amount
+      %th Message
+      - if actions
+        %th Accept
+        %th Decline
+  %tbody
+    - (requests || []).each do |r|
+      %tr
+        %td= r.creditor.name
+        %td= r.issuer.name
+        %td= r.amount_f
+        %td= r.message
+        - if actions
+          %td
+            = link_to request_confirm_path(r), method: :post do
+              %span.glyphicon.glyphicon-ok
+          %td
+            = link_to request_decline_path(r), method: :post do
+              %span.glyphicon.glyphicon-remove

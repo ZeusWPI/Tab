@@ -5,5 +5,4 @@ class PagesController < ApplicationController
   def landing
     @statistics = Statistics.new
   end
-
 end
