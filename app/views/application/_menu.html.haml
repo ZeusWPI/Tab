@@ -1,0 +1,13 @@
+.pure-u-1
+  .pure-menu.pure-menu-horizontal
+    = link_to "Tab", root_path, class: "pure-menu-heading pure-menu-link"
+    %ul.pure-menu-list
+      %li.pure-menu-item
+        = link_to current_user.name.capitalize, current_user, class: "pure-menu-link"
+        - if current_user.penning
+          %li.pure-menu-item
+            =link_to "Zeus", User.zeus, class: "pure-menu-link"
+        %li.pure-menu-item
+          = link_to "Requests (#{current_user.incoming_requests.size})", user_requests_path(current_user), class: 'pure-menu-link'
+        %li.pure-menu-item
+          = link_to "Notifications (#{current_user.notifications.size})", user_notifications_path(current_user), class: 'pure-menu-link'

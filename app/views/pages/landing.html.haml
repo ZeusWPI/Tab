@@ -1,18 +1,18 @@
 %h1.columns-title Tab
 = javascript_include_tag "//www.google.com/jsapi", "chartkick"
 - unless user_signed_in?
-  .pure-g
-    .pure-u-1-2.left-column
+  .pure-g.landing_columns
+    .pure-u-1.pure-u-md-1-2
       %h2 Authentication
       %p Log een keer in en betaal uw schulden!
       %p= link_to "Log in met Zeus WPI", user_omniauth_authorize_path(:zeuswpi), class: "pure-button pure-button-primary login-button"
-    .pure-u-1-2.right-column
+    .pure-u-1.pure-u-md-1-2
       %h2 Pie of Shame
       = pie_chart @statistics.shamehash
 - else
   %h2.columns-title Cute Little Statistics
   .pure-g
-    .pure-u-1-2.landing-column
+    .pure-u-1.pure-u-md-1-2.landing-column
       %h3.columns-title Pie of Shame
       = pie_chart @statistics.shamehash
       %h3.columns-title Table of Shame
@@ -27,7 +27,7 @@
               // Won't divide by zero because there won't be any users with
               // a shameful debt if the total debt is zero.
               %td.shame-percentage= "#{-100 * user.balance / @statistics.total_debt}%"
-    .pure-u-1-2.landing-column
+    .pure-u-1.pure-u-md-1-2.landing-column
       %h3.columns-title Distribution of Debt Sources
       = pie_chart @statistics.by_issuer
       %h3.columns-title Top Debt Creators

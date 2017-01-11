@@ -1,6 +1,4 @@
-
 class Statistics < Rails::Application
-
   def shameful_users
     User.humans
       .where('-balance > :amount', amount: config.shameful_balance)
@@ -32,12 +30,5 @@ class Statistics < Rails::Application
       .count
       .take([shameful_users.count, 4].max)
   end
-
-  private
-
-  def zeus_balance
-    User.zeus.balance
-  end
-
 end
 
