@@ -1,17 +1,19 @@
 .pure-u-1
-  .pure-menu.pure-menu-horizontal
-    = link_to "Tab", root_path, class: "pure-menu-heading pure-menu-link"
-    %ul.pure-menu-list
-      %li.pure-menu-item
-        = link_to current_user.name.capitalize, current_user, class: "pure-menu-link"
-        - if current_user.penning
-          %li.pure-menu-item
-            =link_to "Zeus", User.zeus, class: "pure-menu-link"
-          %li.pure-menu-item
-            = link_to "Requests (#{User.zeus.incoming_requests.size})", user_requests_path(User.zeus), class: 'pure-menu-link'
-          %li.pure-menu-item
-            = link_to "Notifications (#{User.zeus.notifications.size})", user_notifications_path(User.zeus), class: 'pure-menu-link'
-        %li.pure-menu-item
-          = link_to "Requests (#{current_user.incoming_requests.size})", user_requests_path(current_user), class: 'pure-menu-link'
-        %li.pure-menu-item
-          = link_to "Notifications (#{current_user.notifications.size})", user_notifications_path(current_user), class: 'pure-menu-link'
+  .menu
+    = link_to 'Tab', root_path, class: 'menu-heading menu-item'
+    .menu-list
+      = link_to 'Transactions', current_user, class: 'menu-item'
+      = link_to user_requests_path(current_user), class: 'menu-item' do
+        Requests
+        %span.badge= current_user.incoming_requests.size
+      = link_to user_notifications_path(current_user), class: 'menu-item' do
+        Notifications
+        %span.badge= current_user.notifications.size
+      - if current_user.penning
+        = link_to 'Zeus', User.zeus, class: 'menu-item'
+        = link_to user_requests_path(User.zeus), class: 'menu-item' do
+          Zeus Requests
+          %span.badge= User.zeus.incoming_requests.size
+        = link_to user_notifications_path(User.zeus), class: 'menu-item' do
+          Zeus Notifications
+          %span.badge= User.zeus.notifications.size
