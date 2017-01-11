@@ -2,21 +2,14 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"}
     %title Tab
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
     .pure-g
+      = render 'menu' if current_user
       .pure-u-1
-        .pure-menu.pure-menu-horizontal
-          %ul.pure-menu-list
-            - if current_user
-              %li.pure-menu-item
-                = link_to current_user.name.capitalize, current_user, class: "pure-menu-link"
-              - if current_user.penning
-                %li.pure-menu-item
-                  =link_to "Zeus", User.zeus, class: "pure-menu-link"
-      .pure-u-1
-        = render 'partials/flash'
+        = render 'flash'
         = yield
