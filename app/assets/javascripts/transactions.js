@@ -34,6 +34,12 @@ ready = function() {
       render: function(data, type, full, meta) {
         return (data/100).toFixed(2);
       }
+    },
+    {
+      targets: 4,
+      render: function(data, type, full, meta) {
+        return new Option(data).innerHTML
+      }
     }
     ]
   });
