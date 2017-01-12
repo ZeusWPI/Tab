@@ -1,0 +1,87 @@
+$step-color: #b5b5b5;;
+$step-padding-top: 3px;
+$step-width: 26px;
+
+#transaction-form {
+  .form-step {
+    margin-bottom: 10px;
+
+    .form-step-counter {
+      float: left;
+      font-size: 16px;
+      font-weight: bold;
+      vertical-align: middle;
+      white-space: nowrap;
+      text-align: center;
+      display: inline-block;
+      min-width: 10px;
+      padding: $step-padding-top 7px;
+      height: $step-width;
+      width: $step-width;
+      background: $step-color;
+      color: #fff;
+      position: relative;
+      border-radius: 50%;
+    }
+
+    .form-step-content {
+      margin-left: $step-width + 10px;
+      width: 100%;
+
+      .form-step-title {
+        display: inline-block;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .form-options {
+        & > div {
+          border: 1px solid #000;
+          display: inline-block;
+          width: 40%;
+          margin-right: 10px;
+          padding: 20px;
+          text-align: center;
+        }
+      }
+
+      .suggestions-wrapper {
+        position: relative;
+
+        input.active {
+          border-radius: 6px 6px 0 0;
+        }
+
+        .suggestions {
+          position: absolute;
+          top: 100%;
+          width: 100%;
+          border: 1px solid #ccc;
+          border-top: 0;
+          border-radius: 0 0 6px 6px;
+          background: #fff;
+          z-index: 2;
+
+          .suggestion {
+            cursor: pointer;
+            padding: 5px 8px;
+
+            &:hover {
+              background-color: #f7f7f7;
+            }
+
+            &:last-child {
+              border-radius: 0 0 6px 6px;
+            }
+          }
+        }
+      }
+
+      .btn {
+        &:focus, &:active {
+          outline: 0;
+        }
+      }
+    }
+  }
+}

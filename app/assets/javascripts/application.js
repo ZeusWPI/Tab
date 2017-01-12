@@ -18,6 +18,9 @@
 //= require select2
 //= require jquery-dateFormat
 //= require turbolinks
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .
 
 ready = function() {

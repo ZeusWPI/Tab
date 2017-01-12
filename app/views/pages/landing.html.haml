@@ -3,8 +3,8 @@
     = render 'transactions'
   .pure-u-5-12
     .card-wrapper
-      .card
-        nieuwe transactie
+      .card.padded
+        = react_component 'TransactionForm', user: current_user, peers: User.all.order(:name).pluck(:name)
     .card-wrapper
       .card
         requests
