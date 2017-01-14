@@ -10,21 +10,21 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
     @transaction.reverse if @transaction.amount < 0
 
-    if can? :create, @transaction
-      if @transaction.save
-        render json: @transaction, status: :created
-      else
-        render json: @transaction.errors.full_messages,
-          status: :unprocessable_entity
+    unless can? :create, @transaction
+      @transaction = Request.new @transaction.info
+      authorize!(:create, @transaction)
+    end
+
+    if @transaction.save
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { render json: @transaction, status: :created }
       end
     else
-      request = Request.new @transaction.info
-      authorize!(:create, request)
-      if request.save
-        render json: request, status: :created
-      else
-        render json: request.errors.full_messages,
-          status: :unprocessable_entity
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { render json: @transaction.errors.full_messages,
+        status: :unprocessable_entity }
       end
     end
   end

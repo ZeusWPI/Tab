@@ -8,7 +8,9 @@ module BaseTransaction
     belongs_to :creditor, class_name: 'User'
     belongs_to :issuer,   polymorphic: true
 
-    validates :amount, numericality: { greater_than: 0 }
+    validates :debtor,   presence: true
+    validates :creditor, presence: true
+    validates :amount,   numericality: { greater_than: 0 }
     validate :different_debtor_creditor
   end
 
