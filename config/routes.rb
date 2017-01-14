@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     root 'pages#landing', as: :authenticated_root
   end
 
-  root to: 'pages#sign_in'
+  root to: 'pages#sign_in_page'
 
   resources :transactions, only: [:index, :create]
   resources :users,        only: [:index, :show] do

@@ -5,10 +5,10 @@
       = link_to 'Transactions', current_user, class: 'menu-item'
       = link_to user_requests_path(current_user), class: 'menu-item' do
         Requests
-        %span.badge= current_user.incoming_requests.size
+        %span.badge= current_user.incoming_requests.open.size
       = link_to user_notifications_path(current_user), class: 'menu-item' do
         Notifications
-        %span.badge= current_user.notifications.size
+        %span.badge= current_user.notifications.unread.size
       - if current_user.penning
         = link_to 'Zeus', User.zeus, class: 'menu-item'
         = link_to user_requests_path(User.zeus), class: 'menu-item' do

@@ -13,6 +13,8 @@
 class Notification < ActiveRecord::Base
   belongs_to :user
 
+  scope :unread, -> { where read: false }
+
   def read!
     update_attributes read: true
   end

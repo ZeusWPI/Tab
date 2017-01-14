@@ -2,13 +2,6 @@
   .pure-u-7-12
     = render 'transactions'
   .pure-u-5-12
-    .card-wrapper
-      .card.padded
-        = react_component 'TransactionForm', user: current_user, peers: User.all.order(:name).pluck(:name)
-    .card-wrapper
-      .card
-        requests
-    .card-wrapper
-      .card
-        notifications
-
+    = render 'transaction_form'
+    = render 'requests'
+    = render 'notifications'

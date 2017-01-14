@@ -90,3 +90,22 @@ a.login-button {
     }
   }
 }
+
+.request {
+  h4 {
+    margin: 0;
+    color: #0072ae;
+    font-size: 1em;
+    text-transform: uppercase;
+  }
+
+}
+
+.notification ,.request {
+  border-top: 1px solid #c7d0d5;
+  padding: 15px 10px;
+
+  .actions {
+    text-align: right;
+  }
+}

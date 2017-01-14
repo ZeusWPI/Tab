@@ -1,6 +1,7 @@
 module BaseTransaction
   extend ActiveSupport::Concern
   include ActionView::Helpers::NumberHelper
+  include ApplicationHelper
 
   included do
     belongs_to :debtor,   class_name: 'User'
