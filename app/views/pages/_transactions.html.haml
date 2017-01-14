@@ -13,6 +13,9 @@
               = t[:message]
             .transaction-peer
               = t[:peer]
+              - if t[:peer] != t[:issuer]
+                .transaction-issuer
+                  = "issued by #{t[:issuer]}"
           .transaction-block-r
             = euro_from_cents t[:amount]
           .clear-both
