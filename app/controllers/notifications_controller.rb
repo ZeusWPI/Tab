@@ -10,7 +10,7 @@ class NotificationsController < ApplicationController
 
   def read
     @notification.read!
-    redirect_to user_notifications_path(@notification.user)
+    redirect_to root_path
   end
 
   private

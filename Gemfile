@@ -95,3 +95,4 @@ gem 'high_voltage', '~> 2.4.0'
 gem 'airbrake'
 
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'react-rails'

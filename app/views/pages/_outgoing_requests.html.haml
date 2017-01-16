@@ -1,0 +1,17 @@
+.card-wrapper
+  - if @outgoing_requests.any?
+    .card
+      .padded
+        %h3 Outgoing Requests
+      - @outgoing_requests.each do |r|
+        .request.pure-g
+          .pure-u-2-3
+            %h4= r.message
+            = r.debtor.name
+          .pure-u-1-3.actions
+            = euro_from_cents r.amount
+          .clear-both
+  - else
+    .card.padded
+      %span.info-message
+        You have no open outgoing requests at the moment.

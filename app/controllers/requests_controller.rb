@@ -10,12 +10,12 @@ class RequestsController < ApplicationController
 
   def confirm
     @request.confirm!
-    redirect_to user_requests_path(@request.debtor)
+    redirect_to root_path
   end
 
   def decline
     @request.decline!
-    redirect_to user_requests_path(@request.debtor)
+    redirect_to root_path
   end
 
   private

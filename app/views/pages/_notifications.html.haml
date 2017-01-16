@@ -1,0 +1,16 @@
+.card-wrapper
+  - if @notifications.any?
+    .card
+      .padded
+        %h3 Notifications
+      - @notifications.each do |n|
+        .notification.pure-g
+          .pure-u-11-12
+            = n.message
+          .pure-u-1-12.actions
+            = link_to notification_read_path(n), method: :post do
+              %span.glyphicon.glyphicon-eye-open
+  - else
+    .card.padded
+      %span.info-message
+        You have no unread notifications.

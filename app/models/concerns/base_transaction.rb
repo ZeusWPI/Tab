@@ -1,13 +1,16 @@
 module BaseTransaction
   extend ActiveSupport::Concern
   include ActionView::Helpers::NumberHelper
+  include ApplicationHelper
 
   included do
     belongs_to :debtor,   class_name: 'User'
     belongs_to :creditor, class_name: 'User'
     belongs_to :issuer,   polymorphic: true
 
-    validates :amount, numericality: { greater_than: 0 }
+    validates :debtor,   presence: true
+    validates :creditor, presence: true
+    validates :amount,   numericality: { greater_than: 0 }
     validate :different_debtor_creditor
   end
 
@@ -18,7 +21,7 @@ module BaseTransaction
   end
 
   def amount_f
-    number_to_currency amount/100.0, unit: '€'
+    euro_from_cents amount
   end
 
   private
