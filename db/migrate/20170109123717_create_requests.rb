@@ -14,9 +14,9 @@ class CreateRequests < ActiveRecord::Migration
       end
     end
 
-    add_index :requests, :debtor_id   unless index_exists?(:requests, :debtor)
-    add_index :requests, :creditor_id unless index_exists?(:requests, :creditor)
-    add_index :requests, [:issuer_type, :issuer_id] unless index_exists?(:requests, :issuer)
+    add_index :requests, :debtor_id   unless index_exists?(:requests, :debtor_id)
+    add_index :requests, :creditor_id unless index_exists?(:requests, :creditor_id)
+    add_index :requests, [:issuer_type, :issuer_id] unless index_exists?(:requests, [:issuer_type, :issuer_id])
 
     add_foreign_key :requests, :users, column: :creditor_id
     add_foreign_key :requests, :users, column: :debtor_id
