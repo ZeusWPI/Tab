@@ -12,7 +12,7 @@ class CreateRequests < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_foreign_key :request, :users, column: :creditor_id
-    add_foreign_key :request, :users, column: :debtor_id
+    add_foreign_key :requests, :users, column: :creditor_id
+    add_foreign_key :requests, :users, column: :debtor_id
   end
 end
