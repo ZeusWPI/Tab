@@ -1,5 +1,7 @@
 { button, div, form, h3, input, option, select } = React.DOM
-window = @window
+
+url = (path) ->
+  "#{@window.base_url}/#{path}"
 
 Action = React.createFactory React.createClass
   buttonClass: (b) ->
@@ -185,7 +187,7 @@ Step = React.createFactory React.createClass
 
     div id: 'transaction-form',
       h3 null, 'Transfer some money'
-      form ref: 'form', action: "#{window.base_url}/transactions", acceptCharset: 'UTF-8', method: 'post',
+      form ref: 'form', action: url('transactions'), acceptCharset: 'UTF-8', method: 'post',
         Step step: 1, title: 'What do you want to do?',
           Action giving: giving, setAction: @setAction
         if step >= 2
