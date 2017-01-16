@@ -18,4 +18,5 @@
           Zeus Notifications
           %span.badge= User.zeus.notifications.size
     .menu-list.menu-right
-      = link_to 'Sign out', sign_out_path, method: :delete, class: 'menu-item'
+      %span.menu-item= euro_from_cents current_user.balance
+      = link_to 'Sign out', sign_out_path, method: :delete, class: 'menu-item menu-item-signout'
