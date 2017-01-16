@@ -1,15 +1,17 @@
 class CreateRequests < ActiveRecord::Migration
   def change
-    create_table :requests do |t|
-      t.references :debtor,   null: false
-      t.references :creditor, null: false
-      t.references :issuer,   polymorphic: true, null: false
-      t.integer :amount, null: false, default: 0
-      t.string :message
+    unless table_exists? :requests
+      create_table :requests do |t|
+        t.references :debtor,   null: false
+        t.references :creditor, null: false
+        t.references :issuer,   polymorphic: true, null: false
+        t.integer :amount, null: false, default: 0
+        t.string :message
 
-      t.integer :status, default: 0
+        t.integer :status, default: 0
 
-      t.timestamps null: false
+        t.timestamps null: false
+      end
     end
 
     add_index :requests, :debtor_id   unless index_exists?(:requests, :debtor)
