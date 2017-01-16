@@ -17,3 +17,5 @@
         = link_to user_notifications_path(User.zeus), class: 'menu-item' do
           Zeus Notifications
           %span.badge= User.zeus.notifications.size
+    .menu-list.menu-right
+      = link_to 'Sign out', sign_out_path, method: :delete, class: 'menu-item'

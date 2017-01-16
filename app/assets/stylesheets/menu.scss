@@ -32,6 +32,21 @@ $color: #777;
     margin: 0;
     padding: 0;
 
+    &.menu-right {
+      float: right;
+
+      .menu-item {
+        &:hover {
+          background-color: red;
+          color: white;
+        }
+
+        &:last-child {
+          border-right: 0;
+        }
+      }
+    }
+
     .menu-item {
       border-right: 1px dotted $border-color;
 

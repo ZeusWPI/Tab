@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'callbacks'
   }
 
+  devise_scope :user do
+    delete '/sign_out', to: 'devise/sessions#destroy'
+  end
+
   authenticated :user do
     root 'pages#landing', as: :authenticated_root
   end
