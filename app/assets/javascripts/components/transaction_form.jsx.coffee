@@ -1,7 +1,9 @@
 { button, div, form, h3, input, option, select } = React.DOM
 
 url = (path) ->
-  "#{@window.base_url}/#{path}"
+  "#{window.base_url || ''}/#{path}"
+
+console.log url('transactions')
 
 Action = React.createFactory React.createClass
   buttonClass: (b) ->
