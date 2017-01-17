@@ -3,8 +3,6 @@
 url = (path) ->
   "#{window.base_url || ''}/#{path}"
 
-console.log url('transactions')
-
 Action = React.createFactory React.createClass
   buttonClass: (b) ->
     { giving }  = @props
