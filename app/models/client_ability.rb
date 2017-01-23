@@ -6,5 +6,6 @@ class ClientAbility
 
     can :create, Transaction if client.has_role? :create_transactions
     can :create, Request
+    can :read, User
   end
 end
