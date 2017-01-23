@@ -96,3 +96,4 @@ gem 'airbrake'
 
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'react-rails'
+gem 'rolify'

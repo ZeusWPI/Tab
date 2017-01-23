@@ -223,6 +223,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rolify (5.1.0)
     rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.1)
@@ -326,6 +327,7 @@ DEPENDENCIES
   purecss-rails
   rails (= 4.2.4)
   react-rails
+  rolify
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
