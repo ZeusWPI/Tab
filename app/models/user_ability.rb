@@ -9,7 +9,7 @@ class UserAbility
     can :manage, Request,      creditor_id: user.id
     can :manage, Notification, user_id: user.id
     can :create, Transaction do |t|
-      t.debtor == user && t.amount <= Rails.application.config.maximum_amount
+      t.debtor == user && (t.debtor.balance - t.amount >= 0 || t.debtor.debt_allowed?)
     end
   end
 end
