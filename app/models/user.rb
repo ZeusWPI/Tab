@@ -13,7 +13,7 @@
 class User < ActiveRecord::Base
   include FriendlyId
   friendly_id :name, use: :finders
-  devise :timeoutable, :omniauthable, :omniauth_providers => [:zeuswpi]
+  devise :cas_authenticatable
   has_many :incoming_transactions,
     class_name: 'Transaction', foreign_key: 'creditor_id'
   has_many :outgoing_transactions,
@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
-  scope :humans, -> { where.not(id: self.zeus) }
+  scope :humans, -> { where.not(id: self.wina) }
 
   def transactions
     Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
@@ -40,14 +40,13 @@ class User < ActiveRecord::Base
     self.update_attribute :balance, balance
   end
 
-  def self.from_omniauth(auth)
-    where(name: auth.uid).first_or_create do |user|
-      user.name = auth.uid
-    end
+  def cas_extra_attributes=(extra_attributes)
+    self.name = extra_attributes['display_name']
+    self.debt_allowed = extra_attributes['permissions'].include? 'HAVE_SCHULDEN'
+    self.penning = extra_attributes['permissions'].include? 'MANAGE_SCHULDEN'
   end
 
-  def self.zeus
-    @@zeus ||= find_or_create_by name: 'Zeus'
+  def self.wina
+    @@wina ||= find_or_create_by name: 'WiNA', username: :WiNA
   end
-
 end

@@ -14,7 +14,7 @@ class Client < ActiveRecord::Base
   has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
   before_create :generate_key
 
-  validates :name, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true
 
   private
   def generate_key

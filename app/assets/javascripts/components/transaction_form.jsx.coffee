@@ -41,16 +41,22 @@ Amount = React.createFactory React.createClass
           }
 
 Peer = React.createFactory React.createClass
+  extractName: (peer) ->
+    if peer && typeof peer == 'object'
+      return peer.name
+    return peer;
+
   onChange: (ref) ->
     @props.setPeer ref.target.value
   options: ->
     { peer, peers } = @props
-    if peer == '' or peers.includes(peer)
+    peerName = @extractName(peer)
+    if peer == '' or peers.filter((t) -> t.name == peerName ).length > 0
       []
     else
-      re = new RegExp peer
+      re = new RegExp peerName
       peers.filter (s) ->
-        s.match(re) != null
+        s.name.match(re) != null
   inputClass: (n) ->
     c = ['form-control', 'input-lg']
     c.push 'active' if n > 0
@@ -66,15 +72,15 @@ Peer = React.createFactory React.createClass
           input {
             className: @inputClass(options.length),
             onChange: @onChange,
-            placeholder: 'Zeus member',
+            placeholder: 'WiNA member',
             type: 'text',
-            value: (@props.peer || '')
+            value: (@extractName(@props.peer) || '')
           }
           if options.length != 0
             div className: 'suggestions',
               @options().map (s, i) =>
                 div className: 'suggestion', key: i, onClick: @setPeer(s),
-                  s
+                  s.name
 
 Message = React.createFactory React.createClass
   onChange: (ref) ->
@@ -141,11 +147,11 @@ Step = React.createFactory React.createClass
       return
 
     if giving
-      debtor   = user.name
-      creditor = peer
+      debtor   = user.username
+      creditor = peer.username
     else
-      debtor   = peer
-      creditor = user.name
+      debtor   = peer.username
+      creditor = user.username
 
     $('<input />')
       .attr('name', 'transaction[debtor]')
@@ -175,7 +181,7 @@ Step = React.createFactory React.createClass
     unless message && message != ""
       errors['message'] = 'Please fill in a message.'
 
-    unless peer && peers.includes(peer) && peer != user
+    unless peer && peers.filter((t) -> t.name == peer.name ).length > 0 && peer != user
       errors['peer'] = 'Please select a valid Zeus member.'
 
     errors

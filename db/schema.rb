@@ -14,14 +14,14 @@
 ActiveRecord::Schema.define(version: 20170123151219) do
 
   create_table "clients", force: :cascade do |t|
-    t.string   "name",       null: false
+    t.string   "username",   null: false
     t.string   "key",        null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "clients", ["key"], name: "index_clients_on_key"
-  add_index "clients", ["name"], name: "index_clients_on_name"
+  add_index "clients", ["username"], name: "index_clients_on_username"
 
   create_table "clients_roles", id: false, force: :cascade do |t|
     t.integer "client_id"
@@ -85,14 +85,16 @@ ActiveRecord::Schema.define(version: 20170123151219) do
   add_index "transactions", ["issuer_type", "issuer_id"], name: "index_transactions_on_issuer_type_and_issuer_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "balance",    default: 0,     null: false
-    t.boolean  "penning",    default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "username"
+    t.integer  "balance",      default: 0,     null: false
+    t.string   "name",                         null: false
+    t.boolean  "debt_allowed", default: false, null: false
+    t.boolean  "penning",      default: false, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "users", ["balance"], name: "index_users_on_balance"
-  add_index "users", ["name"], name: "index_users_on_name"
+  add_index "users", ["username"], name: "index_users_on_username"
 
 end
