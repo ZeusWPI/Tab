@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -14,7 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Authentication
 gem 'devise'
-gem 'devise_cas_authenticatable'
+gem 'omniauth-oauth2'
 
 # Authorisation
 gem 'cancancan'
@@ -61,8 +63,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
 end
 
 group :development do
@@ -86,7 +86,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '~> 0.20'
+  gem 'mysql2', '~> 0.3.0'
 end
 
 gem 'high_voltage', '~> 2.4.0'

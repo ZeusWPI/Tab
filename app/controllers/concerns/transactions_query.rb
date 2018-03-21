@@ -6,7 +6,7 @@ class TransactionsQuery
     @transactions = Arel::Table.new(:transactions)
     @perspectived = Arel::Table.new(:perspectived_transactions)
     @peers = Arel::Table.new(:users).alias('peers')
-    @arel_table = Arel::Table.new("#{@user.username}_transactions")
+    @arel_table = Arel::Table.new("#{@user.name}_transactions")
   end
 
   def query
@@ -16,7 +16,7 @@ class TransactionsQuery
 
   def arel
     Arel::Nodes::TableAlias.new(
-      issued_by(User),
+      issued_by(User).union(:all, issued_by(Client)),
       arel_table.name
     )
   end

@@ -4,9 +4,9 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # Devise will use the `secret_key_base` as its `secret_key`
+  # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'a53f0fd5c5917bd1c1453a26597c4b8767ec02ae7e716f2c5513c389b5441a2a5fdd3ed82561f29579f05c6d2242979cbc7836d63bb1f38e1ab6f2c2d8ccc934'
+  # config.secret_key = 'db9dcc69d4370aba9151d435032f8263c40b2536a288267af3878a16df4b9d9f8e509f7671a39c534d0ac663f6fb9d3a879cdea867dc73053c97b36406e0a9e9'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -16,9 +16,6 @@ Devise.setup do |config|
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
-
-  # Configure the parent class responsible to send e-mails.
-  # config.parent_mailer = 'ActionMailer::Base'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -90,31 +87,19 @@ Devise.setup do |config|
   # from the server. You can disable this option at your own risk.
   # config.clean_up_csrf_token_on_authentication = true
 
-  # When false, Devise will not attempt to reload routes on eager load.
-  # This can reduce the time taken to boot the app but if your application
-  # requires the Devise mappings to be loaded during boot time the application
-  # won't boot properly.
-  # config.reload_routes = true
-
   # ==> Configuration for :database_authenticatable
-  # For bcrypt, this is the cost for hashing the password and defaults to 11. If
-  # using other algorithms, it sets how many times you want the password to be hashed.
+  # For bcrypt, this is the cost for hashing the password and defaults to 10. If
+  # using other encryptors, it sets how many times you want the password re-encrypted.
   #
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments. Note that, for bcrypt (the default
-  # algorithm), the cost increases exponentially with the number of stretches (e.g.
+  # encryptor), the cost increases exponentially with the number of stretches (e.g.
   # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
-  config.stretches = Rails.env.test? ? 1 : 11
+  config.stretches = Rails.env.test? ? 1 : 10
 
-  # Set up a pepper to generate the hashed password.
-  # config.pepper = 'c664e685c6d19495baa24a50ea811daca5acc07987f86748699ccc1f31dcae70b39744352188041ea10428d923ef58228fb93c829672e2065be91784909dd2d5'
-
-  # Send a notification to the original email when the user's email is changed.
-  # config.send_email_changed_notification = false
-
-  # Send a notification email when the user's password is changed.
-  # config.send_password_change_notification = false
+  # Setup a pepper to generate the encrypted password.
+  # config.pepper = '6246d8fa4efd376623925a6d8600b268d11ce906a667d550663fe069dbe249bd11c0f26329c1d61f58fa9a615ee738d5b0feba189b6fdc390662e45b7a39c476'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -157,12 +142,12 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 6..128
+  config.password_length = 8..72
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
-  config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  # config.email_regexp = /\A[^@]+@[^@]+\z/
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
@@ -210,11 +195,11 @@ Devise.setup do |config|
   # config.sign_in_after_reset_password = true
 
   # ==> Configuration for :encryptable
-  # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
-  # You can use :sha1, :sha512 or algorithms from others authentication tools as
-  # :clearance_sha1, :authlogic_sha512 (then you should set stretches above to 20
-  # for default behavior) and :restful_authentication_sha1 (then you should set
-  # stretches to 10, and copy REST_AUTH_SITE_KEY to pepper).
+  # Allow you to use another encryption algorithm besides bcrypt (default). You can use
+  # :sha1, :sha512 or encryptors from others authentication tools as :clearance_sha1,
+  # :authlogic_sha512 (then you should set stretches above to 20 for default behavior)
+  # and :restful_authentication_sha1 (then you should set stretches to 10, and copy
+  # REST_AUTH_SITE_KEY to pepper).
   #
   # Require the `devise-encryptable` gem when using anything other than bcrypt
   # config.encryptor = :sha512
@@ -250,7 +235,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :zeuswpi, Rails.application.secrets.omniauth_client_id, Rails.application.secrets.omniauth_client_secret
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -274,51 +259,4 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-
-  config.cas_base_url = 'https://login.wina-gent.be/cas'
-
-  # you can override these if you need to, but cas_base_url is usually enough
-  # config.cas_login_url = "https://cas.myorganization.com/login"
-  # config.cas_logout_url = "https://cas.myorganization.com/logout"
-  # config.cas_validate_url = "https://cas.myorganization.com/serviceValidate"
-
-  # The CAS specification allows for the passing of a follow URL to be displayed when
-  # a user logs out on the CAS server. RubyCAS-Server also supports redirecting to a
-  # URL via the destination param. Set either of these urls and specify either nil,
-  # 'destination' or 'follow' as the logout_url_param. If the urls are blank but
-  # logout_url_param is set, a default will be detected for the service.
-  # config.cas_destination_url = 'https://cas.myorganization.com'
-  # config.cas_follow_url = 'https://cas.myorganization.com'
-  # config.cas_logout_url_param = nil
-
-  # You can specify the name of the destination argument with the following option.
-  # e.g. the following option will change it from 'destination' to 'url'
-  # config.cas_destination_logout_param_name = 'url'
-
-  # By default, devise_cas_authenticatable will create users.  If you would rather
-  # require user records to already exist locally before they can authenticate via
-  # CAS, uncomment the following line.
-  # config.cas_create_user = false
-
-  # You can enable Single Sign Out, which by default is disabled.
-  # config.cas_enable_single_sign_out = true
-
-  # If you don't want to use the username returned from your CAS server as the unique
-  # identifier, but some other field passed in cas_extra_attributes, you can specify
-  # the field name here.
-  # config.cas_user_identifier = nil
-
-  # If you want to use the Devise Timeoutable module with single sign out,
-  # uncommenting this will redirect timeouts to the logout url, so that the CAS can
-  # take care of signing out the other serviced applocations. Note that each
-  # application manages timeouts independently, so one application timing out will
-  # kill the session on all applications serviced by the CAS.
-  # config.warden do |manager|
-  #   manager.failure_app = DeviseCasAuthenticatable::SingleSignOut::WardenFailureApp
-  # end
-
-  # If you need to specify some extra configs for rubycas-client, you can do this via:
-  # config.cas_client_config_options = {
-  #     logger: Rails.logger
-  # }
 end

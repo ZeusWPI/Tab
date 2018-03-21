@@ -42,13 +42,13 @@
         .row
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Issuer' }
-              = grouped_collection_select nil, nil, [User, Client], :all, :name, :username, :name,
+              = grouped_collection_select nil, nil, [User, Client], :all, :name, :name, :name,
                 { include_blank: true },
                 { data: { placeholder: "Filter on Issuer", width: 265 }, class: "select2-selector form-control value-thing" }
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Peer' }
               = select_tag nil,
-                options_from_collection_for_select(User.all.order(:name), :username, :name),
+                options_from_collection_for_select(User.all.order(:name), :name, :name),
                 include_blank: true, class: "select2-selector form-control value-thing", data: { placeholder: "Filter on Peer", width: 265 }
           .col-md-4
             .input-listen{ 'data-input-type': 'text', 'data-filter-name': 'Message' }

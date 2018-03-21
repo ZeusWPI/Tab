@@ -1,7 +1,7 @@
 class CreateClients < ActiveRecord::Migration
   def change
     create_table :clients do |t|
-      t.string :username, null: false, index: true, unique: true
+      t.string :name, null: false, index: true, unique: true
       t.string :key, null: false,  index: true, unique: true
 
       t.timestamps null: false
