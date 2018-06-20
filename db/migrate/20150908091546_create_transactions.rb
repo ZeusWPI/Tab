@@ -1,4 +1,4 @@
-class CreateTransactions < ActiveRecord::Migration
+class CreateTransactions < ActiveRecord::Migration[5.0]
   def change
     create_table :transactions do |t|
       t.references :debtor, index: true, null: false
