@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_01_23_151219) do
+ActiveRecord::Schema.define(version: 2018_06_20_161021) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name", null: false
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2017_01_23_151219) do
     t.boolean "penning", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "key"
     t.index ["balance"], name: "index_users_on_balance"
     t.index ["name"], name: "index_users_on_name"
   end

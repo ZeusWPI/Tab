@@ -65,3 +65,7 @@
       %th Message
   %tbody
 %h3="Zeus account number: BE32 9799 9370 6502"
+="API token: #{@user.key}"
+%br
+Example: 
+%code="curl -H \"Accept: application/json\" -H \"Authorization: Token token=#{@user.key}\" #{user_url(@user)}"
