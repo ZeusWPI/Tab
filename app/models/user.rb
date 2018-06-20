@@ -51,6 +51,16 @@ class User < ActiveRecord::Base
   end
 
   def generate_key
-    self.key = SecureRandom.base64(16) unless self.key
+    set_key unless self.key
+  end
+
+  def generate_key!
+    set_key
+    self.save
+  end
+
+  private
+  def set_key
+    self.key = SecureRandom.base64(16)
   end
 end
