@@ -4,7 +4,7 @@
   .pure-u-1.pure-u-md-1-2
     %h2 Authentication
     %p Log een keer in en betaal uw schulden!
-    %p= link_to "Log in met Zeus WPI", user_omniauth_authorize_path(:zeuswpi), class: "pure-button pure-button-primary login-button"
+    %p= link_to "Log in met Zeus WPI", user_zeuswpi_omniauth_authorize_path, class: "pure-button pure-button-primary login-button"
   .pure-u-1.pure-u-md-1-2
     %h2 Pie of Shame
     = pie_chart @statistics.shamehash

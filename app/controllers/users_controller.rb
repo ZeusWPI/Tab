@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: :create
+  skip_before_action :verify_authenticity_token, only: :create, find_by: :name
 
   before_action :authenticate_user!, except: :show
   before_action :authenticate_user_or_client!, only: :show

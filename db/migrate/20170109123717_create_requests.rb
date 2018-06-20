@@ -1,4 +1,4 @@
-class CreateRequests < ActiveRecord::Migration
+class CreateRequests < ActiveRecord::Migration[5.0]
   def change
     unless table_exists? :requests
       create_table :requests do |t|
