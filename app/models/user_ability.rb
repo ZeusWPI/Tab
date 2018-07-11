@@ -5,7 +5,7 @@ class UserAbility
     return unless user
 
     can :manage, :all if user.penning?
-    can :read,   user, id: user.id
+    can :manage, user, id: user.id
     can :manage, Request,      creditor_id: user.id
     can :manage, Notification, user_id: user.id
     can :create, Transaction do |t|

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:index], shallow: true do
       post :read
     end
+    post :reset_key, on: :member
   end
 
   get 'datatables/:id' => 'datatables#transactions_for_user', as: "user_transactions"

@@ -50,4 +50,17 @@ class User < ActiveRecord::Base
     @@zeus ||= find_or_create_by name: 'Zeus'
   end
 
+  def generate_key
+    set_key unless self.key
+  end
+
+  def generate_key!
+    set_key
+    self.save
+  end
+
+  private
+  def set_key
+    self.key = SecureRandom.base64(16)
+  end
 end
