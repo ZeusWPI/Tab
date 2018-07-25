@@ -90,7 +90,7 @@ group :production do
   gem 'mysql2', '< 0.6.0', '>= 0.4.4'
 end
 
-gem 'high_voltage', '~> 2.4.0'
+gem 'high_voltage', '~> 3.1'
 
 # Errors on errbit
 gem 'airbrake'
