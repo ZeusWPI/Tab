@@ -4,7 +4,7 @@
 set :application, 'Tab'
 set :repo_url, 'https://github.com/ZeusWPI/Tab.git'
 
-set :branch, 'herbert'
+set :branch, 'master'
 set :deploy_to, '/home/tab/production'
 
 # Default branch is :master
