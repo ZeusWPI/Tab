@@ -96,5 +96,5 @@ gem 'high_voltage', '~> 3.1'
 gem 'airbrake'
 
 gem 'bootstrap-sass', '~> 3.3.5'
-gem 'react-rails'
+gem 'react-rails', '~> 1.10.0'
 gem 'rolify'
