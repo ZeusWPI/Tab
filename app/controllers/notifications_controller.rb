@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  load_and_authorize_resource :user, only: :index, find_by: :name
+  load_and_authorize_resource :user, find_by: :name
 
   before_action :load_notification, only: :read
   authorize_resource :notification, only: :read

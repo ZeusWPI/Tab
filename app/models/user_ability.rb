@@ -5,8 +5,9 @@ class UserAbility
     return unless user
 
     can :manage, :all if user.penning?
-    can :manage, user, id: user.id
-    can :manage, Request,      creditor_id: user.id
+    can :create, Request, creditor_id: user.id
+    can [:confirm, :decline], Request, debtor_id: user.id
+    can :read, User, id: user.id
     can :manage, Notification, user_id: user.id
     can :create, Transaction do |t|
       t.debtor == user && t.amount <= Rails.application.config.maximum_amount

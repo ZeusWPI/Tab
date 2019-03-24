@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  load_and_authorize_resource :user, only: :index, find_by: :name
+  load_and_authorize_resource :user, find_by: :name
 
   before_action :load_request, only: [:confirm, :decline]
   authorize_resource :request, only: [:confirm, :decline]
