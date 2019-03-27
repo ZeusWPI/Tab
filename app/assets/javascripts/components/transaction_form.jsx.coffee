@@ -28,7 +28,7 @@ Amount = React.createFactory React.createClass
     t.value = parseFloat(t.value).toFixed(2) if t.value
   render: ->
     div className: 'row',
-      div className: 'col-xs-4',
+      div className: 'col-xs-8',
         div className: 'input-group',
           div className: 'input-group-addon', '€'
           input {
@@ -61,7 +61,7 @@ Peer = React.createFactory React.createClass
   render: ->
     options = @options()
     div className: 'row',
-      div className: 'col-xs-4',
+      div className: 'col-xs-8',
         div className: 'suggestions-wrapper',
           input {
             className: @inputClass(options.length),

@@ -23,6 +23,33 @@
   }
 }
 
+
+@media only screen and (max-width: 800px) {
+    .pure-u-7-12 {
+        float: left;
+        width: 100% !important;
+    }
+
+    .pure-u-5-12 {
+        float: left;
+        clear: both;
+        width: 100% !important;
+    }
+
+    .pure-g {
+        display: block !important;
+
+    }
+
+    .pure-u-5-12 .input-group {
+        width: 100% !important;
+    }
+
+    // .pure-u-5-12 .col-xs-4 {
+    //     width: 100% !important;
+    // }
+}
+
 a.login-button {
   font-size: 200%;
 }
