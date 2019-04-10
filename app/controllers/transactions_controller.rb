@@ -1,10 +1,12 @@
 class TransactionsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: :create
+  load_and_authorize_resource :user, find_by: :name
 
-  before_action :authenticate_user!, except: :create
-  before_action :authenticate_user_or_client!, only: :create
-
-  respond_to :js, only: :create
+  def index
+    @transactions = @user.transactions
+    respond_to do |format|
+      format.json { render json: @transactions }
+    end
+  end
 
   def create
     @transaction = Transaction.new(transaction_params)

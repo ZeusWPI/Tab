@@ -134,7 +134,7 @@ Step = React.createFactory React.createClass
     e.preventDefault()
 
     { giving, peer } = @state
-    { user }         = @props
+    { user, csrf_token } = @props
 
     errors = @errors()
     if Object.keys(errors).length != 0
@@ -155,6 +155,11 @@ Step = React.createFactory React.createClass
     $('<input />')
       .attr('name', 'transaction[creditor]')
       .attr('value', creditor)
+      .attr('type', 'hidden')
+      .appendTo(@refs.form)
+    $('<input />')
+      .attr('name', 'authenticity_token')
+      .attr('value', csrf_token)
       .attr('type', 'hidden')
       .appendTo(@refs.form)
 
