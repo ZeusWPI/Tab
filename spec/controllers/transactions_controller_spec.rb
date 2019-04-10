@@ -8,12 +8,12 @@ describe TransactionsController, type: :controller do
 
     context "with valid attributes" do
       before :each do
-        @attributes = { transaction: {
+        @attributes = { params: { transaction: {
           debtor: @debtor.name,
           creditor: @creditor.name,
           cents: 70,
           message: "hoi"
-        } }
+        } }}
       end
 
       it "should create a new transaction" do
@@ -46,12 +46,12 @@ describe TransactionsController, type: :controller do
 
     context "with float euros" do
       it "should set correct amount" do
-        post :create, transaction: {
+        post :create, params: { transaction: {
           debtor: @debtor.name,
           creditor: @creditor.name,
           euros: 10.5,
           message: "Omdat je een leuke jongen bent!"
-        }
+        }}
         expect(Transaction.last.amount).to eq(1050)
       end
     end
@@ -59,7 +59,7 @@ describe TransactionsController, type: :controller do
     context "with negative amount" do
       it "should be refused" do
         expect do
-          post :create, transaction: attributes_for(:transaction, cents: -20)
+          post :create, params: {transaction: attributes_for(:transaction, cents: -20)}
         end.not_to change { Transaction.count }
       end
     end
@@ -67,12 +67,12 @@ describe TransactionsController, type: :controller do
     context "for other user" do
       it "should be refused" do
         expect do
-          post :create, transaction: {
+          post :create, params:{ transaction: {
             debtor: @creditor.name,
             creditor: @debtor.name,
             euros: 10000000,
             message: "DIT IS OVERVAL"
-          }
+          }}
         end.not_to change { Transaction.count }
       end
     end
