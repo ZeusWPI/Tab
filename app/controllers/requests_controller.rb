@@ -6,6 +6,10 @@ class RequestsController < ApplicationController
 
   def index
     @requests = @user.incoming_requests.group_by(&:status)
+    respond_to do |format|
+      format.html { }
+      format.json { render json: @requests }
+    end
   end
 
   def confirm

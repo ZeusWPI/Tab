@@ -55,7 +55,7 @@
               %input.live-updating.value-thing{type: 'text', placeholder: 'Filter on Message',
                 class: "form-control" }
 
-%table#transactions.pure-table.pure-table-striped{data: { source: user_transactions_path(@user) }}
+%table#transactions.pure-table.pure-table-striped{data: { source: user_transactions_datatable_path(@user) }}
   %thead
     %tr
       %th Time
