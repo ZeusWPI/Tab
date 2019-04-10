@@ -84,6 +84,7 @@ end
 
 group :test do
   gem 'coveralls', require: false
+  gem 'rails-controller-testing', require: false
 end
 
 group :production do
@@ -98,3 +99,4 @@ gem 'airbrake'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'react-rails', '~> 1.10.0'
 gem 'rolify'
+gem 'rails-controller-testing'

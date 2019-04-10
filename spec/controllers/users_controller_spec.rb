@@ -6,7 +6,7 @@ describe UsersController, type: :controller do
 
   describe "GET show" do
     before :each do
-      get :show, id: @user
+      get :show, params: {id: @user}
     end
 
     it "should be successful" do
