@@ -4,7 +4,18 @@ class TransactionsController < ApplicationController
   def index
     @transactions = @user.transactions
     respond_to do |format|
-      format.json { render json: @transactions }
+      format.json {
+          render json: @transactions.map {|t| {
+              :id => t.id,
+              :debtor => t.debtor.name,
+              :creditor => t.creditor.name,
+              :time => t.updated_at,
+              :amount => t.amount,
+              :message => t.message,
+              :issuer => t.issuer.name
+        }
+      }
+  }
     end
   end
 
