@@ -12,7 +12,7 @@ class Statistics < Rails::Application
   def shamehash
     none_shaming = total_debt + shameful_users.sum(:balance)
     shameful_users.inject({'Reputable users' => none_shaming.to_f / total_debt}) do |h, u|
-      h.merge({u.name => - u.balance.to_f / total_debt})
+      h.merge({u.name => - u.balance.to_f / total_debt * 100.0})
     end
   end
 
@@ -31,4 +31,3 @@ class Statistics < Rails::Application
       .take([shameful_users.count, 4].max)
   end
 end
-
