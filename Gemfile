@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Needed for deployment somehow
+gem 'bcrypt_pbkdf'
+gem "ed25519"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.0'
