@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user_or_client!
-    current_user || current_client || user_token || redirect_to(root_path, flash: { notice: "You have been redirected." })
+    user_token || current_client || current_user || redirect_to(root_path, flash: { notice: "You have been redirected." })
   end
 
   def current_client
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||=
       current_client.try { |c| ClientAbility.new(c) } ||
-      UserAbility.new(current_user || user_token)
+      UserAbility.new(user_token || current_user)
   end
 
   def user_token
