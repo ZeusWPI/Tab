@@ -49,8 +49,8 @@ class TransactionsController < ApplicationController
           .permit(:debtor, :creditor, :message, :euros, :cents, :id_at_client)
 
     {
-      debtor: t[:debtor] ? User.find_or_create_by(name: t[:debtor]) : User.zeus,
-      creditor: t[:creditor] ? User.find_or_create_by(name: t[:creditor]) : User.zeus,
+      debtor: t[:debtor] ? User.find_by(name: t[:debtor]) : User.zeus,
+      creditor: t[:creditor] ? User.find_by(name: t[:creditor]) : User.zeus,
       issuer: authenticate_user_or_client!,
       amount: (t[:euros].to_f * 100 + t[:cents].to_f).to_i,
       message: t[:message],
