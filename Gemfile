@@ -103,3 +103,5 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'react-rails', '~> 1.10.0'
 gem 'rolify'
 gem 'rails-controller-testing'
+
+gem "rpush", "~> 4.1"
