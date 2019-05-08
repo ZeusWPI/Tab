@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     end
     resources :transactions, only: [:index], shallow: true
     post :reset_key, on: :member
+    post :add_registration_token, on: :member
   end
 
   get 'datatables/:id' => 'datatables#transactions_for_user', as: "user_transactions_datatable"
