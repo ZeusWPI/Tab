@@ -36,12 +36,9 @@ class Notification < ActiveRecord::Base
       n = Rpush::Gcm::Notification.new
       n.app = Rpush::Gcm::App.find_by_name("tappb")
       n.registration_ids = user.android_device_registration_tokens.all.map{|r| r.token}
-      n.data = { message: message }
+      n.data = { body: message, title: "Tabbp notification" }
       n.priority = 'high'
       n.content_available = true
-      n.notification = { body: message,
-                        title: "Tabbp notification",
-                       }
       n.save!
 
 
