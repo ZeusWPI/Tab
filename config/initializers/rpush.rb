@@ -7,7 +7,7 @@ Rpush.configure do |config|
   # config.redis_options = {}
 
   # Frequency in seconds to check for new notifications.
-  config.push_poll = 2
+  config.push_poll = 10
 
   # The maximum number of notifications to load from the store every `push_poll` seconds.
   # If some notifications are still enqueued internally, Rpush will load the batch_size less
