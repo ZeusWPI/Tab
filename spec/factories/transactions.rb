@@ -14,7 +14,7 @@
 #  id_at_client :integer
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :transaction do
     association :debtor, factory: :user
     association :creditor, factory: :user

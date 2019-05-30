@@ -22,7 +22,7 @@ Coveralls.wear!('rails')
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'factory_girl'
+require 'factory_bot'
 require 'devise'
 
 Dir[File.join(File.dirname(__FILE__), 'support', '**', '*.rb')].each do |f|
@@ -30,7 +30,7 @@ Dir[File.join(File.dirname(__FILE__), 'support', '**', '*.rb')].each do |f|
 end
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
 
   # rspec-expectations config goes here. You can use an alternate

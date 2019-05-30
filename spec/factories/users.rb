@@ -10,12 +10,12 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     name { Faker::Internet.user_name }
 
     factory :penning do
-      penning true
+      penning { true }
     end
   end
 end

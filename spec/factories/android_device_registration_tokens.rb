@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :android_device_registration_token do
-    token "MyString"
-    user nil
+    token { Faker::Lorem.word }
+    association :user
   end
 end
