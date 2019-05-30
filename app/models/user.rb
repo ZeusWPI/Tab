@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   scope :humans, -> { where.not(id: self.zeus) }
 
   def transactions
-    Transaction.where("creditor_id = ? OR debtor_id = ?", id, id)
+    Transaction.where('creditor_id = ?', id).or(Transaction.where('debtor_id = ?', id))
   end
 
   def calculate_balance!
