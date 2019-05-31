@@ -7,6 +7,7 @@ class UserAbility
     can :manage, :all if user.penning?
     can :create, Request, creditor_id: user.id
     can [:confirm, :decline], Request, debtor_id: user.id
+    can :cancel, Request, issuer_id: user.id
     can [:read, :reset_key, :add_registration_token], User, id: user.id
     can :manage, Notification, user_id: user.id
     can :create, Transaction do |t|

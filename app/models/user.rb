@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     Transaction.where('creditor_id = ?', id).or(Transaction.where('debtor_id = ?', id))
   end
 
+  def requests
+    Request.where('debtor_id = ?', id).or(Request.where('creditor_id = ?', id).or(Request.where('issuer_id = ?', id)))
+  end
+
   def calculate_balance!
     balance = incoming_transactions.sum(:amount) -
                 outgoing_transactions.sum(:amount)
