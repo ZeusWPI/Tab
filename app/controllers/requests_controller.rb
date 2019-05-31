@@ -2,7 +2,7 @@ class RequestsController < ApplicationController
   load_and_authorize_resource :user, find_by: :name
 
   before_action :load_request, only: [:confirm, :decline]
-  authorize_resource :request, only: [:confirm, :decline]
+  authorize_resource :request, id_param: :request_id, only: [:confirm, :decline]
 
   def index
     @requests = @user.incoming_requests.group_by(&:status)
