@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :requests, only: [:index], shallow: true do
       post :confirm
       post :decline
+      post :cancel
     end
     resources :notifications, only: [:index], shallow: true do
       post :read
