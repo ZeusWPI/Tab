@@ -16,7 +16,11 @@
 
 FactoryBot.define do
   factory :request do
-    
+    status { :open }
+    association :issuer, factory: :user, name: 'Issuer'
+    association :debtor, factory: :user, name: 'Debtor'
+    association :creditor, factory: :user, name: 'Creditor'
+    amount { 5 }
   end
 
 end
