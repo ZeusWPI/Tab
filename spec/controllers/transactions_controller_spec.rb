@@ -64,13 +64,27 @@ describe TransactionsController, type: :controller do
       end
     end
 
+    context "with way to much money" do
+      it "should be refused" do
+        expect do
+          post :create, params:{ transaction: {
+            debtor: @debtor.name,
+            creditor: @creditor.name,
+            euros: 100000000000000,
+          message: "VEEL GELD"
+        }}
+        end.not_to change { Transaction.count }
+      end
+    end
+
+
     context "for other user" do
       it "should be refused" do
         expect do
           post :create, params:{ transaction: {
             debtor: @creditor.name,
             creditor: @debtor.name,
-            euros: 10000000,
+            euros: 10,
             message: "DIT IS OVERVAL"
           }}
         end.not_to change { Transaction.count }
