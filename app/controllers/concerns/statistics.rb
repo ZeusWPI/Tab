@@ -10,10 +10,16 @@ class Statistics < Rails::Application
   end
 
   def shamehash
-    none_shaming = total_debt + shameful_users.sum(:balance)
-    shameful_users.inject({'Reputable users' => none_shaming.to_f / total_debt}) do |h, u|
+    debt_users = shameful_users.inject({}) do |h, u|
       h.merge({u.name => - u.balance.to_f / total_debt * 100.0})
     end
+    .select { |key, value| value > 2 }
+    .transform_values! { |value| value.floor }
+
+    total_displayed_debt_pct = debt_users.values.inject(0) {|a,b| a+b}
+
+    debt_users["Other users"] = 100 - total_displayed_debt_pct
+    debt_users
   end
 
   def by_issuer
