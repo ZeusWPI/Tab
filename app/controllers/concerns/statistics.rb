@@ -10,16 +10,32 @@ class Statistics < Rails::Application
   end
 
   def shamehash
+    # Make a hash of all users and their debt
+    #  only include them if their percentage is big enough
     debt_users = shameful_users.inject({}) do |h, u|
       h.merge({u.name => - u.balance.to_f / total_debt * 100.0})
     end
-    .select { |key, value| value > 2 }
-    .transform_values! { |value| value.floor }
+    .select { |user, debtpct| debtpct > 2 }
 
-    total_displayed_debt_pct = debt_users.values.inject(0) {|a,b| a+b}
+    # Sum of percentages that will be displayed
+    total_displayed_debt_pct = debt_users.values.reduce(0) {|a,b| a+b}
 
     debt_users["Other users"] = 100 - total_displayed_debt_pct
-    debt_users
+
+    rounded_debts = debt_users.transform_values { |debtpct| debtpct.floor }
+    rounded_deficit = 100 - rounded_debts.values.reduce(0) {|a,b| a+b}
+
+    # Sort decending by amount after fraction of debt percentage
+    #  then award users percentage points based on their ranking
+    debt_users.sort_by { |k, v| -(v - v.floor) }
+              .first(rounded_deficit)
+              .each do |k|
+                  rounded_debts[k[0]] += 1
+              end
+    if rounded_debts["Other users"] == 0
+        rounded_debts.delete("Other users")
+    end
+    return rounded_debts
   end
 
   def by_issuer
