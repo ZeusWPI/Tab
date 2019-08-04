@@ -25,21 +25,26 @@ class Notification < ActiveRecord::Base
   end
 
   def send_gcm_notification
-      if !Rpush::Gcm::App.find_by_name("tappb")
-        app = Rpush::Gcm::App.new
-        app.name = "tappb"
-        app.auth_key = Rails.application.secrets.fcm_secret
-        app.connections = 1
-        app.save!
-      end
+      if !read
+        begin
+          if !Rpush::Gcm::App.find_by_name("tappb")
+            app = Rpush::Gcm::App.new
+            app.name = "tappb"
+            app.auth_key = Rails.application.secrets.fcm_secret
+            app.connections = 1
+            app.save!
+          end
 
-      n = Rpush::Gcm::Notification.new
-      n.app = Rpush::Gcm::App.find_by_name("tappb")
-      n.registration_ids = user.android_device_registration_tokens.all.map{|r| r.token}
-      n.data = { body: message, title: "Tabbp notification" }
-      n.priority = 'high'
-      n.content_available = true
-      n.save!
+          n = Rpush::Gcm::Notification.new
+          n.app = Rpush::Gcm::App.find_by_name("tappb")
+          n.registration_ids = user.android_device_registration_tokens.all.map{|r| r.token}
+          n.data = { body: message, title: "Tabbp notification" }
+          n.priority = 'high'
+          n.content_available = true
+          n.save!
+        rescue
+        end
+      end
 
 
   end
