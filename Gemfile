@@ -99,7 +99,7 @@ gem 'high_voltage', '~> 3.1'
 # Errors on errbit
 gem 'airbrake'
 
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass', ">= 3.4.1"
 gem 'react-rails', '~> 1.10.0'
 gem 'rolify'
 gem 'rails-controller-testing'

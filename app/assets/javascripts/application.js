@@ -26,7 +26,7 @@
 //= require chartkick
 //= require_tree .
 
-ready = function() {
+$(document).on('turbolinks:load', function() {
   $.each($(".select2-selector"), function(index, val) {
     $(val).select2({
       width: $(val).data('width'),
@@ -34,7 +34,4 @@ ready = function() {
       allowClear: true
     });
   })
-}
-
-$(document).ready(ready)
-$(document).on('page:load', ready)
+});

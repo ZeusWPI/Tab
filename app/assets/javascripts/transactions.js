@@ -1,10 +1,13 @@
-ready = function() {
+$(document).on('turbolinks:load', function() {
   form          = $("#new_transaction");
   submit_button = $(form).find("input[type=submit]");
   errors        = $("#transaction_errors");
   panel_ul      = $(errors).find(".panel-body ul");
   flash_success = $("#transaction_success");
 
+  if ($("#users-transactions")[0]) {
+    return;
+  }
   var table = $('#transactions').DataTable({
     processing: true,
     serverSide: true,
@@ -107,12 +110,9 @@ ready = function() {
     $(submit_button).attr('disabled', false);
     table.ajax.reload();
   });
-}
+});
 
 
 $.ajaxSetup({
   dataType: 'text'
 });
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
