@@ -38,7 +38,8 @@ class BankTransferRequest < ApplicationRecord
     self.approved!
   end
 
-  def decline!
+  def decline!(reason=nil)
+    self.decline_reason = reason
     self.declined!
   end
 

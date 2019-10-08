@@ -11,7 +11,9 @@
       %tr
         %td= euro r.amount
         %td= r.payment_code
-        %td= r.status
+        %td
+          = r.status
+          %span.glyphicon.glyphicon-question-sign{"data-toggle" => "tooltip", "data-placement": 'top', title: r.decline_reason }
         %td
           - if can?(:cancel, r) && r.pending?
             = link_to user_bank_transfer_request_cancel_path(@user, r), method: :post, class: "btn btn-warning btn-xs" do
