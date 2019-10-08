@@ -34,6 +34,18 @@ class BankTransferRequest < ApplicationRecord
     write_attribute(:amount_in_cents, to_cents(value))
   end
 
+  def approve!
+    self.approved!
+  end
+
+  def decline!
+    self.declined!
+  end
+
+  def cancel!
+    self.cancelled!
+  end
+
 
   def self.generate_payment_code
     random = rand(10**15)

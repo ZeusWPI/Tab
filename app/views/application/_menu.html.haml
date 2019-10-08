@@ -6,16 +6,26 @@
       = link_to user_requests_path(current_user), class: 'menu-item' do
         Requests
         %span.badge= current_user.incoming_requests.open.size
+      = link_to user_bank_transfer_requests_path(current_user), class: 'menu-item' do
+        Bank requests
+        %span.badge= current_user.bank_transfer_requests.pending.size
       = link_to user_notifications_path(current_user), class: 'menu-item' do
         Notifications
         %span.badge= current_user.notifications.unread.size
       - if current_user.penning
-        = link_to 'Zeus', User.zeus, class: 'menu-item'
+        = link_to User.zeus, class: 'menu-item' do
+          = image_tag "zeuswpi.svg", height: 35
         = link_to user_requests_path(User.zeus), class: 'menu-item' do
-          Zeus Requests
+          = image_tag "zeuswpi.svg", height: 15
+          Requests
           %span.badge= User.zeus.incoming_requests.size
+        = link_to bank_transfer_requests_path, class: 'menu-item' do
+          = image_tag "zeuswpi.svg", height: 15
+          Bank Requests
+          %span.badge= BankTransferRequest.pending.size
         = link_to user_notifications_path(User.zeus), class: 'menu-item' do
-          Zeus Notifications
+          = image_tag "zeuswpi.svg", height: 15
+          Notifications
           %span.badge= User.zeus.notifications.size
     .menu-list.menu-right
       %span.menu-item= euro_from_cents current_user.balance

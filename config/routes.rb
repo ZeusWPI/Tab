@@ -26,6 +26,14 @@ Rails.application.routes.draw do
     resources :transactions, only: [:index], shallow: true
     post :reset_key, on: :member
     post :add_registration_token, on: :member
+    resources :bank_transfer_requests, controller: :user_bank_transfer_requests, only: [:index, :create] do
+      post :cancel
+    end
+  end
+
+  resources :bank_transfer_requests, only: [:index] do
+    post :approve
+    post :decline
   end
 
   get 'datatables/:id' => 'datatables#transactions_for_user', as: "user_transactions_datatable"
