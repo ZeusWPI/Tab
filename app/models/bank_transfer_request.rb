@@ -15,7 +15,12 @@
 class BankTransferRequest < ApplicationRecord
   belongs_to :user, required: true
 
-  enum status: [:pending, :approved, :declined, :cancelled]
+  enum status: {
+    pending: "pending",
+    approved: "approved",
+    declined: "declined",
+    cancelled: "cancelled"
+  }
 
   validates :amount_in_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :payment_code, presence: true, uniqueness: true

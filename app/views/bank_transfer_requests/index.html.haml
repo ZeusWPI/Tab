@@ -12,7 +12,7 @@
         %td= euro r.amount
         %td= r.payment_code
         %td
-          = r.status
+          = r.status.capitalize
           %span.glyphicon.glyphicon-question-sign{"data-toggle" => "tooltip", "data-placement": 'top', title: r.decline_reason }
         %td
           - if can?(:cancel, r) && r.pending?
