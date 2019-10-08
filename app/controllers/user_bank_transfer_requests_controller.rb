@@ -1,8 +1,8 @@
 class UserBankTransferRequestsController < ApplicationController
   load_and_authorize_resource :user, find_by: :name
 
-  before_action :load_bank_transfer_request, only: [:approve, :decline, :cancel]
-  authorize_resource :bank_transfer_request, id_param: :bank_transfer_request_id, only: [:approve, :decline, :cancel]
+  before_action :load_bank_transfer_request, only: [:cancel]
+  authorize_resource :bank_transfer_request, id_param: :bank_transfer_request_id, only: [:cancel]
 
   def index
     @bank_transfer_requests = @user.bank_transfer_requests
