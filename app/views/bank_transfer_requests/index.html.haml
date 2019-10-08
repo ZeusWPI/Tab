@@ -2,7 +2,6 @@
 %table.pure-table
   %thead
     %tr
-      %th User
       %th Amount
       %th Payment code
       %th Status
@@ -10,18 +9,11 @@
   %tbody
     - (@bank_transfer_requests || []).each do |r|
       %tr
-        %td= r.user.name
         %td= euro r.amount
         %td= r.payment_code
         %td= r.status
         %td
-          - if can?(:approve, r) && r.pending?
-            = link_to bank_transfer_request_approve_path(r), method: :post, class: "btn btn-success btn-xs" do
-              %i.glyphicon.glyphicon-ok
-              Accept
-            &nbsp;
-          - if can?(:decline, r) && r.pending?
-            = link_to bank_transfer_request_decline_path(r), method: :post, class: "btn btn-danger btn-xs" do
-              %i.glyphicon.glyphicon-remove
-              Decline
-            &nbsp;
+          - if can?(:cancel, r) && r.pending?
+            = link_to user_bank_transfer_request_cancel_path(@user, r), method: :post, class: "btn btn-warning btn-xs" do
+              %i.glyphicon.glyphicon-trash
+              Cancel

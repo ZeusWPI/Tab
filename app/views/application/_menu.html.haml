@@ -19,7 +19,7 @@
           = image_tag "zeuswpi.svg", height: 15
           Requests
           %span.badge= User.zeus.incoming_requests.size
-        = link_to bank_transfer_requests_path, class: 'menu-item' do
+        = link_to admin_bank_transfer_requests_path, class: 'menu-item' do
           = image_tag "zeuswpi.svg", height: 15
           Bank Requests
           %span.badge= BankTransferRequest.pending.size
