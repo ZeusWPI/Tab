@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class Client < ActiveRecord::Base
+class Client < ApplicationRecord
   rolify
   has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
   before_create :generate_key

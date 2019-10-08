@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_204816) do
+ActiveRecord::Schema.define(version: 2019_10_07_235439) do
 
   create_table "android_device_registration_tokens", force: :cascade do |t|
     t.string "token"
@@ -18,6 +18,17 @@ ActiveRecord::Schema.define(version: 2019_05_08_204816) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_android_device_registration_tokens_on_user_id"
+  end
+
+  create_table "bank_transfer_requests", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "amount_in_cents", null: false
+    t.integer "status", default: 0, null: false
+    t.string "decline_reason"
+    t.string "payment_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_bank_transfer_requests_on_user_id"
   end
 
   create_table "clients", force: :cascade do |t|

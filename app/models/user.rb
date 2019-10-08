@@ -8,9 +8,10 @@
 #  penning    :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  key        :string
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include FriendlyId
   friendly_id :name, use: :finders
   devise :timeoutable, :omniauthable, :omniauth_providers => [:zeuswpi]
@@ -26,6 +27,8 @@ class User < ActiveRecord::Base
   has_many :android_device_registration_tokens, class_name: 'AndroidDeviceRegistrationToken', foreign_key: 'user_id'
 
   has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
+
+  has_many :bank_transfer_requests
 
   validates :name, presence: true, uniqueness: true
 

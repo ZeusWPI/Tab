@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   belongs_to :user
   after_save :send_gcm_notification
 

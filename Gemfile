@@ -83,6 +83,9 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rbenv'
   gem 'capistrano-passenger'
+
+  # Solves readline lib errors on OSX
+  gem 'rb-readline'
 end
 
 group :test do

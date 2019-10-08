@@ -14,7 +14,7 @@
 #  id_at_client :integer
 #
 
-class Transaction < ActiveRecord::Base
+class Transaction < ApplicationRecord
   include BaseTransaction
   include TransactionHelpers
 
