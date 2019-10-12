@@ -40,11 +40,42 @@ class BankTransferRequest < ApplicationRecord
   end
 
   def approve!
+    if self.declined?
+      message = "Declined bank transfer request ##{self.id} with code #{self.payment_code} has been reversed and is now accepted."
+    else
+      message = "Bank transfer request ##{self.id} with code #{self.payment_code} has been approved."
+    end
+    Transaction.create!(
+      debtor: User.zeus,
+      creditor: self.user,
+      issuer: User.zeus,
+      amount: self.amount_in_cents,
+      message: message
+    )
+    Notification.create user: self.user, message: message
+
     self.approved!
   end
 
   def decline!(reason=nil)
     self.decline_reason = reason
+    if self.approved?
+      # Transaction needs to be reversed
+      message = "Approved bank transfer request ##{self.id} with code #{self.payment_code} has been reversed and is now declined."
+
+      Transaction.create!(
+        debtor: self.user,
+        creditor: User.zeus,
+        issuer: User.zeus,
+        amount: self.amount_in_cents,
+        message: message
+      )
+    else
+      message = "Bank transfer request ##{self.id} with code #{self.payment_code} has been declined."
+    end
+
+    Notification.create user: self.user, message: message
+
     self.declined!
   end
 
