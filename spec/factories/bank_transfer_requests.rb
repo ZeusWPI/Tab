@@ -5,7 +5,7 @@
 #  id              :integer          not null, primary key
 #  user_id         :integer
 #  amount_in_cents :integer          not null
-#  status          :integer          default("pending"), not null
+#  status          :string           default("pending"), not null
 #  decline_reason  :string
 #  payment_code    :string           not null
 #  created_at      :datetime         not null

@@ -1,7 +1,21 @@
-%h4 Bank transfer requests
+%h3 Bank transfer requests
+
+%h4 Request a transfer code
+= form_with model: @bank_transfer_request, url: user_bank_transfer_requests_path(@user), html: { class: "pure-form form-inline" } do |f|
+  = form_errors(@bank_transfer_request)
+  .input-group
+    %span.input-group-addon
+      %span.glyphicon.glyphicon-euro
+    = f.number_field :amount, value: @bank_transfer_request.amount,
+        placeholder: "Amount", step: 0.01,
+        class: "form-control", size: 20, required: true
+  = f.submit "Request it!", class: "pure-button pure-button-primary btn"
+
+%h4 Overview
 %table.pure-table
   %thead
     %tr
+      %th ID
       %th Amount
       %th Payment code
       %th Status
@@ -9,11 +23,13 @@
   %tbody
     - (@bank_transfer_requests || []).each do |r|
       %tr
-        %td= euro r.amount
+        %td= r.id
+        %td= euro(r.amount)
         %td= r.payment_code
         %td
           = r.status.capitalize
-          %span.glyphicon.glyphicon-question-sign{"data-toggle" => "tooltip", "data-placement": 'top', title: r.decline_reason }
+          - if r.declined?
+            %span.glyphicon.glyphicon-question-sign{"data-toggle" => "tooltip", "data-placement": 'top', title: r.decline_reason }
         %td
           - if r.cancellable?
             = link_to user_bank_transfer_request_cancel_path(@user, r), method: :post, class: "btn btn-warning btn-xs" do

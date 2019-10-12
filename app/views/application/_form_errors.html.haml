@@ -1,0 +1,14 @@
+- if object.errors.any?
+  - errors = object.errors.empty? ? flash_alerts : object.errors.full_messages
+  - messages = errors.map { |msg| content_tag(:li, msg) }.join
+  - sentence = I18n.t('errors.messages.not_saved',
+           count: object.errors.count,
+           resource: object.class.model_name.human.downcase)
+  .alert.alert-danger.alert-dismissable
+    %button.close{type: 'button', "data-dismiss" => "alert"}
+      ×
+    %strong
+      Error!
+    = sentence.html_safe
+    = messages.html_safe
+

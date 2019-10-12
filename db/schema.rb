@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_10_07_235439) do
   create_table "bank_transfer_requests", force: :cascade do |t|
     t.integer "user_id"
     t.integer "amount_in_cents", null: false
-    t.string "status", default: "Pending", null: false
+    t.string "status", default: "pending", null: false
     t.string "decline_reason"
     t.string "payment_code", null: false
     t.datetime "created_at", null: false

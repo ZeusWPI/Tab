@@ -1,7 +1,8 @@
 %h4 Bank transfer requests
-%table.pure-table
+%table.pure-table.pure-table-striped
   %thead
     %tr
+      %th ID
       %th User
       %th Amount
       %th Payment code
@@ -10,22 +11,26 @@
   %tbody
     - (@bank_transfer_requests || []).each do |r|
       %tr
+        %td= r.id
         %td= r.user.name
         %td= euro r.amount
         %td= r.payment_code
         %td
           = r.status.capitalize
-          %span.glyphicon.glyphicon-question-sign{"data-toggle" => "tooltip", "data-placement": 'top', title: r.decline_reason }
+          - if r.declined?
+            %span.glyphicon.glyphicon-question-sign{"data-toggle" => "tooltip", "data-placement": 'top', title: r.decline_reason }
         %td
           - if r.approvable?
-            = link_to admin_bank_transfer_request_approve_path(r), method: :post, class: "btn btn-success btn-xs" do
+            = link_to admin_bank_transfer_request_approve_path(r), method: :post, class: "btn btn-success btn-sm" do
               %i.glyphicon.glyphicon-ok
               Accept
           - if r.pending?
-            %hr
+            &ensp;
           - if r.declinable?
-            = form_with url: admin_bank_transfer_request_decline_path(r) do |f|
-              = f.text_field :reason, class: "input-sm", placeholder: "Reason"
-              = f.button class: "btn btn-danger btn-xs" do
-                %i.glyphicon.glyphicon-ok
-                Decline
+            = form_with url: admin_bank_transfer_request_decline_path(r), html: { style: "display: inline; float: right" } do |f|
+              %span.input-group.input-group-sm
+                = f.text_field :reason, class: "form-control", placeholder: "Reason"
+                %span.input-group-btn
+                  = f.button class: "btn btn-danger" do
+                    %i.glyphicon.glyphicon-remove
+                    Decline

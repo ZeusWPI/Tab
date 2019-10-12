@@ -10,4 +10,8 @@ module ApplicationHelper
       nil
     end
   end
+
+  def form_errors(object)
+    render partial: 'form_errors', locals: { object: object }
+  end
 end

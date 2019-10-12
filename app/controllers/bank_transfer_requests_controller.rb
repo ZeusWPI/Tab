@@ -6,6 +6,22 @@ class BankTransferRequestsController < ApplicationController
 
   def index
     @bank_transfer_requests = @user.bank_transfer_requests
+    @bank_transfer_request = BankTransferRequest.new
+  end
+
+  def create
+    @bank_transfer_request = BankTransferRequest.new(
+      create_params.merge(user: @user)
+    )
+    @bank_transfer_request.set_payment_code
+
+    if @bank_transfer_request.save
+      flash[:success] = "Bank transfer request ##{@bank_transfer_request.id} with payment code <strong>#{@bank_transfer_request.payment_code}</strong> created. Use this payment code in the description field of your bank transaction.".html_safe
+      @bank_transfer_request = BankTransferRequest.new
+    end
+
+    @bank_transfer_requests = @user.bank_transfer_requests
+    render :index
   end
 
   def cancel
@@ -22,5 +38,9 @@ class BankTransferRequestsController < ApplicationController
 
   def load_bank_transfer_request
     @bank_transfer_request = BankTransferRequest.find params[:bank_transfer_request_id]
+  end
+
+  def create_params
+    params.require(:bank_transfer_request).permit(:amount)
   end
 end
