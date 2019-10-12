@@ -9,7 +9,12 @@ class BankTransferRequestsController < ApplicationController
   end
 
   def cancel
-    @bank_transfer_request.cancel!
+    if @bank_transfer_request.cancellable?
+      @bank_transfer_request.cancel!
+    else
+      flash[:warning] = "This bank transfer request is not cancellable."
+    end
+
     redirect_to action: :index
   end
 

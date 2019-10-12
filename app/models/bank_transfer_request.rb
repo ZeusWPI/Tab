@@ -83,6 +83,18 @@ class BankTransferRequest < ApplicationRecord
     self.cancelled!
   end
 
+  def approvable?
+    self.pending? || self.declined?
+  end
+
+  def declinable?
+    self.pending? || self.approved?
+  end
+
+  def cancellable?
+    self.pending?
+  end
+
 
   def self.generate_payment_code
     random = rand(10**15)

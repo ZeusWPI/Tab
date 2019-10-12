@@ -7,12 +7,21 @@ class Admin::BankTransferRequestsController < AdminController
   end
 
   def approve
-    @bank_transfer_request.approve!
+    if @bank_transfer_request.approvable?
+      @bank_transfer_request.approve!
+    else
+      flash[:warning] = "This bank transfer request is not approvable."
+    end
+
     redirect_to action: :index
   end
 
   def decline
-    @bank_transfer_request.decline!(params[:reason])
+    if @bank_transfer_request.declinable?
+      @bank_transfer_request.decline!(params[:reason])
+    else
+      flash[:warning] = "This bank transfer request is not declinable."
+    end
     redirect_to action: :index
   end
 

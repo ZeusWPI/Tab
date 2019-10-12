@@ -13,14 +13,6 @@ class UserAbility
     can :create, Transaction do |t|
       t.debtor == user && t.amount <= Rails.application.config.maximum_amount
     end
-    cannot :approve, BankTransferRequest do |r|
-      r.approved? || r.cancelled?
-    end
-    cannot :decline, BankTransferRequest do |r|
-      r.declined? || r.cancelled?
-    end
-    can :cancel, BankTransferRequest do |r|
-      r.user == user && r.pending?
-    end
+    can :cancel, BankTransferRequest, user_id: user.id
   end
 end
