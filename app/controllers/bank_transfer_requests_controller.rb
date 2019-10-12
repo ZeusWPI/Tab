@@ -17,6 +17,8 @@ class BankTransferRequestsController < ApplicationController
 
     if @bank_transfer_request.save
       flash[:success] = "Bank transfer request ##{@bank_transfer_request.id} with payment code <strong>#{@bank_transfer_request.payment_code}</strong> created. Use this payment code in the description field of your bank transaction.".html_safe
+      Notification.create user: User.zeus, message: "#{@bank_transfer_request.user.name} just created a bank transfer request ##{@bank_transfer_request.id} for €#{@bank_transfer_request.amount} with payment code #{@bank_transfer_request.payment_code}."
+
       @bank_transfer_request = BankTransferRequest.new
     end
 

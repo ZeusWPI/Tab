@@ -32,6 +32,6 @@
             %span.glyphicon.glyphicon-question-sign{"data-toggle" => "tooltip", "data-placement": 'top', title: r.decline_reason }
         %td
           - if r.cancellable?
-            = link_to user_bank_transfer_request_cancel_path(@user, r), method: :post, class: "btn btn-warning btn-xs" do
+            = link_to user_bank_transfer_request_cancel_path(@user, r), method: :post, class: "btn btn-warning btn-sm" do
               %i.glyphicon.glyphicon-trash
               Cancel
