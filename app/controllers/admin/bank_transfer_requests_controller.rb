@@ -12,7 +12,7 @@ class Admin::BankTransferRequestsController < AdminController
   end
 
   def decline
-    @bank_transfer_request.decline!
+    @bank_transfer_request.decline!(params[:reason])
     redirect_to action: :index
   end
 

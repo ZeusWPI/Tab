@@ -17,13 +17,15 @@
           = r.status.capitalize
           %span.glyphicon.glyphicon-question-sign{"data-toggle" => "tooltip", "data-placement": 'top', title: r.decline_reason }
         %td
-          - if can?(:approve, r) && r.pending?
+          - if can?(:approve, r)
             = link_to admin_bank_transfer_request_approve_path(r), method: :post, class: "btn btn-success btn-xs" do
               %i.glyphicon.glyphicon-ok
               Accept
-            &nbsp;
-          - if can?(:decline, r) && r.pending?
-            = link_to admin_bank_transfer_request_decline_path(r), method: :post, class: "btn btn-danger btn-xs" do
-              %i.glyphicon.glyphicon-remove
-              Decline
-            &nbsp;
+          - if r.pending?
+            %hr
+          - if can?(:decline, r)
+            = form_with url: admin_bank_transfer_request_decline_path(r) do |f|
+              = f.text_field :reason, class: "input-sm", placeholder: "Reason"
+              = f.button class: "btn btn-danger btn-xs" do
+                %i.glyphicon.glyphicon-ok
+                Decline
