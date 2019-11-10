@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.accessible_by(current_ability)
   end
 
   def reset_key
