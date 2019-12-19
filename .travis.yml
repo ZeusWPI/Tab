@@ -1,6 +1,9 @@
 language: ruby
 sudo: false
 
+before_install:
+  - gem install bundler -v "$(grep -A 1 BUNDLED.WITH Gemfile.lock | tail -n 1)"
+
 before_script:
   - "RAILS_ENV=test bundle exec rake db:create"
   - "RAILS_ENV=test bundle exec rake db:schema:load"
