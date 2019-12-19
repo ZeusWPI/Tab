@@ -87,7 +87,6 @@ end
 
 group :test do
   gem 'coveralls', require: false
-  gem 'rails-controller-testing', require: false
 end
 
 group :production do
