@@ -201,7 +201,7 @@ GEM
     orm_adapter (0.5.0)
     purecss-rails (0.6.1)
       railties (>= 3.2.6, < 6)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.3)
