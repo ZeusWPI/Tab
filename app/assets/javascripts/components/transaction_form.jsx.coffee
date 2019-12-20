@@ -48,7 +48,7 @@ Peer = React.createFactory React.createClass
     if peer == '' or peers.includes(peer)
       []
     else
-      re = new RegExp peer 'i'
+      re = new RegExp peer, 'i'
       peers.filter (s) ->
         s.match(re) != null
   inputClass: (n) ->
