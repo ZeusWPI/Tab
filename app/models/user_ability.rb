@@ -7,7 +7,7 @@ class UserAbility
     can :manage, :all if user.penning?
     can :create, Request, creditor_id: user.id
     can [:confirm], Request do |r|
-      (debtor_id == user.id) && (user.balance - r.amount >= 0)
+      (r.debtor_id == user.id) && (user.balance - r.amount >= 0)
     end
     can [:decline], Request, debtor_id: user.id
     can :cancel, Request, issuer_id: user.id
