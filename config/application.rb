@@ -15,7 +15,7 @@ module Tab
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Brussels'
@@ -27,5 +27,6 @@ module Tab
     # Which is the lowest balance you should be ashamed of.
     config.shameful_balance = 0 # In eurocents!
     config.maximum_amount = 15000
+    config.minimum_balance = 0
   end
 end
