@@ -1,7 +1,7 @@
 describe TransactionsController, type: :controller do
   describe "creating transaction" do
     before :each do
-      @debtor = create(:user)
+      @debtor = create(:positive_user)
       @creditor = create(:user)
       sign_in @debtor
     end
@@ -86,6 +86,19 @@ describe TransactionsController, type: :controller do
             creditor: @debtor.name,
             euros: 10,
             message: "DIT IS OVERVAL"
+          }}
+        end.not_to change { Transaction.count }
+      end
+    end
+
+    context "resulting in negative balance" do
+      it "should be refused" do
+        expect do
+          post :create, params:{ transaction: {
+            debtor: create(:user).name,
+            creditor: @creditor.name,
+            euros: 1,
+            message: "Debts"
           }}
         end.not_to change { Transaction.count }
       end

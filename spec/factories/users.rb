@@ -17,5 +17,10 @@ FactoryBot.define do
     factory :penning do
       penning { true }
     end
+    factory :positive_user do
+      after(:create) do |user, evaluator|
+        create(:transaction, creditor: user, debtor: create(:penning), amount: 2000)
+      end
+    end
   end
 end
