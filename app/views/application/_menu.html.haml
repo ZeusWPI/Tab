@@ -13,10 +13,10 @@
         = link_to 'Zeus', User.zeus, class: 'menu-item'
         = link_to user_requests_path(User.zeus), class: 'menu-item' do
           Zeus Requests
-          %span.badge= User.zeus.incoming_requests.size
+          %span.badge= User.zeus.incoming_requests.open.size
         = link_to user_notifications_path(User.zeus), class: 'menu-item' do
           Zeus Notifications
-          %span.badge= User.zeus.notifications.size
+          %span.badge= User.zeus.notifications.unread.size
     .menu-list.menu-right
       %span.menu-item= euro_from_cents current_user.balance
       = link_to 'Sign out', sign_out_path, method: :delete, class: 'menu-item menu-item-signout'
