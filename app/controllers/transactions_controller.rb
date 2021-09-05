@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
   load_and_authorize_resource :user, find_by: :name
 
   def index
-    @transactions = @user.transactions
+    @transactions = @user.transactions.includes(:debtor, :creditor, :issuer)
     respond_to do |format|
       format.json {
           render json: @transactions.map {|t| {
