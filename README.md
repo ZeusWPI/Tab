@@ -14,3 +14,7 @@ to the server, `cd production/current`, then run `RAILS_ENV=production bundle ex
 Then you can add clients with `client = Client.create name: "Tap"`.
 
 If you want the client to be able to make transactions, run: `client.add_role :create_transactions` in the console.
+
+## RUBY
+
+Install the correct bundler version: `gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"`
