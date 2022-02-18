@@ -1,16 +1,24 @@
-# [Tab](https://zeus.ugent.be/tab) [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/Tab/README.md?pixel)](https://github.com/igrigorik/ga-beacon) [![Code Climate](https://codeclimate.com/github/ZeusWPI/Tab/badges/gpa.svg)](https://codeclimate.com/github/ZeusWPI/Tab) [![Coverage Status](https://coveralls.io/repos/ZeusWPI/Tab/badge.svg?branch=master&service=github)](https://coveralls.io/github/ZeusWPI/Tab?branch=master) [![Build Status](https://travis-ci.org/ZeusWPI/Tab.png?branch=master)](https://travis-ci.org/ZeusWPI/Tab)
+# README
 
-## Deploy
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-Just run `cap production deploy`. You might need to edit some config files
-on the server.
+Things you may want to cover:
 
-## Adding clients
+* Ruby version
 
-A client can see and modify balances of other users.
+* System dependencies
 
-To add a client, connect
-to the server, `cd production/current`, then run `RAILS_ENV=production bundle exec rails console`.
-Then you can add clients with `client = Client.create name: "Tap"`.
+* Configuration
 
-If you want the client to be able to make transactions, run: `client.add_role :create_transactions` in the console.
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

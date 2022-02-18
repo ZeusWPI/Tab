@@ -1,0 +1,25 @@
+<h2>Users</h2>
+<table class="table table-responsive">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Balance</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |u| %>
+    <tr>
+      <td>
+        <%= u.id %>
+      </td>
+      <td>
+        <%= u.name %>
+      </td>
+      <td>
+        <%= u.balance %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

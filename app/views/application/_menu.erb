@@ -1,0 +1,41 @@
+<div class="pure-u-1">
+  <div class="menu">
+    <%= link_to 'Tab', root_path, class: 'menu-heading menu-item' %>
+    <div class="menu-list">
+      <%= link_to 'Transactions', current_user, class: 'menu-item' %>
+      <%= link_to user_requests_path(current_user), class: 'menu-item' do %>
+        Requests
+        <span class="badge">
+          <%= current_user.incoming_requests.open.size %>
+        </span>
+      <% end %>
+      <%= link_to user_notifications_path(current_user), class: 'menu-item' do %>
+        Notifications
+        <span class="badge">
+          <%= current_user.notifications.unread.size %>
+        </span>
+      <% end %>
+      <% if current_user.penning %>
+        <%= link_to 'Zeus', User.zeus, class: 'menu-item' %>
+        <%= link_to user_requests_path(User.zeus), class: 'menu-item' do %>
+          Zeus Requests
+          <span class="badge">
+            <%= User.zeus.incoming_requests.open.size %>
+          </span>
+        <% end %>
+        <%= link_to user_notifications_path(User.zeus), class: 'menu-item' do %>
+          Zeus Notifications
+          <span class="badge">
+            <%= User.zeus.notifications.unread.size %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="menu-list menu-right">
+      <span class="menu-item">
+        <%= euro_from_cents current_user.balance %>
+      </span>
+      <%= link_to 'Sign out', sign_out_path, method: :delete, class: 'menu-item menu-item-signout' %>
+    </div>
+  </div>
+</div>

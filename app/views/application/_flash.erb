@@ -1,0 +1,5 @@
+<% flash.delete(:timedout).each do |key, value| %>
+  <div class="pure-alert-<%= key %> pure-alert">
+    <%= value %>
+  </div>
+<% end %>

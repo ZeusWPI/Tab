@@ -1,0 +1,24 @@
+<div class="pure-alert pure-alert-success hidden" id="transaction_success">
+  Transaction created!
+</div>
+<%= render 'partials/form_errors', object: @transaction %>
+<%= form_for @transaction, remote: true, html: { class: "pure-form form-inline" } do |f| %>
+  <%= f.hidden_field :debtor, value: @user.name %>
+  <%= f.select :creditor %>
+  options_from_collection_for_select(User.all.order(:name), :name, :name),
+  { include_blank: true },
+  { class: 'select2-selector', required: true, data: { placeholder: "Creditor", width: 150 } }
+<% end %>
+<%= f.text_field :message, placeholder: "Message", size: 75, class: "form-control", required: true %>
+<div class="input-group">
+    <span class="input-group-addon">
+      <span class="glyphicon glyphicon-euro"></span>
+    </span>
+  <%= f.number_field :euros, value: amount(@transaction.amount) %>
+  placeholder: "Amount", step: 0.01,
+  class: "form-control", size: 20, required: true,
+  max: (Rails.application.config.maximum_amount/100 unless current_user.penning)
+  <% end %>
+</div>
+<%= f.submit "Send it!", class: "pure-button pure-button-primary btn" %>
+<% end %>

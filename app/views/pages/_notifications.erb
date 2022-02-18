@@ -1,0 +1,27 @@
+<div class="card-wrapper">
+  <% if @notifications.any? %>
+    <div class="card">
+      <div class="padded">
+        <h3>Notifications</h3>
+      </div>
+      <% @notifications.each do |n| %>
+        <div class="notification pure-g">
+          <div class="pure-u-11-12">
+            <%= n.message %>
+          </div>
+          <div class="pure-u-1-12 actions">
+            <%= link_to notification_read_path(n), method: :post do %>
+              <span class="glyphicon glyphicon-eye-open"></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="card padded">
+      <span class="info-message">
+        You have no unread notifications.
+      </span>
+    </div>
+  <% end %>
+</div>

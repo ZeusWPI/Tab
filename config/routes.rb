@@ -1,20 +1,25 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
   devise_for :users, controllers: {
     omniauth_callbacks: 'callbacks'
   }
 
   devise_scope :user do
-    delete '/sign_out', to: 'devise/sessions#destroy'
+    # get 'sign_in', to: 'devise/sessions#new', as: :new_user_session
+    get '/sign_out', to: 'devise/sessions#destroy' # , as: :destroy_user_session
   end
 
-  authenticated :user do
+  authenticated(:user) do
     root 'pages#landing', as: :authenticated_root
   end
 
   root to: 'pages#sign_in_page'
 
   resources :transactions, only: [:create]
-  resources :users,        only: [:index, :show] do
+  resources :users, only: %i[index show] do
     resources :requests, only: [:index], shallow: true do
       post :confirm
       post :decline

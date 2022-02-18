@@ -1,0 +1,62 @@
+<h4>
+  <%= title %>
+</h4>
+<table class="pure-table">
+  <thead>
+  <tr>
+    <th>Issuer</th>
+    <th>Creditor</th>
+    <th>Debtor</th>
+    <th>Amount</th>
+    <th>Message</th>
+    <% if actions %>
+      <th>Actions</th>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <% (requests || []).each do |r| %>
+    <tr>
+      <td>
+        <%= r.issuer.name %>
+      </td>
+      <td>
+        <%= r.creditor.name %>
+      </td>
+      <td>
+        <%= r.debtor.name %>
+      </td>
+      <td>
+        <%= r.amount_f %>
+      </td>
+      <td>
+        <%= r.message %>
+      </td>
+      <% if actions %>
+        <td>
+          <% if can?(:confirm, r) %>
+            <%= link_to request_confirm_path(r), method: :post, class: "btn btn-success btn-xs" do %>
+              <i class="glyphicon glyphicon-ok"></i>
+              Accept
+            <% end %>
+            &nbsp;
+          <% end %>
+          <% if can?(:decline, r) %>
+            <%= link_to request_decline_path(r), method: :post, class: "btn btn-danger btn-xs" do %>
+              <i class="glyphicon glyphicon-remove"></i>
+              Decline
+            <% end %>
+            &nbsp;
+          <% end %>
+          <% if can?(:cancel, r) %>
+            <%= link_to request_cancel_path(r), method: :post, class: "btn btn-warning btn-xs" do %>
+              <i class="glyphicon glyphicon-trash"></i>
+              Cancel
+            <% end %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

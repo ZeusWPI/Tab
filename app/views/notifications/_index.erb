@@ -1,0 +1,29 @@
+<h4>
+  <%= title %>
+</h4>
+<table class="pure-table">
+  <thead>
+  <tr>
+    <th>Message</th>
+    <% if actions %>
+      <th>Mark as read</th>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <% (notifications || []).each do |n| %>
+    <tr>
+      <td>
+        <%= n.message %>
+      </td>
+      <% if actions %>
+        <td>
+          <%= link_to notification_read_path(n), method: :post do %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
