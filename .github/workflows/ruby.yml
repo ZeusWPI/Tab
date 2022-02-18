@@ -15,13 +15,13 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0
+        ruby-version: "3.0.1"
 
     - name: Install bundler
       run: gem install bundler -v "$(grep -A 1 BUNDLED.WITH Gemfile.lock | tail -n 1)"
 
     - name: Install deps
-      run: bundle install --deployment
+      run: bundle install
 
     - run: RAILS_ENV=test bundle exec rake db:create
     - run: RAILS_ENV=test bundle exec rake db:schema:load
