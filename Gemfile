@@ -105,6 +105,6 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'jquery-rails'
 # Use datatables
 gem 'jquery-datatables-rails'
-gem 'react-rails', '~> 1.10.0'
+gem 'react-rails', '~> 2.6.1'
 
 gem 'rolify'

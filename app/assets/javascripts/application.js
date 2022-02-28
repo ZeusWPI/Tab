@@ -1,8 +1,9 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
+//= require react
+//= require react_ujs
+//= require components
 
-//= require jquery3
+
+//= require jquery3.js
 //= require popper
 //= require bootstrap-sprockets
 
@@ -13,11 +14,6 @@ import "controllers"
 //= require dataTables/extras/dataTables.responsive
 //= require dataTables/jquery.dataTables
 //= require select2
-//= require jquery-dateFormat
-//= require turbolinks
-//= require react
-//= require react_ujs
-//= require components
 //= require Chart.bundle
 //= require chartkick
 //= require_tree .
