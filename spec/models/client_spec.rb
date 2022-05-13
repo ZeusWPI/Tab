@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+require "rails_helper"
+
 # == Schema Information
 #
 # Table name: clients
@@ -9,7 +12,7 @@
 #  updated_at :datetime         not null
 #
 
-describe Client, type: :model do
+RSpec.describe Client, type: :model do
   before :each do
     @client = create :client
   end

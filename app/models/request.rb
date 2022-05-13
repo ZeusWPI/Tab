@@ -23,9 +23,9 @@ class Request < ActiveRecord::Base
     return unless open?
 
     Transaction.create info
-    Notification.create user: creditor,message: confirmed_message
+    Notification.create user: creditor, message: confirmed_message
 
-    update_attributes status: :confirmed
+    self.confirmed!
   end
 
   def decline!
@@ -33,7 +33,7 @@ class Request < ActiveRecord::Base
 
     Notification.create user: creditor, message: declined_message
 
-    update_attributes status: :declined
+    self.declined!
   end
 
   def cancel!
@@ -42,7 +42,7 @@ class Request < ActiveRecord::Base
     Notification.create user: creditor, message: cancelled_message unless issuer == creditor
     Notification.create user: debtor, message: cancelled_message unless issuer == debtor
 
-    update_attributes status: :cancelled
+    self.cancelled!
   end
 
   private
