@@ -15,7 +15,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "3.0.1"
+        ruby-version: "3.1.2"
 
     - name: Install bundler
       run: gem install bundler -v "$(grep -A 1 BUNDLED.WITH Gemfile.lock | tail -n 1)"
