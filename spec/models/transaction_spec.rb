@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+require "rails_helper"
+
 # == Schema Information
 #
 # Table name: transactions
@@ -14,7 +17,7 @@
 #  id_at_client :integer
 #
 
-describe Transaction, type: :model do
+RSpec.describe Transaction, type: :model do
   it "has a valid factory" do
     expect(create(:transaction)).to be_valid
   end

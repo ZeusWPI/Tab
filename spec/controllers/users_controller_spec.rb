@@ -1,4 +1,6 @@
-describe UsersController, type: :controller do
+# frozen_string_literal: true
+
+RSpec.describe UsersController, type: :controller do
   before :each do
     @user = create :penning
     sign_in @user
