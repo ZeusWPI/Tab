@@ -8,16 +8,16 @@
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_importmap_tags %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 </head>
 
 <body>
-<div class="pure-g">
-  <%= render 'menu' if current_user %>
-  <div class="pure-u-1" id="content">
-    <%= render 'flash' %>
-    <%= yield %>
+  <div class="pure-g">
+    <%= render 'menu' if current_user %>
+    <div class="pure-u-1" id="content">
+      <%= render 'flash' %>
+      <%= yield %>
+    </div>
   </div>
-</div>
-</body>
+  </body>
 </html>

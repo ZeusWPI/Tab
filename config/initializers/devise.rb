@@ -276,6 +276,7 @@ Devise.setup do |config|
                   Rails.application.credentials.omniauth_client_id,
                   Rails.application.credentials.omniauth_client_secret,
                   token_params: { parse: :json }
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

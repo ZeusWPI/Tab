@@ -107,9 +107,9 @@ end
 # Pure for css
 gem 'purecss-sass', '~> 2.0'
 gem 'bootstrap', '~> 5.1.3'
-gem 'jquery-rails'
+
 # Use datatables
 gem 'jquery-datatables-rails'
-gem 'react-rails', '~> 2.6.1'
+gem 'jsbundling-rails'
 
 gem 'rolify'

@@ -1,0 +1,13 @@
+{
+  "name": "tab",
+  "private": "true",
+  "dependencies": {
+    "esbuild": "^0.14.39",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "remount": "^0.11.0"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds"
+  }
+}
