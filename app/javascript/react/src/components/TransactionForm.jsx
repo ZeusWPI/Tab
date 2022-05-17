@@ -220,6 +220,8 @@ class TransactionForm extends React.Component {
       peer: null,
       message: null
     }
+
+    this.form = React.createRef();
   }
 
   setAction(b) {
@@ -295,8 +297,6 @@ class TransactionForm extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-
     const { giving, peer } = this.state;
     const { user_name, csrf_token } = this.props;
     const errors = this.errors();
@@ -313,11 +313,26 @@ class TransactionForm extends React.Component {
       debtor = peer;
       creditor = user_name;
     }
-    $('<input />').attr('name', 'transaction[debtor]').attr('value', debtor).attr('type', 'hidden').appendTo(this.form);
-    $('<input />').attr('name', 'transaction[creditor]').attr('value', creditor).attr('type', 'hidden').appendTo(this.form);
-    $('<input />').attr('name', 'authenticity_token').attr('value', csrf_token).attr('type', 'hidden').appendTo(this.form);
 
-    return this.form.submit();
+    const debtor_input = document.createElement('input')
+    debtor_input.setAttribute('type', 'hidden')
+    debtor_input.setAttribute('name', 'transaction[debtor]')
+    debtor_input.setAttribute('value', debtor)
+    this.form.current.appendChild(debtor_input)
+
+    const creditor_input = document.createElement('input')
+    creditor_input.setAttribute('type', 'hidden')
+    creditor_input.setAttribute('name', 'transaction[creditor]')
+    creditor_input.setAttribute('value', creditor)
+    this.form.current.appendChild(creditor_input)
+
+    const authenticity_token_input = document.createElement('input')
+    authenticity_token_input.setAttribute('type', 'hidden')
+    authenticity_token_input.setAttribute('name', 'authenticity_token')
+    authenticity_token_input.setAttribute('value', csrf_token)
+    this.form.current.appendChild(authenticity_token_input)
+
+    return this.form.current.submit();
   }
 
   render() {
@@ -329,7 +344,7 @@ class TransactionForm extends React.Component {
       <div id={'transaction-form'}>
         <h3>Transfer some money</h3>
         <form
-          ref={'form'}
+          ref={this.form}
           action={url('transactions')}
           acceptCharset={'UTF-8'}
           method={'post'}
