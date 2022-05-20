@@ -8,7 +8,7 @@ class DatatablesController < ApplicationController
   def transactions_for_user
     user = User.find_by(name: params[:id])
     authorize! :read, user
-    datatable = DataTable.new(user, params)
-    render json: datatable.json
+
+    render json: DataTable.new(user, params)
   end
 end

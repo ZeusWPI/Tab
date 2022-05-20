@@ -7,5 +7,24 @@
     <div data-controller="hello">
       Test
     </div>
+
+    <div data-controller="datatable">
+      <table
+        class="datatable"
+        id="transactions"
+        data-source="<%= user_transactions_datatable_path(@user) %>"
+      >
+        <thead>
+        <tr>
+          <th>Time</th>
+          <th>Amount</th>
+          <th>Peer</th>
+          <th>Issuer</th>
+          <th>Message</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+  </div>
   </div>
 </div>
