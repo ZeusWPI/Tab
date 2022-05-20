@@ -42,9 +42,6 @@ gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-# Use Sass to process CSS
-gem 'sassc-rails'
-
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -59,8 +56,11 @@ gem 'cancancan'
 # Friendly ids!
 gem 'friendly_id', '~> 5.4.0'
 
-# Use Select2 for selecting users
-gem 'select2-rails'
+gem 'rolify'
+
+# Frontend stuff
+gem 'jsbundling-rails'
+gem "cssbundling-rails", "~> 1.1"
 
 # Chartkick for fancy graphs
 gem 'chartkick'
@@ -104,12 +104,3 @@ group :production do
   gem 'mysql2', '< 0.6.0', '>= 0.4.4'
 end
 
-# Pure for css
-gem 'purecss-sass', '~> 2.0'
-gem 'bootstrap', '~> 5.1.3'
-
-# Use datatables
-gem 'jquery-datatables-rails'
-gem 'jsbundling-rails'
-
-gem 'rolify'
