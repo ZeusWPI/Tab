@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import Datatable from './datatable_controller'
 application.register('datatable', Datatable)
+
+import Clipboard from './clipboard_controller'
+application.register('clipboard', Clipboard)
