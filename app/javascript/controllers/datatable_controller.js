@@ -40,7 +40,10 @@ export default class extends Controller {
             return new Option(data).innerHTML
           }
         }
-      ]
+      ],
+      "createdRow": function( row, data, dataIndex ) {
+        $(row).addClass( 'border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600');
+      }
     });
   }
 }
