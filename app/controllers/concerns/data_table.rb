@@ -1,6 +1,7 @@
 class DataTable
   include ActionView::Helpers::JavaScriptHelper
   include ERB::Util
+
   def initialize user, params
     @user = user
     @params = sanitize_params(params)
@@ -16,7 +17,9 @@ class DataTable
       data: data
     }
   end
+
   private
+
   def data
     run_query(paginated_query.project(Arel.star))
   end

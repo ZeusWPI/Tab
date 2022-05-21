@@ -11,6 +11,18 @@
         @apply float-right px-6 py-4;
     }
 
+    .dataTables_row {
+        @apply border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600;
+    }
+
+    .dataTables_cell {
+        @apply px-6 py-4;
+    }
+
+    .dataTables_cell.amount_column {
+        @apply text-right;
+    }
+
     .paginate_button {
         @apply cursor-pointer inline-flex items-center text-blue-700 bg-white hover:bg-blue-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 mr-1 text-center;
     }
