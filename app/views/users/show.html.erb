@@ -8,22 +8,22 @@
       Test
     </div>
 
-    <div data-controller="datatable">
+    <div data-controller="datatable" class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table
-        class="datatable"
+        class="datatable w-full text-sm text-left text-gray-500 dark:text-gray-400"
         id="transactions"
         data-source="<%= user_transactions_datatable_path(@user) %>"
       >
-        <thead>
-        <tr>
-          <th>Time</th>
-          <th>Amount</th>
-          <th>Peer</th>
-          <th>Issuer</th>
-          <th>Message</th>
-        </tr>
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Time</th>
+            <th scope="col" class="px-6 py-3">Amount</th>
+            <th scope="col" class="px-6 py-3">Peer</th>
+            <th scope="col" class="px-6 py-3">Issuer</th>
+            <th scope="col" class="px-6 py-3">Message</th>
+          </tr>
         </thead>
-        <tbody></tbody>
+        <tbody class="bg-white divide-y divide-gray-300"></tbody>
       </table>
   </div>
   </div>
