@@ -1,29 +1,31 @@
-<div class="card-wrapper">
-  <% if @outgoing_requests.any? %>
-    <div class="card">
-      <div class="padded">
-        <h3>Outgoing Requests</h3>
-      </div>
-      <% @outgoing_requests.each do |r| %>
-        <div class="request pure-g">
-          <div class="pure-u-2-3">
-            <h4>
-              <%= r.message %>
-            </h4>
-            <%= r.debtor.name %>
-          </div>
-          <div class="pure-u-1-3 actions">
-            <%= euro_from_cents r.amount %>
-          </div>
-          <div class="clear-both"></div>
-        </div>
+<div class="p-4 max-w-xl bg-white rounded-lg border shadow-md sm:p-8">
+  <div class="flex justify-between items-center mb-4">
+    <h5 class="text-xl font-bold leading-none text-gray-900">Outgoing requests</h5>
+    <%= link_to "View all", user_requests_path(current_user), class: "text-sm font-medium text-blue-600 hover:underline" %>
+  </div>
+  <div class="flow-root">
+    <ul role="list" class="divide-y divide-gray-200">
+      <% if @outgoing_requests.any? %>
+        <% @outgoing_requests.each do |r| %>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate">
+                  <%= r.debtor.name %>
+                </p>
+                <p class="text-md text-gray-500 truncate">
+                  <%= r.message %>
+                </p>
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900">
+                <%= euro_from_cents r.amount %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      <% else %>
+        None!
       <% end %>
-    </div>
-  <% else %>
-    <div class="card padded">
-      <span class="info-message">
-        You have no open outgoing requests at the moment.
-      </span>
-    </div>
-  <% end %>
+    </ul>
+  </div>
 </div>

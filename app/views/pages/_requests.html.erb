@@ -1,39 +1,45 @@
-<div class="card-wrapper">
-  <% if @requests.any? %>
-    <div class="card">
-      <div class="padded">
-        <h3>Requests</h3>
-      </div>
-      <% @requests.each do |r| %>
-        <div class="request pure-g">
-          <div class="pure-u-1-3">
-            <h4>
-              <%= r.message %>
-            </h4>
-            <%= r.creditor.name %>
-          </div>
-          <div class="pure-u-1-3">
-            <%= euro_from_cents r.amount %>
-          </div>
-          <div class="pure-u-1-3 actions">
-            <div class="btn-group">
-              <%= link_to request_confirm_path(r), method: :post, class: 'btn btn-default btn-success' do %>
-                <span class="glyphicon glyphicon-ok"></span>
-              <% end %>
-              <%= link_to request_decline_path(r), method: :post, class: 'btn btn-default btn-danger' do %>
-                <span class="glyphicon glyphicon-remove"></span>
-              <% end %>
+<div class="p-4 max-w-xl bg-white rounded-lg border shadow-md sm:p-8">
+  <div class="flex justify-between items-center mb-4">
+    <h5 class="text-xl font-bold leading-none text-gray-900">Requests</h5>
+    <%= link_to "View all", user_requests_path(current_user), class: "text-sm font-medium text-blue-600 hover:underline" %>
+  </div>
+  <div class="flow-root">
+    <ul role="list" class="divide-y divide-gray-200">
+      <% if @requests.any? %>
+        <% @requests.each do |r| %>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate">
+                  <%= r.creditor.name %>
+                </p>
+                <p class="text-md text-gray-500 truncate">
+                  <%= r.message %>
+                </p>
+              </div>
+              <div class="flex-initial items-center text-base font-semibold text-gray-900">
+                <%= euro_from_cents r.amount %>
+              </div>
+              <div class="flex-initial items-center text-base font-semibold text-gray-900">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                  <%= button_to request_confirm_path(r), class: 'inline-flex items-center py-2 px-4 text-sm font-medium focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 rounded-l-lg border focus:z-10 focus:ring-2' do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  <% end %>
+                  <%= button_to request_decline_path(r), class: 'inline-flex items-center py-2 px-4 text-sm font-medium focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-r-lg border focus:z-10 focus:ring-2' do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  <% end %>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="clear-both"></div>
-        </div>
+          </li>
+        <% end %>
+      <% else %>
+        None!
       <% end %>
-    </div>
-  <% else %>
-    <div class="card padded">
-      <span class="info-message">
-        You have no open requests at the moment.
-      </span>
-    </div>
-  <% end %>
+    </ul>
+  </div>
 </div>

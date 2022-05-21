@@ -17,7 +17,7 @@ class Notification < ActiveRecord::Base
   scope :unread, -> { where read: false }
 
   def read!
-    update_attributes read: true
+    update!(read: true)
   end
 
   def create
