@@ -6,10 +6,11 @@ require('datatables.net')();
 
 export default class extends Controller {
   connect() {
-    $('#transactions').DataTable({
+    // Initialize the table
+    const table = $('#transactions').DataTable({
       processing: true,
       serverSide: true,
-      searching: false,
+      searching: true,
       lengthChange: false,
       ordering: false,
       ajax: $('#transactions').data('source'),
@@ -46,6 +47,41 @@ export default class extends Controller {
       "createdRow": function(row, data, dataIndex) {
         $(row).addClass( 'dataTables_row');
       }
+    });
+
+    // Hide the standard search
+    $('.dataTables_filter').hide();
+
+    $('#filters-heading').click(function() {
+      $('#filters').toggle()
+    })
+
+    // Hook up our input listeners to programmatically search on the table
+    $('.input-listen').each(function(index, element) {
+      const filter = $(element);
+      const type = filter.attr('data-input-type');
+      const name = filter.attr('data-filter-name');
+      const column = table.column(name + ':name');
+
+      const refreshTable = function() {
+        let value;
+
+        if(filter.hasClass('bound')) {
+          const lower = filter.find('.lower-bound');
+          const upper = filter.find('.upper-bound');
+          value = lower.val() + '~' + upper.val();
+        } else {
+          value = $(this).val();
+        }
+        value = type + ':' + value;
+
+        if(column.search() !== value) {
+          column.search(value).draw();
+        }
+      };
+
+      filter.find('.value-thing').on('change', refreshTable);
+      filter.find('.value-thing.live-updating').on('keyup', refreshTable);
     });
   }
 }

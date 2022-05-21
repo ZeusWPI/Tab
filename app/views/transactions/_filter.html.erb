@@ -1,0 +1,80 @@
+<div id="accordion-collapse" data-accordion="collapse">
+  <h2 id="filters-heading">
+    <button type="button" class="flex justify-between items-center p-5 w-full font-medium text-left text-gray-500 rounded-xl border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#filters" aria-expanded="true" aria-controls="filters">
+      <span>Filters</span>
+      <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </button>
+  </h2>
+  <div id="filters" class="hidden" aria-labelledby="filters-heading">
+    <div class="p-5 border rounded-b-xl border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+      <form>
+        <!-- Date -->
+        <div data-input-type="date-range" data-filter-name="Time" class="bound input-listen grid xl:grid-cols-2 xl:gap-6">
+          <div class="relative z-0 w-full mb-6 group">
+            <label for="minimum" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">After</label>
+            <div class="flex">
+            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              📅
+            </span>
+              <input type="date" id="minimum" class="value-thing lower-bound rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+          </div>
+          <div class="relative z-0 w-full mb-6 group">
+            <label for="maximum" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Before</label>
+            <div class="flex">
+            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              📅
+            </span>
+              <input type="date" id="maximum" class="value-thing upper-bound rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+          </div>
+        </div>
+        <!-- Amount -->
+        <div data-input-type="number-range" data-filter-name="Amount" class="bound input-listen grid xl:grid-cols-2 xl:gap-6">
+          <div class="relative z-0 w-full mb-6 group">
+            <label for="minimum" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Minimum</label>
+            <div class="flex">
+            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              ≥ €
+            </span>
+              <input type="number" id="minimum" step="0.01" class="value-thing lower-bound rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+          </div>
+          <div class="relative z-0 w-full mb-6 group">
+            <label for="maximum" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Maximum</label>
+            <div class="flex">
+            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              ≤ €
+            </span>
+              <input type="number" id="maximum" step="0.01" class="value-thing upper-bound rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+          </div>
+        </div>
+        <!-- Peer -->
+        <div class="grid xl:grid-cols-2 xl:gap-6">
+          <div data-input-type="text" data-filter-name="Issuer" class="input-listen relative z-0 w-full mb-6 group">
+            <label for="issuer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Issuer</label>
+            <%= grouped_collection_select nil, nil, [User, Client], :all, :name, :name, :name,
+              { include_blank: true },
+              { data: { placeholder: "Filter on Issuer", width: 265 }, class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" } %>
+          </div>
+          <div data-input-type="text" data-filter-name="Peer" class="input-listen relative z-0 w-full mb-6 group">
+            <label for="peer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Peer</label>
+            <div class="flex">
+              <%= select_tag nil,
+                options_from_collection_for_select(User.all.order(:name), :name, :name),
+                include_blank: true,
+                class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
+                data: { placeholder: "Filter on Peer", width: 265 } %>
+            </div>
+          </div>
+        </div>
+        <!-- Message -->
+        <div class="input-listen" data-filter-name="Message" data-input-type="text" >
+          <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Message</label>
+          <input type="text" id="message" class="value-thing live-updating rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
