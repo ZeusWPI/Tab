@@ -4,10 +4,6 @@
   <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
     <h2 class="text-2xl font-semibold leading-normal mt-0 mb-5 text-gray-800">Overview</h2>
 
-    <div data-controller="hello">
-      Test
-    </div>
-
     <div data-controller="datatable" class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table
         class="datatable w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -48,7 +44,6 @@ curl '<%= transactions_url %>' \
   -H "Accept: application/json"  \
   -H "Authorization: Token token=<%= @user.key %>" \
   -X POST \
-  --data-raw 'transaction%5Bdebtor%5D=<%= @user.name %>&transaction%5Bcreditor%5D=silox&transaction%5Bmessage%5D=Thanks!&transaction%5Beuros%5D=0.05'
-    </textarea>
+  --data-raw 'transaction%5Bdebtor%5D=<%= @user.name %>&transaction%5Bcreditor%5D=silox&transaction%5Bmessage%5D=Thanks!&transaction%5Beuros%5D=0.05'</textarea>
   </div>
 </div>

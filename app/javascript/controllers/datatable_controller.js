@@ -6,8 +6,6 @@ require('datatables.net')();
 
 export default class extends Controller {
   connect() {
-    window.DateTime = DateTime;
-
     $('#transactions').DataTable({
       processing: true,
       serverSide: true,
@@ -45,7 +43,7 @@ export default class extends Controller {
           }
         }
       ],
-      "createdRow": function( row, data, dataIndex ) {
+      "createdRow": function(row, data, dataIndex) {
         $(row).addClass( 'dataTables_row');
       }
     });
