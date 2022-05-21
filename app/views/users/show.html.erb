@@ -28,3 +28,27 @@
   </div>
   </div>
 </div>
+
+<div class="shadow sm:rounded-md sm:overflow-hidden sm:mt-6">
+  <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+    <h2 class="text-2xl font-semibold leading-normal mt-0 mb-5 text-gray-800">API usage</h2>
+
+    <label for="api_key" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">API key</label>
+    <input id="api_key" value="<%= @user.key %>" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly="true">
+    <%= button_to "Reset",
+      reset_key_user_path(@user),
+      {form_class: 'reset_key', class: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'} %>
+    <div>
+      Don't share this with anyone, you don't want people to pay with your money.
+    </div>
+
+    <label for="example" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Example</label>
+    <textarea id="example" rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly="true">
+curl '<%= transactions_url %>' \
+  -H "Accept: application/json"  \
+  -H "Authorization: Token token=<%= @user.key %>" \
+  -X POST \
+  --data-raw 'transaction%5Bdebtor%5D=<%= @user.name %>&transaction%5Bcreditor%5D=silox&transaction%5Bmessage%5D=Thanks!&transaction%5Beuros%5D=0.05'
+    </textarea>
+  </div>
+</div>

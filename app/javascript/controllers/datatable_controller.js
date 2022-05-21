@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 import { DateTime } from "luxon";
 
-require( 'datatables.net' )();
+require('datatables.net')();
 
 export default class extends Controller {
   connect() {
