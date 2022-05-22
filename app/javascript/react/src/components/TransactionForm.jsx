@@ -190,14 +190,17 @@ class Step extends React.Component {
     const { error, step, title, children } = this.props;
 
     return (
-      <li className="mb-10 ml-6">
+      <li className="mb-6 ml-6">
         <span className="flex absolute -left-3 justify-center items-center mt-0.5 w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white">
           { step }
         </span>
         <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900">
           { title }
         </h3>
-        <p className="mb-4 text-base font-normal text-gray-500">
+        <p className="block mb-2 text-sm font-normal leading-none text-red-400">
+          { error }
+        </p>
+        <p className="mb-2 text-base font-normal text-gray-500">
           { children }
         </p>
       </li>
