@@ -15,10 +15,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def new_session_path(scope)
-  #   new_user_session_path
-  # end
-
   def authenticate_user_or_client!
     user_token || current_client || current_user || redirect_to(root_path, flash: { notice: 'You have been redirected.' })
   end

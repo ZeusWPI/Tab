@@ -165,8 +165,14 @@ class Submit extends React.Component {
     return this.props.onClick(b);
   }
 
+  buttonClasses(enabled) {
+    return enabled ?
+      'bg-blue-700 hover:bg-blue-800' :
+      'bg-blue-400 cursor-not-allowed';
+  }
+
   render() {
-    const { giving, step } = this.props;
+    const { giving, step, enabled } = this.props;
 
     return (
       <li className="mb-1 ml-6">
@@ -174,7 +180,8 @@ class Submit extends React.Component {
           { step }
         </span>
         <button
-          className="inline-flex text-white -mt-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          className={`${this.buttonClasses(enabled)} inline-flex text-white -mt-6 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
+          disabled={!enabled}
           onClick={() => this.onClick()}
           type="submit"
         >
@@ -274,24 +281,36 @@ class TransactionForm extends React.Component {
 
   errors() {
     const { amount, giving, message, peer } = this.state;
-    const { peers, user_name } = this.props;
+    const { peers, user_name, balance } = this.props;
     const errors = {};
 
     if (giving === null) {
       errors['giving'] = 'Please select an action.';
     }
+
     if (!amount) {
       errors['amount'] = 'Please fill in an amount.';
     } else if (parseFloat(amount) <= 0) {
       errors['amount'] = 'Please fill in a positive number.';
+    } else if (giving && amount && (parseFloat(amount) * 100 > balance)) {
+      errors['amount'] = 'Insufficient funds.';
     }
+
     if (!(message && message !== "")) {
       errors['message'] = 'Please fill in a message.';
     }
-    if (!(peer && peers.includes(peer) && peer !== user_name)) {
+
+    if (!peer) {
+      errors['peer'] = 'Please select a Zeus member.';
+    } else if (giving && peer === user_name) {
+      errors['peer'] = "No need to give yourself money, you've already got it.";
+    } else if (!giving && peer === user_name) {
+      errors['peer'] = "No need to ask yourself money, you've already got it.";
+    } else if (!peers.includes(peer)) {
       errors['peer'] = 'Please select a valid Zeus member.';
     }
-    console.log(errors);
+
+    console.warn(errors);
 
     return errors;
   }
@@ -390,7 +409,13 @@ class TransactionForm extends React.Component {
                 </Step>
                 : void 0 }
               { step >= 5 ?
-                <Submit giving={giving} step={5} onClick={(e) => this.handleSubmit(e)} type={"submit"} />
+                <Submit
+                  giving={giving}
+                  step={5}
+                  onClick={(e) => this.handleSubmit(e)}
+                  type={"submit"}
+                  enabled={Object.keys(errors).length === 0}
+                />
                 : void 0}
             </ol>
           </form>
