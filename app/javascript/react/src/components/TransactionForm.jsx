@@ -7,10 +7,18 @@ const url = function (path) {
 class Action extends React.Component {
   buttonClass(b) {
     const { giving } = this.props;
-    const c = ['btn', 'btn-default'];
+    const c = ['inline-flex items-center py-2 px-4 text-sm font-medium focus:outline-none border focus:z-10 focus:ring-4'];
+
+    if(b) {
+      c.push('rounded-r-lg');
+    } else {
+      c.push('rounded-l-lg')
+    }
 
     if (b === giving) {
-      c.push('active');
+      c.push('bg-blue-700 text-white hover:bg-blue-800')
+    } else {
+      c.push('text-gray-900 ng-white border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-gray-200')
     }
 
     return c.join(' ');
@@ -22,20 +30,28 @@ class Action extends React.Component {
 
   render() {
     return (
-      <div className={'btn-group btn-group-lg'}>
-        <button
-          className={this.buttonClass(true)}
-          onClick={() => this.onClick(true)}
-          type={'button'}
-        >
-          Give Money
-        </button>
+      <div className={'inline-flex rounded-md shadow-sm'}>
         <button
           className={this.buttonClass(false)}
           onClick={() => this.onClick(false)}
           type={'button'}
         >
-          Request money
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+          </svg>
+          Receive money
+        </button>
+        <button
+          className={this.buttonClass(true)}
+          onClick={() => this.onClick(true)}
+          type={'button'}
+        >
+          Send Money
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 -mr-1" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+          </svg>
         </button>
       </div>
     );
@@ -56,23 +72,24 @@ class Amount extends React.Component {
   }
 
   render() {
-    return <div className={'row'}>
-      <div className={'col-xs-8'}>
-        <div className={'input-group'}>
-          <div className={'input-group-addon'}>
+    return(
+      <div className="relative z-0 w-full mb-6 group">
+        <div className="flex">
+          <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
             €
-          </div>
+          </span>
           <input
-            className={'form-control input-lg'}
             name={'transaction[euros]'}
             onBlur={this.format}
             onChange={this.onChange}
             placeholder={'0.00'}
             type={'number'}
+            step="0.01"
+            className="block flex-initial p-2 w-1/2 sm:text-sm rounded-none rounded-r-lg bg-white border border-gray-200 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border-gray-300"
           />
         </div>
       </div>
-    </div>;
+    );
   }
 }
 
@@ -83,58 +100,41 @@ class Peer extends React.Component {
 
   options() {
     const { peer, peers } = this.props;
-    let re;
 
     if (peer === '' || peers.includes(peer)) {
       return [];
     } else {
-      re = new RegExp(peer, 'i');
-      return peers.filter(function (s) {
-        return s.match(re) !== null;
-      });
+      const re = new RegExp(peer, 'i');
+      return peers.filter(s => s.match(re) !== null);
     }
   }
 
-  inputClass(n) {
-    let c;
-    c = ['form-control', 'input-lg'];
-    if (n > 0) {
-      c.push('active');
-    }
-    return c.join(' ');
-  }
-
-  setPeer(p) {
-    return this.props.setPeer(p);
+  setPeer(appel) {
+    return this.props.setPeer(appel);
   }
 
   render() {
-    let options;
-    options = this.options();
+    const options = this.options();
 
     return (
-      <div className={'row'}>
-        <div className={'col-xs-8'}>
-          <div className={'suggestions-wrapper'}>
-            <input
-              className={this.inputClass(options.length)}
-              onChange={this.onChange}
-              placeholder={'Zeus member'}
-              type={'text'}
-              value={this.props.peer || ''}
-            />
-            { options.length !== 0 ?
-              this.options().map((s, i) => {
-                return <div
-                  className={'suggestion'}
-                  key={i}
-                  onClick={() => this.setPeer(s)}
-                >
-                  {s}
-                </div>
-              }) : void 0 }
-          </div>
-        </div>
+      <div className={'relative z-0 w-full mb-6 group'}>
+        <input
+          className={'block flex-1 min-w-0 w-1/2 p-2.5 text-sm bg-white border rounded-lg border-gray-200 text-gray-900 focus:ring-blue-500 focus:border-blue-500'}
+          onChange={this.onChange}
+          placeholder={'Zeus member'}
+          type={'text'}
+          value={this.props.peer || ''}
+        />
+        { options.length !== 0 ?
+          this.options().map((s, i) => {
+            return <div
+              className={'rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5'}
+              key={i}
+              onClick={() => this.setPeer(s)}
+            >
+              {s}
+            </div>
+          }) : void 0 }
       </div>
     );
   }
@@ -146,17 +146,17 @@ class Message extends React.Component {
   }
 
   render() {
-    return <div className="row">
-      <div className="col-xs-8">
+    return (
+      <div className="relative z-0 w-full mb-6 group">
         <input
-          className="form-control input-lg"
+          className="block flex-1 min-w-0 w-2/3 p-2.5 text-sm bg-white border rounded-lg border-gray-200 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
           name="transaction[message]"
           onChange={this.onChange}
           placeholder="Message"
           type='text'
         />
       </div>
-    </div>;
+    );
   }
 }
 
@@ -166,19 +166,21 @@ class Submit extends React.Component {
   }
 
   render() {
+    const { giving, step } = this.props;
 
     return (
-      <div className="row">
-        <div className="col-xs-4 col-xs-offset-4">
-          <button
-            className="btn btn-default btn-lg btn-block"
-            onClick={() => this.onClick()}
-            type="submit"
-          >
-            Confirm
-          </button>
-        </div>
-      </div>
+      <li className="mb-1 ml-6">
+        <span className="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white">
+          { step }
+        </span>
+        <button
+          className="inline-flex text-white -mt-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          onClick={() => this.onClick()}
+          type="submit"
+        >
+          { giving ? "Send money" : "Create request" }
+        </button>
+      </li>
     );
   }
 }
@@ -188,22 +190,17 @@ class Step extends React.Component {
     const { error, step, title, children } = this.props;
 
     return (
-      <div className={'form-step'}>
-        <div className={'form-step-counter'}>
+      <li className="mb-10 ml-6">
+        <span className="flex absolute -left-3 justify-center items-center mt-0.5 w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white">
           { step }
-        </div>
-        <div className={'form-step-content'}>
-          <div className={'form-step-title'}>
-            { title }
-            <div className={'form-step-error'}>
-              { error }
-            </div>
-            <div className={'clear-both'}></div>
-            { children }
-            <div className={'clear-both'}></div>
-          </div>
-        </div>
-      </div>
+        </span>
+        <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900">
+          { title }
+        </h3>
+        <p className="mb-4 text-base font-normal text-gray-500">
+          { children }
+        </p>
+      </li>
     );
   }
 }
@@ -341,55 +338,60 @@ class TransactionForm extends React.Component {
     const errors = this.errors();
 
     return (
-      <div id={'transaction-form'}>
-        <h3>Transfer some money</h3>
-        <form
-          ref={this.form}
-          action={url('transactions')}
-          acceptCharset={'UTF-8'}
-          method={'post'}
-          onSubmit={this.handleSubmit}
-        >
-          <Step
-            step={1}
-            title={"What do you want to do?"}
-          >
-            <Action
-              giving={giving}
-              setAction={(b) => this.setAction(b)} />
-          </Step>
-          { step >= 2 ?
-            <Step
-              step={2}
-              title={"How much do you want to " + (giving ? 'give' : 'receive') + "?"}
-              error={step > 2 ? errors['amount'] : void 0}
-            >
-              <Amount setAmount={(amount) => this.setAmount(amount) } />
-            </Step>
-            : void 0 }
-          { step >= 3 ?
-            <Step
-              step={3}
-              title={"Who do you want to " + (giving ? 'give it to' : 'receive it from') + "?"}
-              error={step > 3 ? errors['peer'] : void 0}
-            >
-              <Peer peer={peer} peers={peers} setPeer={(peer) => this.setPeer(peer)} />
-            </Step>
-            : void 0 }
-          { step >= 4 ?
-            <Step
-              step={4}
-              title={"Why do you want to " + (giving ? 'give' : 'receive') + " this?"}
-              error={step > 4 ? errors['message'] : void 0}
-            >
-              <Message setMessage={(message) => this.setMessage(message)} />
-            </Step>
-            : void 0 }
-          { step >= 5 ?
-            <Submit onClick={(e) => this.handleSubmit(e)} type={"submit"} />
-            : void 0}
-        </form>
-        <div className={'clear-both'} />
+      <div className="p-4 max-w-xl bg-white rounded-lg border shadow-md sm:p-8">
+        <div className="flex justify-between items-center mb-4">
+          <h5 className="text-xl font-bold leading-none text-gray-900">Transfer</h5>
+        </div>
+        <div className="flow-root">
+          <form
+                ref={this.form}
+                action={url('transactions')}
+                acceptCharset={'UTF-8'}
+                method={'post'}
+                onSubmit={this.handleSubmit}
+              >
+            <ol className="relative border-l border-gray-200">
+              <Step
+                step={1}
+                title={"What do you want to do?"}
+              >
+                <Action
+                  giving={giving}
+                  setAction={(b) => this.setAction(b)} />
+              </Step>
+              { step >= 2 ?
+                <Step
+                  step={2}
+                  title={"How much do you want to " + (giving ? 'give' : 'receive') + "?"}
+                  error={step > 2 ? errors['amount'] : void 0}
+                >
+                  <Amount setAmount={(amount) => this.setAmount(amount) } />
+                </Step>
+                : void 0 }
+              { step >= 3 ?
+                <Step
+                  step={3}
+                  title={"Who do you want to " + (giving ? 'give it to' : 'receive it from') + "?"}
+                  error={step > 3 ? errors['peer'] : void 0}
+                >
+                  <Peer peer={peer} peers={peers} setPeer={(peer) => this.setPeer(peer)} />
+                </Step>
+                : void 0 }
+              { step >= 4 ?
+                <Step
+                  step={4}
+                  title={"Why do you want to " + (giving ? 'give' : 'receive') + " this?"}
+                  error={step > 4 ? errors['message'] : void 0}
+                >
+                  <Message setMessage={(message) => this.setMessage(message)} />
+                </Step>
+                : void 0 }
+              { step >= 5 ?
+                <Submit giving={giving} step={5} onClick={(e) => this.handleSubmit(e)} type={"submit"} />
+                : void 0}
+            </ol>
+          </form>
+        </div>
       </div>
     );
   }
