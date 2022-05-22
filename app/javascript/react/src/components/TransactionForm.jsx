@@ -360,67 +360,60 @@ class TransactionForm extends React.Component {
     const errors = this.errors();
 
     return (
-      <div className="p-4 max-w-xl bg-white rounded-lg border shadow-md sm:p-8">
-        <div className="flex justify-between items-center mb-4">
-          <h5 className="text-xl font-bold leading-none text-gray-900">Transfer</h5>
-        </div>
-        <div className="flow-root">
-          <form
-                ref={this.form}
-                action={url('transactions')}
-                acceptCharset={'UTF-8'}
-                method={'post'}
-                onSubmit={this.handleSubmit}
-              >
-            <ol className="relative border-l border-gray-200">
-              <Step
-                step={1}
-                title={"What do you want to do?"}
-              >
-                <Action
-                  giving={giving}
-                  setAction={(b) => this.setAction(b)} />
-              </Step>
-              { step >= 2 ?
-                <Step
-                  step={2}
-                  title={"How much do you want to " + (giving ? 'give' : 'receive') + "?"}
-                  error={step > 2 ? errors['amount'] : void 0}
-                >
-                  <Amount setAmount={(amount) => this.setAmount(amount) } />
-                </Step>
-                : void 0 }
-              { step >= 3 ?
-                <Step
-                  step={3}
-                  title={"Who do you want to " + (giving ? 'give it to' : 'receive it from') + "?"}
-                  error={step > 3 ? errors['peer'] : void 0}
-                >
-                  <Peer peer={peer} peers={peers} setPeer={(peer) => this.setPeer(peer)} />
-                </Step>
-                : void 0 }
-              { step >= 4 ?
-                <Step
-                  step={4}
-                  title={"Why do you want to " + (giving ? 'give' : 'receive') + " this?"}
-                  error={step > 4 ? errors['message'] : void 0}
-                >
-                  <Message setMessage={(message) => this.setMessage(message)} />
-                </Step>
-                : void 0 }
-              { step >= 5 ?
-                <Submit
-                  giving={giving}
-                  step={5}
-                  onClick={(e) => this.handleSubmit(e)}
-                  type={"submit"}
-                  enabled={Object.keys(errors).length === 0}
-                />
-                : void 0}
-            </ol>
-          </form>
-        </div>
-      </div>
+      <form
+            ref={this.form}
+            action={url('transactions')}
+            acceptCharset={'UTF-8'}
+            method={'post'}
+            onSubmit={this.handleSubmit}
+          >
+        <ol className="relative border-l border-gray-200">
+          <Step
+            step={1}
+            title={"What do you want to do?"}
+          >
+            <Action
+              giving={giving}
+              setAction={(b) => this.setAction(b)} />
+          </Step>
+          { step >= 2 ?
+            <Step
+              step={2}
+              title={"How much do you want to " + (giving ? 'give' : 'receive') + "?"}
+              error={step > 2 ? errors['amount'] : void 0}
+            >
+              <Amount setAmount={(amount) => this.setAmount(amount) } />
+            </Step>
+            : void 0 }
+          { step >= 3 ?
+            <Step
+              step={3}
+              title={"Who do you want to " + (giving ? 'give it to' : 'receive it from') + "?"}
+              error={step > 3 ? errors['peer'] : void 0}
+            >
+              <Peer peer={peer} peers={peers} setPeer={(peer) => this.setPeer(peer)} />
+            </Step>
+            : void 0 }
+          { step >= 4 ?
+            <Step
+              step={4}
+              title={"Why do you want to " + (giving ? 'give' : 'receive') + " this?"}
+              error={step > 4 ? errors['message'] : void 0}
+            >
+              <Message setMessage={(message) => this.setMessage(message)} />
+            </Step>
+            : void 0 }
+          { step >= 5 ?
+            <Submit
+              giving={giving}
+              step={5}
+              onClick={(e) => this.handleSubmit(e)}
+              type={"submit"}
+              enabled={Object.keys(errors).length === 0}
+            />
+            : void 0}
+        </ol>
+      </form>
     );
   }
 }

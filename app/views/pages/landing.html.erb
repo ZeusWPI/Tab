@@ -1,10 +1,10 @@
 <%- title "Dashboard" %>
 
-<div class="flex flex-row">
-  <div class="basis-1/2">
+<div class="grid md:grid-cols-2 xs:grid-cols-1 gap-4">
+  <div>
     <%= render 'transactions' %>
   </div>
-  <div class="basis-1/2">
+  <div>
     <%= render 'transaction_form' %>
     <%= render 'requests' %>
     <%= render 'notifications' %>
