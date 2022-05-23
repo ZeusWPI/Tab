@@ -40,5 +40,30 @@
       <% end %>
 
     </div>
+
+    <footer class="p-4 bg-white shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© <%= Date.current.year %> <a href="https://zeus.gent" class="hover:underline">Zeus WPI</a>. All Rights Reserved.
+      </span>
+      <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+        <li>
+          <%= link_to 'GitHub', 'https://github.com/ZeusWPI/Tab', class: 'mr-4 hover:underline md:mr-6' %>
+        </li>
+        <li>
+          <%= link_to 'About', 'https://zeus.gent/about/about/', class: 'mr-4 hover:underline md:mr-6' %>
+        </li>
+        <li>
+          <%= link_to 'Privacy Policy', 'https://zeus.gent/about/privacy/', class: 'mr-4 hover:underline md:mr-6' %>
+        </li>
+        <li>
+          <%= link_to 'Responsible Disclosure Policy', 'https://zeus.gent/.well-known/security.txt', class: 'mr-4 hover:underline md:mr-6' %>
+        </li>
+        <li>
+          <%= link_to 'License', '', class: 'mr-4 hover:underline md:mr-6' %>
+        </li>
+        <li>
+          <%= link_to 'Contact', 'https://zeus.gent/contact/', class: 'mr-4 hover:underline md:mr-6' %>
+        </li>
+      </ul>
+    </footer>
   </body>
 </html>
