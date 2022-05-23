@@ -15,3 +15,6 @@ application.register('menu', Menu)
 
 import TransactionForm from './transaction_form_controller'
 application.register('transaction-form', TransactionForm)
+
+import Select from './select-controller'
+application.register('select', Select)

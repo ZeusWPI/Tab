@@ -53,7 +53,11 @@ export default class extends Controller {
     $('.dataTables_filter').hide();
 
     $('#filters-heading').click(function() {
-      $('#filters').toggle()
+      document.getElementById('filters').classList.toggle('hidden');
+
+      const button = document.getElementById('filters-heading').getElementsByTagName('button')[0];
+      button.classList.toggle('rounded-xl');
+      button.classList.toggle('rounded-t-xl');
     })
 
     // Hook up our input listeners to programmatically search on the table

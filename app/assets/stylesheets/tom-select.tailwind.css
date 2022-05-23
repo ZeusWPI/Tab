@@ -1,0 +1,3 @@
+.ts-wrapper .ts-control {
+    @apply bg-gray-50 rounded-lg;
+}

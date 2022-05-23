@@ -1,5 +1,7 @@
 import React from "react";
 
+import Select from 'react-select';
+
 const url = function (path) {
   return (window.base_url || '') + "/" + path;
 };
@@ -94,47 +96,31 @@ class Amount extends React.Component {
 }
 
 class Peer extends React.Component {
-  onChange = (ref) => {
-    return this.props.setPeer(ref.target.value);
-  }
-
   options() {
-    const { peer, peers } = this.props;
+    const { peers } = this.props;
 
-    if (peer === '' || peers.includes(peer)) {
-      return [];
-    } else {
-      const re = new RegExp(peer, 'i');
-      return peers.filter(s => s.match(re) !== null);
-    }
+    return peers.map(p => ({value: p, label: p}));
   }
 
   setPeer(appel) {
-    return this.props.setPeer(appel);
+    return this.props.setPeer(appel.value);
   }
 
   render() {
     const options = this.options();
+    const { peer } = this.props;
+    const peerOption = options.find(o => o.value === peer)
 
     return (
       <div className={'relative z-0 w-full mb-6 group'}>
-        <input
-          className={'block flex-1 min-w-0 w-1/2 p-2.5 text-sm bg-white border rounded-lg border-gray-200 text-gray-900 focus:ring-blue-500 focus:border-blue-500'}
-          onChange={this.onChange}
-          placeholder={'Zeus member'}
-          type={'text'}
-          value={this.props.peer || ''}
+        <Select
+          value={peerOption}
+          onChange={(e) => this.setPeer(e)}
+          options={options}
+          menuPortalTarget={document.body}
+          menuPosition={'fixed'}
+          className={'text-sm w-2/3 border-gray-200 text-gray-900 focus:ring-blue-500 focus:border-blue-500 z-20'}
         />
-        { options.length !== 0 ?
-          this.options().map((s, i) => {
-            return <div
-              className={'rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5'}
-              key={i}
-              onClick={() => this.setPeer(s)}
-            >
-              {s}
-            </div>
-          }) : void 0 }
       </div>
     );
   }

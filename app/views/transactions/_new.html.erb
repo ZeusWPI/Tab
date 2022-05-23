@@ -10,12 +10,15 @@
 
     <%= form_with model: @transaction, remote: true do |f| %><%= f.hidden_field :debtor, value: @user.name %>
 
-      <div class="mb-6">
+      <div class="mb-6" data-controller="select">
         <label for="creditor" class="block mb-2 text-sm font-medium text-gray-900">Creditor</label>
         <%= f.select :creditor,
                      options_from_collection_for_select(User.all.order(:name), :name, :name),
                      { include_blank: true },
-                     { class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', required: true, data: { placeholder: "Creditor", width: 150 }} %>
+                     { class: '',
+                       required: true,
+                       data: { placeholder: "Creditor", width: 150 }}
+        %>
       </div>
 
       <div class="mb-6">
@@ -32,10 +35,15 @@
           <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
             €
           </span>
-          <%= f.number_field :euros, value: amount(@transaction.amount),
-                             placeholder: "0.00", step: 0.01,
-                             class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ", size: 20, required: true,
-                             max: (Rails.application.config.maximum_amount / 100 unless current_user.penning) %>
+          <%= f.number_field :euros,
+                             value: amount(@transaction.amount),
+                             placeholder: "0.00",
+                             step: 0.01,
+                             class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ",
+                             size: 20,
+                             required: true,
+                             max: (Rails.application.config.maximum_amount / 100 unless current_user.penning)
+          %>
         </div>
       </div>
 
