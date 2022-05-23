@@ -37,8 +37,8 @@ class Action extends React.Component {
           type={'button'}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24"
-               stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+               stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
           </svg>
           Receive money
         </button>
@@ -49,8 +49,8 @@ class Action extends React.Component {
         >
           Send Money
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 -mr-1" fill="none" viewBox="0 0 24 24"
-               stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+               stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
           </svg>
         </button>
       </div>
@@ -204,12 +204,12 @@ class Step extends React.Component {
         <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900">
           { title }
         </h3>
-        <p className="block mb-2 text-sm font-normal leading-none text-red-400">
+        <div className="block mb-2 text-sm font-normal leading-none text-red-400">
           { error }
-        </p>
-        <p className="mb-2 text-base font-normal text-gray-500">
+        </div>
+        <div className="mb-2 text-base font-normal text-gray-500">
           { children }
-        </p>
+        </div>
       </li>
     );
   }
@@ -315,7 +315,7 @@ class TransactionForm extends React.Component {
     return errors;
   }
 
-  handleSubmit(e) {
+  handleSubmit(_) {
     const { giving, peer } = this.state;
     const { user_name, csrf_token } = this.props;
     const errors = this.errors();

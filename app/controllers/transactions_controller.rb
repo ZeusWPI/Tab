@@ -29,11 +29,18 @@ class TransactionsController < ApplicationController
     end
 
     if @transaction.save
+      if @transaction.is_a?(Transaction)
+        flash[:success] = "Transaction created!"
+      else
+        flash[:success] = "Request made!"
+      end
+
       respond_to do |format|
         format.html { redirect_to root_path }
         format.json { render json: @transaction, status: :created }
       end
     else
+      flash[:error] = "Something went wrong, hope this helps: #{@transaction.errors.full_messages}"
       respond_to do |format|
         format.html { redirect_to root_path }
         format.json { render json: @transaction.errors.full_messages,

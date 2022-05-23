@@ -9,3 +9,9 @@ application.register('datatable', Datatable)
 
 import Clipboard from './clipboard_controller'
 application.register('clipboard', Clipboard)
+
+import Menu from './menu_controller'
+application.register('menu', Menu)
+
+import TransactionForm from './transaction_form_controller'
+application.register('transaction-form', TransactionForm)
