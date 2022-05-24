@@ -48,6 +48,7 @@ gem 'bootsnap', require: false
 # Authentication
 gem 'devise'
 gem 'omniauth-oauth2'
+gem 'omniauth-zeuswpi'
 gem 'omniauth-rails_csrf_protection'
 
 # Authorisation
