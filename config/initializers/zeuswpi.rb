@@ -4,10 +4,13 @@ module OmniAuth
   module Strategies
     class Zeuswpi < OmniAuth::Strategies::OAuth2
 
-      # option :provider_ignores_state, true
-
       # Give your strategy a name.
       option :name, 'zeuswpi'
+
+      # This is important, see https://github.com/omniauth/omniauth-oauth2/issues/93#issuecomment-257319242
+      def callback_url
+        full_host + callback_path
+      end
 
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.

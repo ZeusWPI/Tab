@@ -47,7 +47,7 @@ gem 'bootsnap', require: false
 
 # Authentication
 gem 'devise'
-gem 'omniauth-oauth2', '~> 1.3.1' # '~>1.7'
+gem 'omniauth-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
 # Authorisation
