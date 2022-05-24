@@ -10,7 +10,7 @@
       <form>
         <!-- Date -->
         <div data-input-type="date-range" data-filter-name="Time" class="bound input-listen grid xl:grid-cols-2 xl:gap-6">
-          <div class="relative z-0 w-full mb-6 group">
+          <div class="relative w-full mb-6 group">
             <label for="minimum" class="block mb-2 text-sm font-medium text-gray-900">After</label>
             <div class="flex">
             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md ">
@@ -21,7 +21,7 @@
               <input type="date" id="minimum" class="value-thing lower-bound rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
             </div>
           </div>
-          <div class="relative z-0 w-full mb-6 group">
+          <div class="relative w-full mb-6 group">
             <label for="maximum" class="block mb-2 text-sm font-medium text-gray-900">Before</label>
             <div class="flex">
             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md ">
@@ -35,7 +35,7 @@
         </div>
         <!-- Amount -->
         <div data-input-type="number-range" data-filter-name="Amount" class="bound input-listen grid xl:grid-cols-2 xl:gap-6">
-          <div class="relative z-0 w-full mb-6 group">
+          <div class="relative w-full mb-6 group">
             <label for="minimum" class="block mb-2 text-sm font-medium text-gray-900">Minimum</label>
             <div class="flex">
             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
@@ -44,7 +44,7 @@
               <input type="number" id="minimum" step="0.01" class="value-thing lower-bound rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
             </div>
           </div>
-          <div class="relative z-0 w-full mb-6 group">
+          <div class="relative w-full mb-6 group">
             <label for="maximum" class="block mb-2 text-sm font-medium text-gray-900">Maximum</label>
             <div class="flex">
             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
@@ -56,20 +56,21 @@
         </div>
         <!-- Peer -->
         <div class="grid xl:grid-cols-2 xl:gap-6">
-          <div data-input-type="text" data-filter-name="Issuer" class="input-listen relative z-0 w-full mb-6 group">
+          <div data-input-type="text" data-filter-name="Issuer" class="input-listen relative w-full mb-6 group">
             <label for="issuer" class="block mb-2 text-sm font-medium text-gray-900">Issuer</label>
             <%= grouped_collection_select nil, nil, [User, Client], :all, :name, :name, :name,
-              { include_blank: true },
-              { data: { placeholder: "Filter on Issuer", width: 265 }, class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5" } %>
+                { include_blank: true },
+                { data: { controller: 'select', placeholder: "Filter on Issuer", width: 265 },
+                class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5" } %>
           </div>
-          <div data-input-type="text" data-filter-name="Peer" class="input-listen relative z-0 w-full mb-6 group">
+          <div data-input-type="text" data-filter-name="Peer" class="input-listen relative w-full mb-6 group">
             <label for="peer" class="block mb-2 text-sm font-medium text-gray-900">Peer</label>
             <div class="flex">
               <%= select_tag nil,
                 options_from_collection_for_select(User.all.order(:name), :name, :name),
                 include_blank: true,
                 class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5",
-                data: { placeholder: "Filter on Peer", width: 265 } %>
+                data: { controller: 'select', placeholder: "Filter on Peer" } %>
             </div>
           </div>
         </div>

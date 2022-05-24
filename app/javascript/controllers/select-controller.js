@@ -4,7 +4,7 @@ import TomSelect from "tom-select";
 
 export default class extends Controller {
   connect() {
-    new TomSelect("#transaction_creditor", {
+    new TomSelect(this.element, {
       create: false,
     });
   }

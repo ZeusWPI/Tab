@@ -7,6 +7,10 @@
         @apply float-right px-6 py-4;
     }
 
+    .dataTables_empty {
+        @apply px-6 py-4;
+    }
+
     .dataTables_row {
         @apply border-b odd:bg-white even:bg-gray-50 hover:bg-gray-50;
     }

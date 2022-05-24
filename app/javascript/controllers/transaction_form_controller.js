@@ -11,7 +11,7 @@ export default class extends Controller {
     const root = ReactDOMClient.createRoot(container);
 
     root.render(<TransactionForm
-      user_name={this.data.get('userName')}
+      user_name={JSON.parse(this.data.get('userName'))}
       balance={JSON.parse(this.data.get('balance'))}
       peers={JSON.parse(this.data.get('peers'))}
       csrf_token={JSON.parse(this.data.get('csrfToken'))}
