@@ -37,6 +37,10 @@
                           User.zeus,
                           class: "px-3 py-2 rounded-md text-sm font-medium #{current_page?(user_path(User.zeus)) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}" %>
 
+              <%= link_to 'Users',
+                users_path,
+                class: "px-3 py-2 rounded-md text-sm font-medium #{current_page?(users_path) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}" %>
+
               <%= link_to user_requests_path(User.zeus),
                           class: "px-3 py-2 rounded-md text-sm font-medium #{current_page?(user_requests_path(User.zeus)) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}"  do %>
                 Zeus Requests
@@ -136,6 +140,10 @@
         <%= link_to 'Zeus',
                     User.zeus,
                     class: "border-t block px-3 py-2 rounded-md text-base font-medium #{ current_page?(user_path(User.zeus)) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }" %>
+
+        <%= link_to 'Users',
+                    users_path,
+                    class: "block px-3 py-2 rounded-md text-base font-medium #{ current_page?(users_path) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }" %>
 
         <%= link_to user_requests_path(User.zeus),
                     class: "block px-3 py-2 rounded-md text-base font-medium #{ current_page?(user_requests_path(User.zeus)) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }"  do %>

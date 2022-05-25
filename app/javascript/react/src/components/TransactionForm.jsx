@@ -42,7 +42,7 @@ class Action extends React.Component {
                stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
           </svg>
-          Receive money
+          Request money
         </button>
         <button
           className={this.buttonClass(true)}

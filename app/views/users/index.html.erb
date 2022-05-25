@@ -1,25 +1,38 @@
-<h2>Users</h2>
-<table class="table table-responsive">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Balance</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @users.each do |u| %>
-    <tr>
-      <td>
-        <%= u.id %>
-      </td>
-      <td>
-        <%= u.name %>
-      </td>
-      <td>
-        <%= u.balance %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<% title "Users" %>
+
+<div class="p-4 mb-4 bg-white rounded-lg border shadow-md sm:p-8">
+  <div class="flex justify-between items-center mb-4">
+    <h5 class="text-xl font-bold leading-none text-gray-900">
+      All users
+    </h5>
+  </div>
+
+  <div class="flow-root">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3">Id</th>
+            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |u| %>
+          <tr class="border-b odd:bg-white even:bg-gray-50 hover:bg-gray-50">
+            <td class="px-6 py-4">
+              <%= u.id %>
+            </td>
+            <td class="px-6 py-4">
+              <%= u.name %>
+            </td>
+            <td class="px-6 py-4">
+              <%= euro u.balance %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
