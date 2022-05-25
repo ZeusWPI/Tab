@@ -37,8 +37,10 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
+# Javascript thingies
 /node_modules
+yarn-error.log
 
+# Secrets
 /config/credentials/production.key
-
 /config/credentials/development.key
