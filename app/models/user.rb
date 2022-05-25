@@ -50,9 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    p auth
-    where(name: auth.uid).first_or_create do |user|
-      user.name = auth.uid
+    find_or_create_by!(name: auth.uid) do |user|
       user.generate_key!
     end
   end
