@@ -154,9 +154,17 @@ RSpec.describe TransactionsController, type: :request do
         end
       end
 
-      describe "successfull creating transaction" do
+      describe "successful creating transaction" do
         it "should create a transaction" do
           expect { post_transaction }.to change { Transaction.count }.by(1)
+        end
+
+        it "should handles floats properly" do
+          expect { post_transaction(euros: 9.70, cents: 0) }.to change { Transaction.count }.by(1)
+
+          transaction = Transaction.last
+
+          expect(transaction.amount).to eq(970)
         end
 
         it "should set issuer" do

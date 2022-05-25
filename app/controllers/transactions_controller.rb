@@ -59,7 +59,7 @@ class TransactionsController < ApplicationController
       debtor: t[:debtor] ? User.find_by(name: t[:debtor]) : User.zeus,
       creditor: t[:creditor] ? User.find_by(name: t[:creditor]) : User.zeus,
       issuer: authenticate_user_or_client!,
-      amount: (t[:euros].to_f * 100 + t[:cents].to_f).to_i,
+      amount: (BigDecimal(t[:euros] || 0, 2) * 100 + t[:cents].to_i).to_i,
       message: t[:message],
     }.merge(current_client ? { id_at_client: t[:id_at_client] } : {})
   end
