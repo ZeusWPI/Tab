@@ -10,14 +10,12 @@
 #  updated_at :datetime         not null
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :finders
-  # Default devise modules
-  # :database_authenticatable, :recoverable, :rememberable, :registerable,:validatable,
-  # Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :timeoutable, :omniauthable, omniauth_providers: %i[zeuswpi]
+
   has_many :incoming_transactions,
            class_name: 'Transaction', foreign_key: 'creditor_id'
   has_many :outgoing_transactions,

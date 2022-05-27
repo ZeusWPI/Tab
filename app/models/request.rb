@@ -14,7 +14,7 @@
 #  updated_at  :datetime         not null
 #
 
-class Request < ActiveRecord::Base
+class Request < ApplicationRecord
   include BaseTransaction
 
   enum status: [:open, :confirmed, :declined, :cancelled]

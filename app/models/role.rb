@@ -1,4 +1,6 @@
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
+  scopify
+
   has_and_belongs_to_many :clients, join_table: :clients_roles
 
   belongs_to :resource,
@@ -8,6 +10,4 @@ class Role < ActiveRecord::Base
   validates :resource_type,
             inclusion: { in: Rolify.resource_types },
             allow_nil: true
-
-  scopify
 end
