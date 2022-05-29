@@ -5,17 +5,18 @@ class TransactionsController < ApplicationController
     @transactions = @user.transactions.includes(:debtor, :creditor, :issuer)
     respond_to do |format|
       format.json {
-          render json: @transactions.map {|t| {
-              :id => t.id,
-              :debtor => t.debtor.name,
-              :creditor => t.creditor.name,
-              :time => t.updated_at,
-              :amount => t.amount,
-              :message => t.message,
-              :issuer => t.issuer.name
-        }
+        render json: @transactions.map do |t|
+          {
+            id: t.id,
+            debtor: t.debtor.name,
+            creditor: t.creditor.name,
+            time: t.updated_at,
+            amount: t.amount,
+            message: t.message,
+            issuer: t.issuer.name
+          }
+        end
       }
-  }
     end
   end
 
@@ -44,7 +45,7 @@ class TransactionsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to root_path }
         format.json { render json: @transaction.errors.full_messages,
-        status: :unprocessable_entity }
+          status: :unprocessable_entity }
       end
     end
   end
