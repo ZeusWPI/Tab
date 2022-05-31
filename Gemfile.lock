@@ -101,6 +101,10 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
     digest (3.1.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -304,6 +308,7 @@ DEPENDENCIES
   cssbundling-rails (~> 1.1)
   debug
   devise
+  dotenv-rails
   factory_bot_rails
   faker
   friendly_id (~> 5.4.0)

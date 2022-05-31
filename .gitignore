@@ -41,5 +41,5 @@
 /node_modules
 yarn-error.log
 
-# Secrets
-/config/credentials/production.key
+# .env variables
+.env
