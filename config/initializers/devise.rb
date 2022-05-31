@@ -273,8 +273,8 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :zeuswpi,
-                  Rails.application.credentials.omniauth_client_id,
-                  Rails.application.credentials.omniauth_client_secret,
+                  Rails.application.secrets.omniauth_client_id,
+                  Rails.application.secrets.omniauth_client_secret,
                   token_params: { parse: :json }
 
   # ==> Warden configuration
