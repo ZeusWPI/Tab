@@ -43,4 +43,3 @@ yarn-error.log
 
 # Secrets
 /config/credentials/production.key
-/config/credentials/development.key
