@@ -10,14 +10,15 @@
 #  updated_at :datetime         not null
 #
 
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   belongs_to :user
+
   after_save :send_gcm_notification
 
   scope :unread, -> { where read: false }
 
   def read!
-    update_attributes read: true
+    update!(read: true)
   end
 
   def create
@@ -25,27 +26,25 @@ class Notification < ActiveRecord::Base
   end
 
   def send_gcm_notification
-      if !read
-        begin
-          if !Rpush::Gcm::App.find_by_name("tappb")
-            app = Rpush::Gcm::App.new
-            app.name = "tappb"
-            app.auth_key = Rails.application.secrets.fcm_secret
-            app.connections = 1
-            app.save!
-          end
+    return if read
 
-          n = Rpush::Gcm::Notification.new
-          n.app = Rpush::Gcm::App.find_by_name("tappb")
-          n.registration_ids = user.android_device_registration_tokens.all.map{|r| r.token}
-          n.data = { body: message, title: "Tabbp notification" }
-          n.priority = 'high'
-          n.content_available = true
-          n.save!
-        rescue
-        end
+    begin
+      if !Rpush::Gcm::App.find_by_name("tappb")
+        app = Rpush::Gcm::App.new
+        app.name = "tappb"
+        app.auth_key = Rails.application.secrets.fcm_secret
+        app.connections = 1
+        app.save!
       end
 
-
+      n = Rpush::Gcm::Notification.new
+      n.app = Rpush::Gcm::App.find_by_name("tappb")
+      n.registration_ids = user.android_device_registration_tokens.all.map { |r| r.token }
+      n.data = {body: message, title: "Tabbp notification"}
+      n.priority = 'high'
+      n.content_available = true
+      n.save!
+    rescue
+    end
   end
 end

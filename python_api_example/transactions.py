@@ -12,7 +12,7 @@ data = {
         'euros': 5.0,
         'message': 'Transaction from Python',
         'debtor': user,
-        'creditor': 'Zeus'
+        'creditor': 'silox'
     }
 }
 

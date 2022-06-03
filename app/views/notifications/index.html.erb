@@ -1,0 +1,4 @@
+<% title "Notifications" %>
+
+<%= render 'index', actions: true, section_title: 'Unread Notifications', notifications: @notifications[false] %>
+<%= render 'index', actions: false, section_title: 'Read Notifications', notifications: @notifications[true] %>

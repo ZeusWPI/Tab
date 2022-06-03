@@ -10,18 +10,20 @@
 #  updated_at :datetime         not null
 #
 
-class User < ActiveRecord::Base
-  include FriendlyId
+class User < ApplicationRecord
+  extend FriendlyId
   friendly_id :name, use: :finders
-  devise :timeoutable, :omniauthable, :omniauth_providers => [:zeuswpi]
+
+  devise :timeoutable, :omniauthable, omniauth_providers: %i[zeuswpi]
+
   has_many :incoming_transactions,
-    class_name: 'Transaction', foreign_key: 'creditor_id'
+           class_name: 'Transaction', foreign_key: 'creditor_id'
   has_many :outgoing_transactions,
-    class_name: 'Transaction', foreign_key: 'debtor_id'
+           class_name: 'Transaction', foreign_key: 'debtor_id'
   has_many :incoming_requests,
-    class_name: 'Request', foreign_key: 'debtor_id'
+           class_name: 'Request', foreign_key: 'debtor_id'
   has_many :outgoing_requests,
-    class_name: 'Request', foreign_key: 'creditor_id'
+           class_name: 'Request', foreign_key: 'creditor_id'
   has_many :notifications
   has_many :android_device_registration_tokens, class_name: 'AndroidDeviceRegistrationToken', foreign_key: 'user_id'
 
@@ -41,19 +43,18 @@ class User < ActiveRecord::Base
 
   def calculate_balance!
     balance = incoming_transactions.sum(:amount) -
-                outgoing_transactions.sum(:amount)
+      outgoing_transactions.sum(:amount)
     self.update_attribute :balance, balance
   end
 
   def self.from_omniauth(auth)
-    where(name: auth.uid).first_or_create do |user|
-      user.name = auth.uid
+    find_or_create_by!(name: auth.uid) do |user|
       user.generate_key!
     end
   end
 
   def self.zeus
-    @@zeus ||= find_or_create_by name: 'Zeus'
+    @@zeus ||= find_or_create_by!(name: 'Zeus')
   end
 
   def generate_key
@@ -66,6 +67,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def set_key
     self.key = SecureRandom.base64(16)
   end

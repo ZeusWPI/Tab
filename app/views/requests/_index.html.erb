@@ -1,0 +1,78 @@
+<div class="p-4 mb-4 bg-white rounded-lg border shadow-md sm:p-8">
+  <div class="flex justify-between items-center mb-4">
+    <h5 class="text-xl font-bold leading-none text-gray-900">
+      <%= section_title %>
+    </h5>
+  </div>
+
+  <div class="flow-root">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3">Issuer</th>
+          <th scope="col" class="px-6 py-3">Creditor</th>
+          <th scope="col" class="px-6 py-3">Debtor</th>
+          <th scope="col" class="px-6 py-3">Amount</th>
+          <th scope="col" class="px-6 py-3">Message</th>
+          <% if actions %>
+            <th scope="col" class="px-6 py-3 text-right">Actions</th>
+          <% end %>
+        </tr>
+        </thead>
+        <tbody>
+        <% (requests || []).each do |r| %>
+          <tr class="border-b odd:bg-white even:bg-gray-50 hover:bg-gray-50">
+            <td class="px-6 py-4">
+              <%= r.issuer.name %>
+            </td>
+            <td class="px-6 py-4">
+              <%= r.creditor.name %>
+            </td>
+            <td class="px-6 py-4">
+              <%= r.debtor.name %>
+            </td>
+            <td class="px-6 py-4">
+              <%= r.amount_f %>
+            </td>
+            <td class="px-6 py-4">
+              <%= r.message %>
+            </td>
+            <% if actions %>
+              <%- buttons = [can?(:confirm, r), can?(:cancel, r), can?(:decline, r)] %>
+              <td class="px-6 py-4 text-right">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                  <% if can?(:confirm, r) %>
+                    <%= button_to request_confirm_path(r), class: "inline-flex items-center py-2 px-4 text-sm font-medium focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 border focus:z-10 focus:ring-2 #{rounded_classes(buttons, 0)}" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      Accept
+                    <% end %>
+                  <% end %>
+                  <% if can?(:cancel, r) %>
+                    <%= button_to request_cancel_path(r), class: "inline-flex items-center py-2 px-4 text-sm font-medium focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 border focus:z-10 focus:ring-2 #{rounded_classes(buttons, 1)}" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      Cancel
+                    <% end %>
+                  <% end %>
+                  <% if can?(:decline, r) %>
+                    <%= button_to request_decline_path(r), class: "inline-flex items-center py-2 px-4 text-sm font-medium focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 border focus:z-10 focus:ring-2 #{rounded_classes(buttons, 2)}" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                      </svg>
+                      Decline
+                    <% end %>
+                  <% end %>
+                </div>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

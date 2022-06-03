@@ -1,0 +1,31 @@
+<div class="p-4 mb-4 bg-white rounded-lg border shadow-md sm:p-8">
+  <div class="flex justify-between items-center mb-4">
+    <h5 class="text-xl font-bold leading-none text-gray-900">Outgoing requests</h5>
+    <%= link_to "View all", user_requests_path(current_user), class: "text-sm font-medium text-blue-600 hover:underline" %>
+  </div>
+  <div class="flow-root">
+    <ul role="list" class="divide-y divide-gray-200">
+      <% if @outgoing_requests.any? %>
+        <% @outgoing_requests.each do |r| %>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate">
+                  <%= r.debtor.name %>
+                </p>
+                <p class="text-md text-gray-500 truncate">
+                  <%= r.message %>
+                </p>
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900">
+                <%= euro_from_cents r.amount %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      <% else %>
+        None!
+      <% end %>
+    </ul>
+  </div>
+</div>

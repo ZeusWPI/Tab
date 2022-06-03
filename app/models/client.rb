@@ -9,14 +9,17 @@
 #  updated_at :datetime         not null
 #
 
-class Client < ActiveRecord::Base
+class Client < ApplicationRecord
   rolify
+
   has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
+
   before_create :generate_key
 
   validates :name, presence: true, uniqueness: true
 
   private
+
   def generate_key
     self.key = SecureRandom.base64(16) unless self.key
   end

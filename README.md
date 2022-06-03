@@ -1,10 +1,13 @@
-# [Tab](https://zeus.ugent.be/tab) [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/Tab/README.md?pixel)](https://github.com/igrigorik/ga-beacon) [![Code Climate](https://codeclimate.com/github/ZeusWPI/Tab/badges/gpa.svg)](https://codeclimate.com/github/ZeusWPI/Tab) [![Coverage Status](https://coveralls.io/repos/ZeusWPI/Tab/badge.svg?branch=master&service=github)](https://coveralls.io/github/ZeusWPI/Tab?branch=master) [![Build Status](https://travis-ci.org/ZeusWPI/Tab.png?branch=master)](https://travis-ci.org/ZeusWPI/Tab)
+# [Tab](https://zeus.ugent.be/tab)
+Not to be confused with [Tap](https://zeus.ugent.be/tap). 
 
-## Deploy
+## Get started
 
-Just run `cap production deploy`. You might need to edit some config files
-on the server.
-
+1. Run `bundle`
+2. Run `yarn`
+3. Run `./bin/dev`
+4. Browse to [http://localhost:3000](http://localhost:3000)
+ 
 ## Adding clients
 
 A client can see and modify balances of other users.
@@ -14,3 +17,11 @@ to the server, `cd production/current`, then run `RAILS_ENV=production bundle ex
 Then you can add clients with `client = Client.create name: "Tap"`.
 
 If you want the client to be able to make transactions, run: `client.add_role :create_transactions` in the console.
+
+## Troubleshooting
+
+### My CSS classes aren't rendered
+
+This probably is a missing entry in Tailwinds configuration. Make sure your file path is included in the `content` array in `tailwind.config.js`.
+
+When Tailwind compiles CSS, it scans all files matching the `content` array to know which CSS classes to include.

@@ -1,0 +1,6 @@
+<%- title "Requests" %>
+
+<%= render 'index', actions: true, section_title: 'Open Requests', requests: @requests['open'] %>
+<%= render 'index', actions: false, section_title: 'Confirmed Requests', requests: @requests['confirmed'] %>
+<%= render 'index', actions: false, section_title: 'Declined Requests', requests: @requests['declined'] %>
+<%= render 'index', actions: false, section_title: 'Cancelled Requests', requests: @requests['cancelled'] %>

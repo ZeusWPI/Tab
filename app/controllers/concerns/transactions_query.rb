@@ -1,7 +1,7 @@
 class TransactionsQuery
   attr_reader :arel_table
 
-  def initialize user
+  def initialize(user)
     @user = user
     @transactions = Arel::Table.new(:transactions)
     @perspectived = Arel::Table.new(:perspectived_transactions)
@@ -21,7 +21,7 @@ class TransactionsQuery
     )
   end
 
-  def issued_by klass
+  def issued_by(klass)
     issuers = klass.arel_table.alias('issuer')
     Arel::SelectManager.new(ActiveRecord::Base)
       .from(transactions)
