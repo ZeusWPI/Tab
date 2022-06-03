@@ -27,7 +27,7 @@
               <%= u.name %>
             </td>
             <td class="px-6 py-4">
-              <%= euro u.balance %>
+              <%= euro_from_cents(u.balance) %>
             </td>
           </tr>
         <% end %>
