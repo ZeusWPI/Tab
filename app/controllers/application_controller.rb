@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
+
   # Don't verify authenticity token (protects against CSRF) for API requests
   skip_before_action :verify_authenticity_token, if: :api_request?
 
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_client
-    @current_client ||= authenticate_with_http_token do |token, options|
+    @current_client ||= authenticate_with_http_token do |token, _|
       Client.find_by key: token
     end
   end
@@ -32,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_token
-    @user_token ||= authenticate_with_http_token do |token, options|
+    @user_token ||= authenticate_with_http_token do |token, _|
       User.find_by key: token
     end
   end

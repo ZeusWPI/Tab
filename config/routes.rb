@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   root to: 'pages#sign_in_page'
 
   resources :transactions, only: [:create]
-  resources :users, only: %i[index show] do
+  resources :users, only: [:index, :show] do
     resources :requests, only: [:index], shallow: true do
       post :confirm
       post :decline
@@ -28,9 +28,19 @@ Rails.application.routes.draw do
     resources :notifications, only: [:index], shallow: true do
       post :read
     end
-    resources :transactions, only: [:index], shallow: true
+    resources :transactions, only: [:index]
     post :reset_key, on: :member
     post :add_registration_token, on: :member
+  end
+
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      resources :transactions, only: [:create]
+
+      resources :users, only: [:index, :show] do
+        resources :transactions, only: [:index]
+      end
+    end
   end
 
   get 'datatables/:id' => 'datatables#transactions_for_user', as: "user_transactions_datatable"
