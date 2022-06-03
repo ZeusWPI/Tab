@@ -90,6 +90,12 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # Deployment
+  gem 'capistrano', '~> 3.10'
+  gem 'capistrano-rails', '~> 1.6'
+  gem 'capistrano-asdf'
+  gem 'capistrano-passenger'
 end
 
 group :test do
