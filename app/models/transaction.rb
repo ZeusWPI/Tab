@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: transactions
@@ -18,15 +20,10 @@ class Transaction < ApplicationRecord
   include BaseTransaction
   include TransactionHelpers
 
-  after_save    :recalculate_balances!
   after_destroy :recalculate_balances!
+  after_save    :recalculate_balances!
 
-  validates :id_at_client, presence: true, uniqueness: { scope: :issuer_id }, if: :is_client_transaction?
-
-  def signed_amount_for(user)
-    return -amount if user == debtor
-    return amount if user == creditor
-  end
+  validates :id_at_client, presence: true, uniqueness: { scope: :issuer_id }, if: :client_transaction?
 
   def reverse
     self.creditor, self.debtor = self.debtor, self.creditor

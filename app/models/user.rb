@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -17,44 +19,43 @@ class User < ApplicationRecord
   devise :timeoutable, :omniauthable, omniauth_providers: %i[zeuswpi]
 
   has_many :incoming_transactions,
-           class_name: 'Transaction', foreign_key: 'creditor_id'
+           class_name: "Transaction", foreign_key: "creditor_id"
   has_many :outgoing_transactions,
-           class_name: 'Transaction', foreign_key: 'debtor_id'
+           class_name: "Transaction", foreign_key: "debtor_id"
   has_many :incoming_requests,
-           class_name: 'Request', foreign_key: 'debtor_id'
+           class_name: "Request", foreign_key: "debtor_id"
   has_many :outgoing_requests,
-           class_name: 'Request', foreign_key: 'creditor_id'
+           class_name: "Request", foreign_key: "creditor_id"
   has_many :notifications
-  has_many :android_device_registration_tokens, class_name: 'AndroidDeviceRegistrationToken', foreign_key: 'user_id'
+  has_many :android_device_registration_tokens, class_name: "AndroidDeviceRegistrationToken", foreign_key: "user_id"
 
-  has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
+  has_many :issued_transactions, as: :issuer, class_name: "Transaction"
 
   validates :name, presence: true, uniqueness: true
 
-  scope :humans, -> { where.not(id: self.zeus) }
+  scope :humans, -> { where.not(id: zeus) }
 
   def transactions
-    Transaction.where('creditor_id = ?', id).or(Transaction.where('debtor_id = ?', id))
+    Transaction.where(creditor_id: id).or(Transaction.where(debtor_id: id))
   end
 
   def requests
-    Request.where('debtor_id = ?', id).or(Request.where('creditor_id = ?', id).or(Request.where('issuer_id = ?', id)))
+    Request.where(debtor_id: id).or(Request.where(creditor_id: id).or(Request.where(issuer_id: id)))
   end
 
   def calculate_balance!
-    balance = incoming_transactions.sum(:amount) -
-      outgoing_transactions.sum(:amount)
-    self.update_attribute :balance, balance
+    balance = incoming_transactions.sum(:amount) - outgoing_transactions.sum(:amount)
+    self.update_attribute(:balance, balance) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def self.from_omniauth(auth)
-    find_or_create_by!(name: auth.uid) do |user|
+    find_or_create_by!(name: auth.uid) do |user| # rubocop:disable Style/SymbolProc
       user.generate_key!
     end
   end
 
   def self.zeus
-    @@zeus ||= find_or_create_by!(name: 'Zeus')
+    @@zeus ||= find_or_create_by!(name: "Zeus")
   end
 
   def generate_key

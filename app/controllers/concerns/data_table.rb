@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class DataTable
   include ActionView::Helpers::JavaScriptHelper
   include ERB::Util
 
-  def initialize user, params
+  def initialize(user, params)
     @user = user
     @params = sanitize_params(params)
     @transactions = TransactionsQuery.new(@user)
@@ -48,7 +50,7 @@ class DataTable
     ].compact.inject { |l, r| l.and(r) }
   end
 
-  def range_predicates name
+  def range_predicates(name)
     col = @params[:columns][name]
     [
       (@table[name].gteq(col[:lower]) if col[:lower]),
@@ -56,17 +58,17 @@ class DataTable
     ]
   end
 
-  def eq_predicate name
+  def eq_predicate(name)
     value = @params[:columns][name][:value]
     @table[name].eq(value) if value
   end
 
-  def like_predicate name
+  def like_predicate(name)
     value = @params[:columns][name][:value]
     @table[name].matches("%#{value}%") if value
   end
 
-  def run_query query
+  def run_query(query)
     ActiveRecord::Base.connection.exec_query(query.to_sql)
   end
 
@@ -76,30 +78,31 @@ class DataTable
       draw: params.require(:draw).to_i,
       start: params.require(:start).to_i,
       length: params.require(:length).to_i,
-      columns: Hash.new
+      columns: {}
     }
-    params.require(:columns).each do |i, column|
-      type, *values = column.require(:search)[:value].split(':')
-      value = values.join(':') unless values.empty?
+    params.require(:columns).each do |_, column|
+      type, *values = column.require(:search)[:value].split(":")
+      value = values.join(":") unless values.empty?
       h = clean[:columns][column.require(:data).to_sym] = {
         name: column[:name],
-        searchable: column[:searchable] == 'true',
-        orderable: column[:orderable] == 'true',
+        searchable: column[:searchable] == "true",
+        orderable: column[:orderable] == "true",
         type: type
       }
-      if type == 'number-range'
-        h[:lower], h[:upper] = value.split('~').map do |euros|
+      case type
+      when "number-range"
+        h[:lower], h[:upper] = value.split("~").map do |euros|
           (Float(euros) * 100).to_i rescue nil
         end
-      elsif type == 'date-range'
-        h[:lower], h[:upper] = value.split('~').map do |string|
+      when "date-range"
+        h[:lower], h[:upper] = value.split("~").map do |string|
           string.to_datetime rescue nil
         end
       else
         h[:value] = value
       end
     end
-    return clean
+
+    clean
   end
 end
-

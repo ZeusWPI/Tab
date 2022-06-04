@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 # == Schema Information
@@ -13,20 +14,18 @@ require "rails_helper"
 #
 
 RSpec.describe Client, type: :model do
-  before :each do
-    @client = create :client
+  let(:client) { create(:client) }
+
+  it "has a valid factory" do
+    expect(client).to be_valid
   end
 
-  it "should have a valid factory" do
-    expect(@client).to be_valid
+  it "generates a key" do
+    expect(client.key).to be_present
   end
 
-  it "should generate a key" do
-    expect(@client.key).to be_present
-  end
-
-  it "should have a unique name" do
-    client = build :client, name: @client.name
-    expect(client).to_not be_valid
+  it "has a unique name" do
+    new_client = build(:client, name: client.name)
+    expect(new_client).not_to be_valid
   end
 end

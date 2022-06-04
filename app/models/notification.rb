@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -21,10 +23,7 @@ class Notification < ApplicationRecord
     update!(read: true)
   end
 
-  def create
-
-  end
-
+  # rubocop:disable all
   def send_gcm_notification
     return if read
 
@@ -47,4 +46,5 @@ class Notification < ApplicationRecord
     rescue
     end
   end
+  # rubocop:enable
 end

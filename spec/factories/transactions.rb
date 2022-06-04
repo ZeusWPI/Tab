@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: transactions
@@ -19,7 +21,7 @@ FactoryBot.define do
     association :debtor, factory: :user
     association :creditor, factory: :user
     issuer { debtor }
-    amount { 1 + rand(10000) }
+    amount { rand(1..10_000) }
     message { Faker::Lorem.sentence }
     factory :client_transaction do
       association :issuer, factory: :client

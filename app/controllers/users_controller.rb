@@ -1,6 +1,6 @@
-class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: :create
+# frozen_string_literal: true
 
+class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show, :add_registration_token]
   before_action :authenticate_user_or_client!, only: [:show, :add_registration_token]
 
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def add_registration_token
     token = JSON.parse(request.raw_post)["token"]
     respond_to do |format|
-      format.json { render json: AndroidDeviceRegistrationToken.create(user: @user, token: token) }
+      format.json { render json: AndroidDeviceRegistrationToken.create(user: @user, token:) }
     end
   end
 end

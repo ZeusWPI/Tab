@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -17,8 +19,9 @@ FactoryBot.define do
     factory :penning do
       penning { true }
     end
+
     factory :positive_user do
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _|
         create(:transaction, creditor: user, debtor: create(:penning), amount: 2000)
       end
     end

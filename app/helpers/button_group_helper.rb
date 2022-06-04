@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ButtonGroupHelper
   def rounded_classes(buttons, index)
     visible_buttons = buttons.count(true)

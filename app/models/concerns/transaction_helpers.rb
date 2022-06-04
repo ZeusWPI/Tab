@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TransactionHelpers
   include ActiveSupport::Concern
 
@@ -6,7 +8,7 @@ module TransactionHelpers
     return debtor   if user == creditor
   end
 
-  def is_client_transaction?
-    issuer_type == 'Client'
+  def client_transaction?
+    issuer_type == "Client"
   end
 end

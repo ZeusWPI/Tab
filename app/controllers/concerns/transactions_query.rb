@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TransactionsQuery
   attr_reader :arel_table
 
@@ -5,13 +7,12 @@ class TransactionsQuery
     @user = user
     @transactions = Arel::Table.new(:transactions)
     @perspectived = Arel::Table.new(:perspectived_transactions)
-    @peers = Arel::Table.new(:users).alias('peers')
+    @peers = Arel::Table.new(:users).alias("peers")
     @arel_table = Arel::Table.new("#{@user.name}_transactions")
   end
 
   def query
-    Arel::SelectManager.new(ActiveRecord::Base)
-      .from(arel)
+    Arel::SelectManager.new(ActiveRecord::Base).from(arel)
   end
 
   def arel
@@ -22,8 +23,9 @@ class TransactionsQuery
   end
 
   def issued_by(klass)
-    issuers = klass.arel_table.alias('issuer')
-    Arel::SelectManager.new(ActiveRecord::Base)
+    issuers = klass.arel_table.alias("issuer")
+    Arel::SelectManager
+      .new(ActiveRecord::Base)
       .from(transactions)
       .join(@peers).on(@peers[:id].eq(@perspectived[:peer_id]))
       .join(issuers).on(issuers[:id].eq(@perspectived[:issuer_id]))
@@ -32,8 +34,8 @@ class TransactionsQuery
         @perspectived[:amount],
         @perspectived[:time],
         @perspectived[:message],
-        @peers[:name].as('peer'),
-        issuers[:name].as('issuer')
+        @peers[:name].as("peer"),
+        issuers[:name].as("issuer")
       )
   end
 
@@ -48,9 +50,9 @@ class TransactionsQuery
     @transactions
       .where(@transactions[:debtor_id].eq(@user.id))
       .project(
-        (@transactions[:amount]*Arel::Nodes::SqlLiteral.new("-1")).as('amount'),
-        @transactions[:creditor_id].as('peer_id'),
-        @transactions[:created_at].as('time'),
+        (@transactions[:amount] * Arel::Nodes::SqlLiteral.new("-1")).as("amount"),
+        @transactions[:creditor_id].as("peer_id"),
+        @transactions[:created_at].as("time"),
         @transactions[:issuer_id],
         @transactions[:issuer_type],
         @transactions[:message]
@@ -63,8 +65,8 @@ class TransactionsQuery
       .where(@transactions[:creditor_id].eq(@user.id))
       .project(
         @transactions[:amount],
-        @transactions[:debtor_id].as('peer_id'),
-        @transactions[:created_at].as('time'),
+        @transactions[:debtor_id].as("peer_id"),
+        @transactions[:created_at].as("time"),
         @transactions[:issuer_id],
         @transactions[:issuer_type],
         @transactions[:message]

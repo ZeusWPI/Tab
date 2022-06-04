@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -11,8 +13,5 @@
 #
 
 FactoryBot.define do
-  factory :notification do
-    
-  end
-
+  factory :notification
 end
