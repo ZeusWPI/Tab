@@ -4,9 +4,9 @@ module Api
       load_and_authorize_resource :user, find_by: :name
 
       def index
-        @transactions = @user.transactions.includes(:debtor, :creditor, :issuer)
+        transactions = @user.transactions.includes(:debtor, :creditor, :issuer)
 
-        render json: @transactions.map do |t|
+        mapped_transactions = transactions.map do |t|
           {
             id: t.id,
             debtor: t.debtor.name,
@@ -17,6 +17,8 @@ module Api
             issuer: t.issuer.name
           }
         end
+
+        render json: mapped_transactions
       end
 
       def create
