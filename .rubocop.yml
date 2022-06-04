@@ -1,0 +1,82 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+Layout/LineLength:
+  Max: 144
+
+# Use double-quotes instead of single-quotes
+# Double quotes allow for string interpolation, so we enforce
+# double quotes for consistency.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# Do not report errors on missing documentation.
+Style/Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+# Do not complain about blocks that are too long.
+Metrics/BlockLength:
+  Enabled: false
+
+# We decide how many expectations.
+RSpec/MultipleExpectations:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: true
+  EnforcedStyle: ruby19
+  SupportedStyles:
+    - ruby19
+    - hash_rockets
+  EnforcedShorthandSyntax: either
+
+# We decide how many lines.
+RSpec/ExampleLength:
+  Enabled: false
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: true
+  MinDigits: 5
+
+RSpec/NestedGroups:
+  Description: Checks for nested example groups.
+  Enabled: true
+  Max: 5
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "db/schema.rb"
+    - "config/**/*"
+    - "bin/**/*"
+    - "db/**/*"
+    - "spec/rails_helper.rb"
+    - "spec/spec_helper.rb"
+    - "vendor/**/*"

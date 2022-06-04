@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
@@ -11,13 +13,13 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
-      format.json { render json: ['Diefstal is een misdrijf.'], status: :forbidden }
+      format.json { render json: ["Diefstal is een misdrijf."], status: :forbidden }
       format.html { redirect_to root_url, alert: exception.message }
     end
   end
 
   def authenticate_user_or_client!
-    user_token || current_client || current_user || redirect_to(root_path, flash: { notice: 'You have been redirected.' })
+    user_token || current_client || current_user || redirect_to(root_path, flash: { notice: "You have been redirected." })
   end
 
   def current_client
@@ -27,9 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    @current_ability ||=
-      current_client.try { |c| ClientAbility.new(c) } ||
-        UserAbility.new(user_token || current_user)
+    @current_ability ||= current_client.try { |c| ClientAbility.new(c) } || UserAbility.new(user_token || current_user)
   end
 
   def user_token
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_)
     root_path
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RequestsController < ApplicationController
   load_and_authorize_resource :user, find_by: :name
 
@@ -7,7 +9,7 @@ class RequestsController < ApplicationController
   def index
     @requests = @user.requests.group_by(&:status)
     respond_to do |format|
-      format.html { }
+      format.html
       format.json { render json: @requests }
     end
   end

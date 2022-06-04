@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module BaseTransaction
   extend ActiveSupport::Concern
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
 
   included do
-    belongs_to :debtor,   class_name: 'User'
-    belongs_to :creditor, class_name: 'User'
+    belongs_to :debtor,   class_name: "User"
+    belongs_to :creditor, class_name: "User"
     belongs_to :issuer,   polymorphic: true
 
     validates :debtor,   presence: true
@@ -27,8 +29,6 @@ module BaseTransaction
   private
 
   def different_debtor_creditor
-    if self.debtor == self.creditor
-      self.errors.add :base, "Can't write money to yourself"
-    end
+    self.errors.add :base, "Can't write money to yourself" if self.debtor == self.creditor
   end
 end

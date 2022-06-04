@@ -1,14 +1,12 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
-  def euro f
-    number_to_currency f, unit: '€'
+  def euro(float)
+    number_to_currency float, unit: "€"
   end
 
-  def euro_from_cents(f)
-    if f
-      euro (f / 100.0)
-    else
-      nil
-    end
+  def euro_from_cents(cents)
+    euro(cents / 100.0) if cents
   end
 
   def title(page_title)

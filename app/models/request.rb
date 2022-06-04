@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: requests
@@ -17,7 +19,7 @@
 class Request < ApplicationRecord
   include BaseTransaction
 
-  enum status: [:open, :confirmed, :declined, :cancelled]
+  enum status: { open: 0, confirmed: 1, declined: 2, cancelled: 3 }
 
   def confirm!
     return unless open?
@@ -48,14 +50,14 @@ class Request < ApplicationRecord
   private
 
   def confirmed_message
-    "Your request for €#{amount/100.0} for \"#{message}\" has been accepted by #{debtor.name}."
+    "Your request for €#{amount / 100.0} for \"#{message}\" has been accepted by #{debtor.name}."
   end
 
   def declined_message
-    "#{debtor.name} refuses to pay €#{amount/100.0} for \"#{message}\"."
+    "#{debtor.name} refuses to pay €#{amount / 100.0} for \"#{message}\"."
   end
 
   def cancelled_message
-    "#{issuer.name} cancelled the request to pay #{debtor.name} €#{amount/100.0} for \"#{message}\" to #{creditor.name}."
+    "#{issuer.name} cancelled the request to pay #{debtor.name} €#{amount / 100.0} for \"#{message}\" to #{creditor.name}."
   end
 end

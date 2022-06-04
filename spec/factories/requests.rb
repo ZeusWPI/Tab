@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: requests
@@ -17,10 +19,9 @@
 FactoryBot.define do
   factory :request do
     status { :open }
-    association :issuer, factory: :user, name: 'Issuer'
-    association :debtor, factory: :positive_user, name: 'Debtor'
-    association :creditor, factory: :user, name: 'Creditor'
+    association :issuer, factory: :user, name: "Issuer"
+    association :debtor, factory: :positive_user, name: "Debtor"
+    association :creditor, factory: :user, name: "Creditor"
     amount { 5 }
   end
-
 end

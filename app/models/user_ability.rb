@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserAbility
   include CanCan::Ability
 
@@ -14,7 +16,9 @@ class UserAbility
     can [:read, :reset_key, :add_registration_token], User, id: user.id
     can :manage, Notification, user_id: user.id
     can :create, Transaction do |t|
-      t.debtor == user && t.amount <= Rails.application.config.maximum_amount && (user.balance - t.amount >= Rails.application.config.minimum_balance)
+      t.debtor == user &&
+        t.amount <= Rails.application.config.maximum_amount &&
+        (user.balance - t.amount >= Rails.application.config.minimum_balance)
     end
   end
 end

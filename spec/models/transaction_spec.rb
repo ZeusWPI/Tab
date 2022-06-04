@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 # == Schema Information
@@ -23,55 +24,52 @@ RSpec.describe Transaction, type: :model do
   end
 
   describe "cache" do
-    before :each do
-      @user = create(:user)
+    let(:user) { create(:user) }
+
+    it "updates creditor cache" do
+      trans = build(:transaction, creditor: user, amount: 10)
+      expect { trans.save! }.to change(user, :balance).by(10)
     end
 
-    it "should update creditor cache" do
-      trans = build(:transaction, creditor: @user, amount: 10)
-      expect { trans.save! }.to change { @user.balance }.by(10)
-    end
-
-    it "should update debtor cache" do
-      trans = build(:transaction, debtor: @user, amount: 10)
-      expect { trans.save! }.to change { @user.balance }.by(-10)
+    it "updates debtor cache" do
+      trans = build(:transaction, debtor: user, amount: 10)
+      expect { trans.save! }.to change(user, :balance).by(-10)
     end
   end
 
   describe "amount" do
-    it "should be positive" do
-      expect(build :transaction, amount: -5).to_not be_valid
+    it "is positive" do
+      expect(build(:transaction, amount: -5)).not_to be_valid
     end
 
-    it "should not be 0" do
-      expect(build :transaction, amount: 0).to_not be_valid
+    it "is greater than be 0" do
+      expect(build(:transaction, amount: 0)).not_to be_valid
     end
   end
 
   describe "debtor/creditor" do
-    it "should be different" do
-      @user = create :user
-      expect(build :transaction, debtor: @user, creditor: @user).to_not be_valid
+    let(:user) { create(:user) }
+
+    it "is different" do
+      expect(build(:transaction, debtor: user, creditor: user)).not_to be_valid
     end
   end
 
   describe "client as issuer" do
-    before :each do
-      @transaction = create :client_transaction
+    let(:transaction) { create(:client_transaction) }
+
+    it "has a id_at_client" do
+      transaction.id_at_client = nil
+      expect(transaction).not_to be_valid
     end
 
-    it "should have a id_at_client" do
-      @transaction.id_at_client = nil
-      expect(@transaction).to_not be_valid
+    it "has a unique id_at_client" do
+      t = build(:client_transaction, issuer: transaction.issuer, id_at_client: transaction.id_at_client)
+      expect(t).not_to be_valid
     end
 
-    it "should have a unique id_at_client" do
-      t = build :client_transaction, issuer: @transaction.issuer, id_at_client: @transaction.id_at_client
-      expect(t).to_not be_valid
-    end
-
-    it "should have a unique id_at_client per client" do
-      t = build :client_transaction, id_at_client: @transaction.id_at_client
+    it "has a unique id_at_client per client" do
+      t = build(:client_transaction, id_at_client: transaction.id_at_client)
       expect(t).to be_valid
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: clients
@@ -12,7 +14,7 @@
 class Client < ApplicationRecord
   rolify
 
-  has_many :issued_transactions, as: :issuer, class_name: 'Transaction'
+  has_many :issued_transactions, as: :issuer, class_name: "Transaction"
 
   before_create :generate_key
 

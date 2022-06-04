@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class ApplicationController < ActionController::Base
@@ -7,7 +9,8 @@ module Api
 
       def require_login!
         return true if authenticate_user_or_client!
-        render json: { errors: [ { detail: "Access denied" } ] }, status: 401
+
+        render json: { errors: [{ detail: "Access denied" }] }, status: :unauthorized
       end
 
       def authenticate_user_or_client!
@@ -31,13 +34,11 @@ module Api
       end
 
       def current_ability
-        @current_ability ||=
-          current_client.try { |c| ClientAbility.new(c) } ||
-            UserAbility.new(current_user_or_client)
+        @current_ability ||= current_client.try { |c| ClientAbility.new(c) } || UserAbility.new(current_user_or_client)
       end
 
       rescue_from CanCan::AccessDenied do |_|
-        render json: { errors: [ { detail: "Diefstal is een misdrijf" } ] }, status: 403
+        render json: { errors: [{ detail: "Diefstal is een misdrijf" }] }, status: :forbidden
       end
     end
   end

@@ -1,5 +1,6 @@
-class PagesController < ApplicationController
+# frozen_string_literal: true
 
+class PagesController < ApplicationController
   def landing
     query = TransactionsQuery.new(current_user)
     @transactions = ActiveRecord::Base.connection.exec_query(query.query.order(query.arel_table[:time].desc).take(10).project(Arel.star).to_sql)
@@ -8,6 +9,5 @@ class PagesController < ApplicationController
     @notifications = current_user.notifications.unread
   end
 
-  def sign_in_page
-  end
+  def sign_in_page; end
 end
