@@ -10,22 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2019_05_08_204816) do
-  create_table "android_device_registration_tokens", force: :cascade do |t|
-    t.string "token"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_android_device_registration_tokens_on_user_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2022_06_07_182804) do
   create_table "clients", force: :cascade do |t|
     t.string "name", null: false
     t.string "key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_clients_on_key"
-    t.index ["name"], name: "index_clients_on_name"
+    t.index ["name"], name: "index_clients_on_name", unique: true
   end
 
   create_table "clients_roles", id: false, force: :cascade do |t|
@@ -163,7 +155,7 @@ ActiveRecord::Schema[7.0].define(version: 2019_05_08_204816) do
     t.datetime "updated_at", null: false
     t.string "key"
     t.index ["balance"], name: "index_users_on_balance"
-    t.index ["name"], name: "index_users_on_name"
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
 end
