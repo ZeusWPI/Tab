@@ -68,9 +68,6 @@ gem "rolify"
 gem "cssbundling-rails", "~> 1.1"
 gem "jsbundling-rails"
 
-# Chartkick for fancy graphs
-gem "chartkick"
-
 group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
