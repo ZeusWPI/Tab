@@ -13,7 +13,7 @@ class UserAbility
     end
     can :decline, Request, debtor_id: user.id
     can :cancel, Request, issuer_id: user.id
-    can [:read, :reset_key, :add_registration_token], User, id: user.id
+    can [:read, :reset_key], User, id: user.id
     can :manage, Notification, user_id: user.id
     can :create, Transaction do |t|
       t.debtor == user &&

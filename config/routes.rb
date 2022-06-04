@@ -30,7 +30,6 @@ Rails.application.routes.draw do
     end
     resources :transactions, only: [:index]
     post :reset_key, on: :member
-    post :add_registration_token, on: :member
   end
 
   namespace :api, defaults: {format: :json} do
