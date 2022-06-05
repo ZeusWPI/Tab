@@ -14,7 +14,7 @@
 
 FactoryBot.define do
   factory :user do
-    name { Faker::Internet.user_name }
+    name { Faker::Internet.username(separators: %w[_ -]) }
 
     factory :penning do
       penning { true }
@@ -23,6 +23,12 @@ FactoryBot.define do
     factory :positive_user do
       after(:create) do |user, _|
         create(:transaction, creditor: user, debtor: create(:penning), amount: 2000)
+      end
+    end
+
+    trait :with_api_key do
+      after(:build) do |u| # rubocop:disable Style/SymbolProc
+        u.generate_key!
       end
     end
   end

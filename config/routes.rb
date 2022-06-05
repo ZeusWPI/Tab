@@ -43,4 +43,8 @@ Rails.application.routes.draw do
   end
 
   get 'datatables/:id' => 'datatables#transactions_for_user', as: "user_transactions_datatable"
+
+  # API goodies
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
 end
