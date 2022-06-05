@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     authorize! :read, @user
     respond_to do |format|
       format.html { @transaction = Transaction.new }
-      format.json { render json: @user }
+      format.json { render json: @user.to_json(except: [:key]) }
     end
   end
 

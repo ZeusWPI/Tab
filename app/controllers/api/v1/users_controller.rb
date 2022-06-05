@@ -6,7 +6,7 @@ module Api
 
       def show
         if can?(:read, @user)
-          render json: @user
+          render json: @user.to_json(except: [:key])
         else
           render json: @user.to_json(only: [:id, :name])
         end
@@ -16,7 +16,7 @@ module Api
         @users = User.all
 
         if can?(:manage, :all)
-          render json: @users
+          render json: @users.to_json(except: [:key])
         else
           render json: @users.to_json(only: [:id, :name])
         end
