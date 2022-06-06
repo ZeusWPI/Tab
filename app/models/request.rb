@@ -17,47 +17,47 @@
 #
 
 class Request < ApplicationRecord
-  include BaseTransaction
+	include BaseTransaction
 
-  enum status: { open: 0, confirmed: 1, declined: 2, cancelled: 3 }
+	enum status: { open: 0, confirmed: 1, declined: 2, cancelled: 3 }
 
-  def confirm!
-    return unless open?
+	def confirm!
+		return unless open?
 
-    Transaction.create info
-    Notification.create user: creditor, message: confirmed_message
+		Transaction.create info
+		Notification.create user: creditor, message: confirmed_message
 
-    self.confirmed!
-  end
+		self.confirmed!
+	end
 
-  def decline!
-    return unless open?
+	def decline!
+		return unless open?
 
-    Notification.create user: creditor, message: declined_message
+		Notification.create user: creditor, message: declined_message
 
-    self.declined!
-  end
+		self.declined!
+	end
 
-  def cancel!
-    return unless open?
+	def cancel!
+		return unless open?
 
-    Notification.create user: creditor, message: cancelled_message unless issuer == creditor
-    Notification.create user: debtor, message: cancelled_message unless issuer == debtor
+		Notification.create user: creditor, message: cancelled_message unless issuer == creditor
+		Notification.create user: debtor, message: cancelled_message unless issuer == debtor
 
-    self.cancelled!
-  end
+		self.cancelled!
+	end
 
-  private
+	private
 
-  def confirmed_message
-    "Your request for €#{amount / 100.0} for \"#{message}\" has been accepted by #{debtor.name}."
-  end
+	def confirmed_message
+		"Your request for €#{amount / 100.0} for \"#{message}\" has been accepted by #{debtor.name}."
+	end
 
-  def declined_message
-    "#{debtor.name} refuses to pay €#{amount / 100.0} for \"#{message}\"."
-  end
+	def declined_message
+		"#{debtor.name} refuses to pay €#{amount / 100.0} for \"#{message}\"."
+	end
 
-  def cancelled_message
-    "#{issuer.name} cancelled the request to pay #{debtor.name} €#{amount / 100.0} for \"#{message}\" to #{creditor.name}."
-  end
+	def cancelled_message
+		"#{issuer.name} cancelled the request to pay #{debtor.name} €#{amount / 100.0} for \"#{message}\" to #{creditor.name}."
+	end
 end

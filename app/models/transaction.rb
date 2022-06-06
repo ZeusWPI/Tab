@@ -17,23 +17,23 @@
 #
 
 class Transaction < ApplicationRecord
-  include BaseTransaction
-  include TransactionHelpers
+	include BaseTransaction
+	include TransactionHelpers
 
-  after_destroy :recalculate_balances!
-  after_save    :recalculate_balances!
+	after_destroy :recalculate_balances!
+	after_save    :recalculate_balances!
 
-  validates :id_at_client, presence: true, uniqueness: { scope: :issuer_id }, if: :client_transaction?
+	validates :id_at_client, presence: true, uniqueness: { scope: :issuer_id }, if: :client_transaction?
 
-  def reverse
-    self.creditor, self.debtor = self.debtor, self.creditor
-    self.amount *= -1
-  end
+	def reverse
+		self.creditor, self.debtor = self.debtor, self.creditor
+		self.amount *= -1
+	end
 
-  private
+	private
 
-  def recalculate_balances!
-    creditor.calculate_balance!
-    debtor.calculate_balance!
-  end
+	def recalculate_balances!
+		creditor.calculate_balance!
+		debtor.calculate_balance!
+	end
 end

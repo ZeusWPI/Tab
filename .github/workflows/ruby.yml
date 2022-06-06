@@ -1,38 +1,38 @@
 name: Ruby
 
 on:
-  push:
-  pull_request:
+	push:
+	pull_request:
 
 jobs:
-  test:
+	test:
 
-    runs-on: ubuntu-latest
+		runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+		steps:
+			- uses: actions/checkout@v3
   
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+			- name: Set up Ruby
+				uses: ruby/setup-ruby@v1
+				with:
+					bundler-cache: true
   
-      - run: RAILS_ENV=test bundle exec rake db:create
-      - run: RAILS_ENV=test bundle exec rake db:schema:load
-      - run: bundle exec rake
+			- run: RAILS_ENV=test bundle exec rake db:create
+			- run: RAILS_ENV=test bundle exec rake db:schema:load
+			- run: bundle exec rake
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+	lint:
+		runs-on: ubuntu-latest
+		steps:
+			- uses: actions/checkout@v3
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+			- name: Set up Ruby
+				uses: ruby/setup-ruby@v1
+				with:
+					bundler-cache: true
 
-      - name: Lint with rubocop
-        env:
-          RAILS_ENV: "test"
-        run: |
-          bundle exec rubocop -c .rubocop.yml
+			- name: Lint with rubocop
+				env:
+					RAILS_ENV: "test"
+				run: |
+					bundle exec rubocop -c .rubocop.yml

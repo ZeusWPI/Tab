@@ -15,14 +15,14 @@ require "rails_helper"
 #
 
 RSpec.describe User, type: :model do
-  let(:user) { create :user }
+	let(:user) { create :user }
 
-  it "has a valid factory" do
-    expect(user).to be_valid
-  end
+	it "has a valid factory" do
+		expect(user).to be_valid
+	end
 
-  it "has a unique name" do
-    new_user = build(:user, name: user.name)
-    expect(new_user).not_to be_valid
-  end
+	it "has a unique name" do
+		new_user = build(:user, name: user.name)
+		expect(new_user).not_to be_valid
+	end
 end

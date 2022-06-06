@@ -17,15 +17,15 @@
 #
 
 FactoryBot.define do
-  factory :transaction do
-    association :debtor, factory: :user
-    association :creditor, factory: :user
-    issuer { debtor }
-    amount { rand(1..10_000) }
-    message { Faker::Lorem.sentence }
-    factory :client_transaction do
-      association :issuer, factory: :client
-      sequence :id_at_client
-    end
-  end
+	factory :transaction do
+		association :debtor, factory: :user
+		association :creditor, factory: :user
+		issuer { debtor }
+		amount { rand(1..10_000) }
+		message { Faker::Lorem.sentence }
+		factory :client_transaction do
+			association :issuer, factory: :client
+			sequence :id_at_client
+		end
+	end
 end

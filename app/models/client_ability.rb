@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ClientAbility
-  include CanCan::Ability
+	include CanCan::Ability
 
-  def initialize(client)
-    client ||= Client.new # guest user (not logged in)
+	def initialize(client)
+		client ||= Client.new # guest user (not logged in)
 
-    can :create, Transaction if client.has_role?(:create_transactions)
-    can :create, Request
-    can :read, User
-  end
+		can :create, Transaction if client.has_role?(:create_transactions)
+		can :create, Request
+		can :read, User
+	end
 end

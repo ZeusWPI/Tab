@@ -1,71 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
 
-    <title>Tab</title>
+		<title>Tab</title>
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+		<%= csrf_meta_tags %>
+		<%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+		<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-  </head>
+		<%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+	</head>
 
-  <body class="h-full">
-    <div class="min-h-full">
+	<body class="h-full">
+		<div class="min-h-full">
 
-      <% if current_user %>
-        <%= render 'menu' %>
+			<% if current_user %>
+				<%= render 'menu' %>
 
-        <header class="bg-white shadow">
-          <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold text-gray-900">
-              <%= content_for?(:title) ? content_for(:title) : "Default Title" %>
-            </h1>
-          </div>
-        </header>
+				<header class="bg-white shadow">
+					<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+						<h1 class="text-3xl font-bold text-gray-900">
+							<%= content_for?(:title) ? content_for(:title) : "Default Title" %>
+						</h1>
+					</div>
+				</header>
 
-        <main class="bg-gray-100">
-          <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <%= render 'flash' %>
-            <%= yield %>
-          </div>
-        </main>
+				<main class="bg-gray-100">
+					<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+						<%= render 'flash' %>
+						<%= yield %>
+					</div>
+				</main>
 
-      <% else %>
-        <%= yield %>
-      <% end %>
+			<% else %>
+				<%= yield %>
+			<% end %>
 
-    </div>
+		</div>
 
-    <footer class="p-4 bg-white shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
-      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© <%= Date.current.year %> <a href="https://zeus.gent" class="hover:underline">Zeus WPI</a>. All Rights Reserved.
-      </span>
-      <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-        <li>
-          <%= link_to 'GitHub', 'https://github.com/ZeusWPI/Tab', class: 'mr-4 hover:underline md:mr-6' %>
-        </li>
-        <li>
-          <%= link_to 'About', 'https://zeus.gent/about/about/', class: 'mr-4 hover:underline md:mr-6' %>
-        </li>
-        <li>
-          <%= link_to 'Privacy Policy', 'https://zeus.gent/about/privacy/', class: 'mr-4 hover:underline md:mr-6' %>
-        </li>
-        <li>
-          <%= link_to 'Responsible Disclosure Policy', 'https://zeus.gent/.well-known/security.txt', class: 'mr-4 hover:underline md:mr-6' %>
-        </li>
-        <li>
-          <%= link_to 'License', '', class: 'mr-4 hover:underline md:mr-6' %>
-        </li>
-        <li>
-          <%= link_to 'Contact', 'https://zeus.gent/contact/', class: 'mr-4 hover:underline md:mr-6' %>
-        </li>
-      </ul>
-    </footer>
-  </body>
+		<footer class="p-4 bg-white shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© <%= Date.current.year %> <a href="https://zeus.gent" class="hover:underline">Zeus WPI</a>. All Rights Reserved.
+			</span>
+			<ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+				<li>
+					<%= link_to 'GitHub', 'https://github.com/ZeusWPI/Tab', class: 'mr-4 hover:underline md:mr-6' %>
+				</li>
+				<li>
+					<%= link_to 'About', 'https://zeus.gent/about/about/', class: 'mr-4 hover:underline md:mr-6' %>
+				</li>
+				<li>
+					<%= link_to 'Privacy Policy', 'https://zeus.gent/about/privacy/', class: 'mr-4 hover:underline md:mr-6' %>
+				</li>
+				<li>
+					<%= link_to 'Responsible Disclosure Policy', 'https://zeus.gent/.well-known/security.txt', class: 'mr-4 hover:underline md:mr-6' %>
+				</li>
+				<li>
+					<%= link_to 'License', '', class: 'mr-4 hover:underline md:mr-6' %>
+				</li>
+				<li>
+					<%= link_to 'Contact', 'https://zeus.gent/contact/', class: 'mr-4 hover:underline md:mr-6' %>
+				</li>
+			</ul>
+		</footer>
+	</body>
 </html>

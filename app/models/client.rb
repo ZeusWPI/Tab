@@ -12,17 +12,17 @@
 #
 
 class Client < ApplicationRecord
-  rolify
+	rolify
 
-  has_many :issued_transactions, as: :issuer, class_name: "Transaction"
+	has_many :issued_transactions, as: :issuer, class_name: "Transaction"
 
-  before_create :generate_key
+	before_create :generate_key
 
-  validates :name, presence: true, uniqueness: true
+	validates :name, presence: true, uniqueness: true
 
-  private
+	private
 
-  def generate_key
-    self.key = SecureRandom.base64(16) unless self.key
-  end
+	def generate_key
+		self.key = SecureRandom.base64(16) unless self.key
+	end
 end

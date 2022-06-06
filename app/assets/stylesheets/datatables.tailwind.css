@@ -1,38 +1,38 @@
 @layer components {
-    .dataTables_info {
-        @apply float-left px-6 py-6;
-    }
+	.dataTables_info {
+		@apply float-left px-6 py-6;
+	}
 
-    .dataTables_paginate {
-        @apply float-right px-6 py-4;
-    }
+	.dataTables_paginate {
+		@apply float-right px-6 py-4;
+	}
 
-    .dataTables_empty {
-        @apply px-6 py-4;
-    }
+	.dataTables_empty {
+		@apply px-6 py-4;
+	}
 
-    .dataTables_row {
-        @apply border-b odd:bg-white even:bg-gray-50 hover:bg-gray-50;
-    }
+	.dataTables_row {
+		@apply border-b odd:bg-white even:bg-gray-50 hover:bg-gray-50;
+	}
 
-    .dataTables_cell {
-        @apply px-6 py-4;
-    }
+	.dataTables_cell {
+		@apply px-6 py-4;
+	}
 
-    .dataTables_cell.amount_column {
-        @apply text-right;
-    }
+	.dataTables_cell.amount_column {
+		@apply text-right;
+	}
 
-    .paginate_button {
-        @apply cursor-pointer inline-flex items-center text-blue-700 bg-white hover:bg-blue-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 mr-1 text-center;
-    }
+	.paginate_button {
+		@apply cursor-pointer inline-flex items-center text-blue-700 bg-white hover:bg-blue-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 mr-1 text-center;
+	}
 
-    .paginate_button.current {
-        @apply bg-blue-700 hover:bg-blue-800 text-white;
-    }
+	.paginate_button.current {
+		@apply bg-blue-700 hover:bg-blue-800 text-white;
+	}
 
-    .paginate_button.disabled {
-        @apply cursor-not-allowed;
-    }
+	.paginate_button.disabled {
+		@apply cursor-not-allowed;
+	}
 
 }
