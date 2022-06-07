@@ -92,11 +92,15 @@ class DataTable
       case type
       when "number-range"
         h[:lower], h[:upper] = value.split("~").map do |euros|
-          (Float(euros) * 100).to_i rescue nil
+          (Float(euros) * 100).to_i
+        rescue StandardError
+          nil
         end
       when "date-range"
         h[:lower], h[:upper] = value.split("~").map do |string|
-          string.to_datetime rescue nil
+          string.to_datetime
+        rescue StandardError
+          nil
         end
       else
         h[:value] = value

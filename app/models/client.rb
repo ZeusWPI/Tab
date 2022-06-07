@@ -14,7 +14,7 @@
 class Client < ApplicationRecord
   rolify
 
-  has_many :issued_transactions, as: :issuer, class_name: "Transaction"
+  has_many :issued_transactions, as: :issuer, class_name: "Transaction", dependent: :restrict_with_exception
 
   before_create :generate_key
 

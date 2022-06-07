@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_07_182804) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_clients_on_key"
-    t.index ["name"], name: "index_clients_on_name"
+    t.index ["name"], name: "index_clients_on_name", unique: true
   end
 
   create_table "clients_roles", id: false, force: :cascade do |t|
@@ -87,7 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_07_182804) do
     t.datetime "updated_at", null: false
     t.string "key"
     t.index ["balance"], name: "index_users_on_balance"
-    t.index ["name"], name: "index_users_on_name"
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
 end

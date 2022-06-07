@@ -6,13 +6,11 @@ module BaseTransaction
   include ApplicationHelper
 
   included do
-    belongs_to :debtor,   class_name: "User"
+    belongs_to :debtor, class_name: "User"
     belongs_to :creditor, class_name: "User"
-    belongs_to :issuer,   polymorphic: true
+    belongs_to :issuer, polymorphic: true
 
-    validates :debtor,   presence: true
-    validates :creditor, presence: true
-    validates :amount,   numericality: { greater_than: 0 }
+    validates :amount, numericality: { greater_than: 0 }
     validate :different_debtor_creditor
   end
 
