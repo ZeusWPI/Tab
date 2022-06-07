@@ -70,6 +70,6 @@ class User < ApplicationRecord
   private
 
   def set_key
-    self.key = SecureRandom.base64(16)
+    self.key = SecureRandom.base64(18)
   end
 end
