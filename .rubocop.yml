@@ -73,6 +73,9 @@ RSpec/ExampleLength:
 RSpec/MultipleExpectations:
   Enabled: false
 
+RSec/MultipleMemoizedHelpers:
+  Enabled: false
+
 RSpec/NestedGroups:
   Description: Checks for nested example groups.
   Enabled: true

@@ -44,6 +44,10 @@ module Api
       rescue_from ActiveRecord::RecordNotFound do |_|
         render json: { errors: [{ detail: "Not found" }] }, status: :not_found
       end
+
+      rescue_from ActionController::ParameterMissing do |e|
+        render json: { errors: [{ detail: e }] }, status: :bad_request
+      end
     end
   end
 end
