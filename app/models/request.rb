@@ -24,8 +24,8 @@ class Request < ApplicationRecord
   def confirm!
     return unless open?
 
-    Transaction.create info
-    Notification.create user: creditor, message: confirmed_message
+    Transaction.create! info
+    Notification.create! user: creditor, message: confirmed_message
 
     self.confirmed!
   end
@@ -33,7 +33,7 @@ class Request < ApplicationRecord
   def decline!
     return unless open?
 
-    Notification.create user: creditor, message: declined_message
+    Notification.create! user: creditor, message: declined_message
 
     self.declined!
   end
@@ -41,8 +41,8 @@ class Request < ApplicationRecord
   def cancel!
     return unless open?
 
-    Notification.create user: creditor, message: cancelled_message unless issuer == creditor
-    Notification.create user: debtor, message: cancelled_message unless issuer == debtor
+    Notification.create! user: creditor, message: cancelled_message unless issuer == creditor
+    Notification.create! user: debtor, message: cancelled_message unless issuer == debtor
 
     self.cancelled!
   end

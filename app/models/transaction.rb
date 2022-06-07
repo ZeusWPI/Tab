@@ -21,7 +21,7 @@ class Transaction < ApplicationRecord
   include TransactionHelpers
 
   after_destroy :recalculate_balances!
-  after_save    :recalculate_balances!
+  after_save :recalculate_balances!
 
   validates :id_at_client, presence: true, uniqueness: { scope: :issuer_id }, if: :client_transaction?
 

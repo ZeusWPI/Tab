@@ -19,16 +19,35 @@ class User < ApplicationRecord
   devise :timeoutable, :omniauthable, omniauth_providers: %i[zeuswpi]
 
   has_many :incoming_transactions,
-           class_name: "Transaction", foreign_key: "creditor_id"
-  has_many :outgoing_transactions,
-           class_name: "Transaction", foreign_key: "debtor_id"
-  has_many :incoming_requests,
-           class_name: "Request", foreign_key: "debtor_id"
-  has_many :outgoing_requests,
-           class_name: "Request", foreign_key: "creditor_id"
-  has_many :notifications
+           class_name: "Transaction",
+           foreign_key: "creditor_id",
+           inverse_of: :creditor,
+           dependent: :restrict_with_exception
 
-  has_many :issued_transactions, as: :issuer, class_name: "Transaction"
+  has_many :outgoing_transactions,
+           class_name: "Transaction",
+           foreign_key: "debtor_id",
+           inverse_of: :debtor,
+           dependent: :restrict_with_exception
+
+  has_many :issued_transactions,
+           class_name: "Transaction",
+           as: :issuer,
+           dependent: :restrict_with_exception
+
+  has_many :incoming_requests,
+           class_name: "Request",
+           foreign_key: "debtor_id",
+           inverse_of: :debtor,
+           dependent: :restrict_with_exception
+
+  has_many :outgoing_requests,
+           class_name: "Request",
+           foreign_key: "creditor_id",
+           inverse_of: :creditor,
+           dependent: :restrict_with_exception
+
+  has_many :notifications, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 
@@ -63,7 +82,7 @@ class User < ApplicationRecord
 
   def generate_key!
     set_key
-    self.save
+    self.save!
   end
 
   private
