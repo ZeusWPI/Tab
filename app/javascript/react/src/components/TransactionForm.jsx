@@ -301,7 +301,9 @@ class TransactionForm extends React.Component {
     return errors;
   }
 
-  handleSubmit(_) {
+  handleSubmit = (e) => {
+    e.preventDefault();
+
     const { giving, peer } = this.state;
     const { user_name, csrf_token } = this.props;
     const errors = this.errors();
@@ -393,7 +395,7 @@ class TransactionForm extends React.Component {
             <Submit
               giving={giving}
               step={5}
-              onClick={(e) => this.handleSubmit(e)}
+              onClick={this.handleSubmit}
               type={"submit"}
               enabled={Object.keys(errors).length === 0}
             />
