@@ -16,5 +16,5 @@ data = {
     }
 }
 
-r = requests.post((base_url + f'/transactions.json'), headers=headers, json=data)
+r = requests.post((base_url + f'/api/v1/transactions.json'), headers=headers, json=data)
 print(r.text)

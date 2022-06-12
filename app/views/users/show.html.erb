@@ -59,7 +59,7 @@
     <div data-controller="clipboard">
       <label for="example" class="block mb-2 text-sm font-medium text-gray-900">Example</label>
       <textarea data-clipboard-target="source" id="example" rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" readonly="true">
-curl '<%= transactions_url %>' \
+curl '<%= api_v1_transactions_url %>' \
   -H "Accept: application/json"  \
   -H "Authorization: Token token=<%= @user.key %>" \
   -X POST \
