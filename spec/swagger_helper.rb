@@ -56,7 +56,7 @@ RSpec.configure do |config|
 end
 
 def run_and_add_example
-  let(:Authorization) { "Bearer #{api_user.key}" }
+  add_authorization
 
   before do |example|
     submit_request(example.metadata)
@@ -71,4 +71,8 @@ def run_and_add_example
   end
 
   run_test!
+end
+
+def add_authorization
+  let(:Authorization) { "Bearer #{api_user.key}" }
 end

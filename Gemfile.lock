@@ -281,6 +281,15 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
+    rswag-api (2.5.1)
+      railties (>= 3.1, < 7.1)
+    rswag-specs (2.5.1)
+      activesupport (>= 3.1, < 7.1)
+      json-schema (~> 2.2)
+      railties (>= 3.1, < 7.1)
+    rswag-ui (2.5.1)
+      actionpack (>= 3.1, < 7.1)
+      railties (>= 3.1, < 7.1)
     rubocop (1.30.0)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
@@ -299,19 +308,6 @@ GEM
     rubocop-rspec (2.11.1)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
-    rswag (2.5.1)
-      rswag-api (= 2.5.1)
-      rswag-specs (= 2.5.1)
-      rswag-ui (= 2.5.1)
-    rswag-api (2.5.1)
-      railties (>= 3.1, < 7.1)
-    rswag-specs (2.5.1)
-      activesupport (>= 3.1, < 7.1)
-      json-schema (~> 2.2)
-      railties (>= 3.1, < 7.1)
-    rswag-ui (2.5.1)
-      actionpack (>= 3.1, < 7.1)
-      railties (>= 3.1, < 7.1)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.1.0)
@@ -393,9 +389,11 @@ DEPENDENCIES
   rails-controller-testing
   rolify
   rspec-rails
+  rswag-api
+  rswag-specs
+  rswag-ui
   rubocop-rails
   rubocop-rspec
-  rswag
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
@@ -409,4 +407,4 @@ RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.13
+   2.3.14

@@ -44,7 +44,8 @@ RSpec.describe "api/v1/transactions", type: :request do
         Creates a new transaction.
 
         When the amount is negative, the transaction will be automatically converted into a request.
-        Unless you're penning, then it will just get the money without creating a request.
+        Unless you're penning or you're using an api client with the `:create_transactions` role, 
+        then it will create a transaction.
 
         All parameters are optional with the following constraints and defaults:
            * When leaving the `debtor` or `creditor` empty, this will default to the Zeus user.
@@ -81,7 +82,7 @@ RSpec.describe "api/v1/transactions", type: :request do
                 description: "Required when `euros` empty"
               },
               id_at_client: {
-                type: :string,
+                type: :integer,
                 nullable: true,
                 description: "Required when creating a transaction as client, unique per client"
               },
@@ -96,28 +97,81 @@ RSpec.describe "api/v1/transactions", type: :request do
           { transaction: transaction_params }
         end
 
-        run_and_add_example
+        context "when api user is a penning" do
+          run_and_add_example
 
-        context "when sending floats as euros" do
-          let(:transaction) do
-            { transaction: transaction_params.merge(euros: 9.70, cents: 0) }
+          context "when sending floats as euros" do
+            let(:transaction) do
+              { transaction: transaction_params.merge(euros: 9.70, cents: 0) }
+            end
+
+            it "handles floats properly" do
+              transaction = Transaction.last
+
+              expect(transaction.amount).to eq(970)
+            end
           end
 
-          it "handles floats properly" do
-            transaction = Transaction.last
-
-            expect(transaction.amount).to eq(970)
+          context "when creating a transaction" do
+            it "sets issuer" do
+              transaction = Transaction.last
+              expect(transaction.issuer).to eq(api_user)
+            end
           end
         end
 
-        context "when creating a transaction" do
-          let(:transaction) do
-            { transaction: transaction_params }
+        context "when api user is a regular user" do
+          let(:api_user) { create(:user, :with_api_key, balance: 1000) }
+
+          add_authorization
+
+          context "when api user is debtor" do
+            let(:debtor) { api_user }
+
+            run_test!
+
+            it "creates a transaction" do
+              transaction = Transaction.last
+              expect(transaction.issuer).to eq(api_user)
+            end
           end
 
-          it "sets issuer" do
-            transaction = Transaction.last
-            expect(transaction.issuer).to eq(api_user)
+          context "when api user is creditor" do
+            let(:creditor) { api_user }
+
+            run_test!
+
+            it "creates a request" do
+              request = Request.last
+              expect(request.issuer).to eq(api_user)
+            end
+          end
+        end
+
+        context "when api user is a client" do
+          let(:api_user) { create(:client, name: "Tap") }
+          add_authorization
+
+          context "without create_transactions role" do
+            run_test!
+
+            it "creates a request" do
+              request = Request.last
+              expect(request.issuer).to eq(api_user)
+            end
+          end
+
+          context "with create_transactions role" do
+            before do
+              api_user.add_role(:create_transactions)
+            end
+
+            run_test!
+
+            it "creates a transaction" do
+              transaction = Transaction.last
+              expect(transaction.issuer).to eq(api_user)
+            end
           end
         end
       end
@@ -129,6 +183,35 @@ RSpec.describe "api/v1/transactions", type: :request do
         end
 
         run_and_add_example
+      end
+
+      response(403, "denied") do
+        let(:api_user) { create(:user, :with_api_key) }
+        let(:transaction) do
+          { transaction: transaction_params }
+        end
+
+        run_and_add_example
+
+        context "when api user is debtor with not enough credit" do
+          let(:debtor) { api_user }
+
+          let(:transaction) do
+            { transaction: transaction_params.merge(euros: 0, cents: 2) }
+          end
+
+          before do
+            api_user.update!(balance: 1)
+          end
+
+          run_test!
+        end
+
+        context "with different creditor" do
+          let(:creditor) { create(:user) }
+
+          run_test!
+        end
       end
     end
   end
