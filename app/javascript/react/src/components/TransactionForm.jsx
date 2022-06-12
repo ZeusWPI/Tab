@@ -1,6 +1,7 @@
 import React from "react";
 
 import Select from 'react-select';
+import Fuse from 'fuse.js';
 
 const url = function (path) {
   return (window.base_url || '') + "/" + path;
@@ -96,10 +97,36 @@ class Amount extends React.Component {
 }
 
 class Peer extends React.Component {
-  options() {
+  constructor(props) {
+    super(props);
+
     const { peers } = this.props;
 
+    const peerOptions = this.toOptions(peers);
+
+    const fuse = new Fuse(peerOptions, { keys: ["label"] });
+
+    this.state = {
+      options: peerOptions,
+      fuse: fuse
+    }
+  }
+
+  toOptions(peers) {
     return peers.map(p => ({value: p, label: p}));
+  }
+
+  setOptions(options) {
+    this.setState({
+      options: options
+    });
+  }
+
+  onInputChange(inputValue) {
+    const { fuse } = this.state;
+    const { peers } = this.props;
+
+    this.setOptions(!!inputValue ? fuse.search(inputValue).map(value => value.item) : this.toOptions(peers));
   }
 
   setPeer(appel) {
@@ -107,7 +134,7 @@ class Peer extends React.Component {
   }
 
   render() {
-    const options = this.options();
+    const { options } = this.state;
     const { peer } = this.props;
     const peerOption = options.find(o => o.value === peer)
 
@@ -117,6 +144,7 @@ class Peer extends React.Component {
           value={peerOption}
           onChange={(e) => this.setPeer(e)}
           options={options}
+          onInputChange={inputValue => this.onInputChange(inputValue)}
           menuPortalTarget={document.body}
           menuPosition={'fixed'}
           className={'text-sm w-2/3 border-gray-200 text-gray-900 focus:ring-blue-500 focus:border-blue-500 z-20'}
