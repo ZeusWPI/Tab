@@ -31,7 +31,20 @@ RSpec.describe "api/v1/transactions", type: :request do
       response(200, "successful") do
         let(:name) { api_user.name }
 
+        before do
+          create(:transaction, debtor: api_user)
+          create(:transaction, creditor: api_user)
+        end
+
         run_and_add_example
+
+        it "returns transactions where api user is debtor" do
+          expect(JSON.parse(response.body)).to include(include("debtor" => name))
+        end
+
+        it "returns transactions where api user is creditor" do
+          expect(JSON.parse(response.body)).to include(include("creditor" => name))
+        end
       end
     end
   end
@@ -44,7 +57,7 @@ RSpec.describe "api/v1/transactions", type: :request do
         Creates a new transaction.
 
         When the amount is negative, the transaction will be automatically converted into a request.
-        Unless you're penning or you're using an api client with the `:create_transactions` role, 
+        Unless you're penning or you're using an api client with the `:create_transactions` role,
         then it will create a transaction.
 
         All parameters are optional with the following constraints and defaults:
@@ -150,6 +163,7 @@ RSpec.describe "api/v1/transactions", type: :request do
 
         context "when api user is a client" do
           let(:api_user) { create(:client, name: "Tap") }
+
           add_authorization
 
           context "without create_transactions role" do
@@ -193,7 +207,7 @@ RSpec.describe "api/v1/transactions", type: :request do
 
         run_and_add_example
 
-        context "when api user is debtor with not enough credit" do
+        context "when api user is debtor with not enough credit" do # rubocop:disable RSpec/EmptyExampleGroup
           let(:debtor) { api_user }
 
           let(:transaction) do
@@ -207,7 +221,7 @@ RSpec.describe "api/v1/transactions", type: :request do
           run_test!
         end
 
-        context "with different creditor" do
+        context "with different creditor" do # rubocop:disable RSpec/EmptyExampleGroup
           let(:creditor) { create(:user) }
 
           run_test!

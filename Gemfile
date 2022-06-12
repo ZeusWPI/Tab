@@ -72,8 +72,8 @@ gem "rolify"
 gem "cssbundling-rails", "~> 1.1"
 gem "jsbundling-rails"
 
-gem 'rswag-api'
-gem 'rswag-ui'
+gem "rswag-api"
+gem "rswag-ui"
 
 group :development, :test do
   gem "factory_bot_rails"
@@ -81,7 +81,7 @@ group :development, :test do
 
   gem "rails-controller-testing"
   gem "rspec-rails"
-  gem 'rswag-specs'
+  gem "rswag-specs"
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug"
