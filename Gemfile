@@ -6,8 +6,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.2"
 
 # ed25519 ssh key support
-gem "ed25519", ">= 1.2", "< 2.0"
 gem "bcrypt_pbkdf", ">= 1.0", "< 2.0"
+gem "ed25519", ">= 1.2", "< 2.0"
 
 # Support .env files
 gem "dotenv-rails"
