@@ -3,7 +3,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      load_resource :user, find_by: :name
+      load_resource :user, find_by: :name, only: [:show]
 
       def show
         if can?(:read, @user)

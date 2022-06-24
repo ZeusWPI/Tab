@@ -29,7 +29,7 @@ module Api
 
       def current_client
         @current_client ||= authenticate_with_http_token do |token, _|
-          Client.find_by key: token
+          Client.find_by(key: token)
         end
       end
 
@@ -39,6 +39,14 @@ module Api
 
       rescue_from CanCan::AccessDenied do |_|
         render json: { errors: [{ detail: "Diefstal is een misdrijf" }] }, status: :forbidden
+      end
+
+      rescue_from ActiveRecord::RecordNotFound do |_|
+        render json: { errors: [{ detail: "Not found" }] }, status: :not_found
+      end
+
+      rescue_from ActionController::ParameterMissing do |e|
+        render json: { errors: [{ detail: e }] }, status: :bad_request
       end
     end
   end
