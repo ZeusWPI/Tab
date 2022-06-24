@@ -100,7 +100,7 @@ group :development do
   # gem "spring"
 
   # Deployment
-  gem "capistrano", "~> 3.10"
+  gem "capistrano", "~> 3.16"
   gem "capistrano-asdf"
   gem "capistrano-passenger"
   gem "capistrano-rails", "~> 1.6"

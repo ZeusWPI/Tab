@@ -6,3 +6,4 @@ server 'tab.zeus.gent',
     auth_methods: %w(publickey),
     port: 2222
   }
+

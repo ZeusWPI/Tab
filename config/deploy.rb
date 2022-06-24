@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.17.0"
+# lock "~> 3.17.0"
 
 set :application, "Tab"
 set :repo_url, "https://github.com/ZeusWPI/Tab.git"
@@ -38,3 +38,30 @@ append :linked_files, "config/database.yml", "config/secrets.yml"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  desc 'Generate swagger docs'
+  task :'swaggerize:generate' do
+    run_locally do
+      # Bit ugly, but sadly capistrano-asdf has no support for run_locally
+      # and would prefix this with `asdf.sh`, causing it to fail.
+      # Not going to bother fixing it properly as we'll move to
+      # capistrano-docker soon(tm).
+      %x(bundle exec rake rswag:specs:swaggerize)
+    end
+  end
+
+  desc 'Coppy swagger docs'
+  task :'swaggerize:copy' do
+    on roles(:app) do
+      within release_path do
+        %w[swagger].each do |dir|
+          upload! dir, dir, recursive: true
+        end
+      end
+    end
+  end
+end
+
+before 'deploy:check', 'deploy:swaggerize:generate'
+after 'deploy:migrate', 'deploy:swaggerize:copy'
