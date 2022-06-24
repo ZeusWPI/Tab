@@ -2,17 +2,14 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :authenticate_user_or_client!, only: [:show]
 
   load_and_authorize_resource find_by: :name
 
   def show
     @user = User.find_by(name: params[:id]) || User.new
     authorize! :read, @user
-    respond_to do |format|
-      format.html { @transaction = Transaction.new }
-      format.json { render json: @user.to_json(except: [:key]) }
-    end
+
+    @transaction = Transaction.new
   end
 
   def index

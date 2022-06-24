@@ -8,24 +8,29 @@ class RequestsController < ApplicationController
 
   def index
     @requests = @user.requests.group_by(&:status)
-    respond_to do |format|
-      format.html
-      format.json { render json: @requests }
-    end
   end
 
   def confirm
     @request.confirm!
+
+    flash[:success] = "Request accepted!"
+
     redirect_to root_path
   end
 
   def decline
     @request.decline!
+
+    flash[:success] = "Request declined!"
+
     redirect_to root_path
   end
 
   def cancel
     @request.cancel!
+
+    flash[:success] = "Request cancelled!"
+
     redirect_to root_path
   end
 

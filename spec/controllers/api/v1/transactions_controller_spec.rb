@@ -21,7 +21,7 @@ RSpec.describe Api::V1::TransactionsController, type: :request do
 
     def post_transaction(extra_attributes = {})
       post(
-        "/transactions",
+        "/api/v1/transactions",
         params: { transaction: api_attributes.merge(extra_attributes) },
         headers: { "HTTP_ACCEPT" => "application/json", "HTTP_AUTHORIZATION" => "Token token=#{key}" }
       )

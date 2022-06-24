@@ -12,6 +12,9 @@ class NotificationsController < ApplicationController
 
   def read
     @notification.read!
+
+    flash[:success] = "Notification marked as read!"
+
     redirect_to root_path
   end
 
