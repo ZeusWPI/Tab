@@ -12,6 +12,7 @@ export default class extends Controller {
 
     root.render(<TransactionForm
       user_name={JSON.parse(this.data.get('userName'))}
+      penning={JSON.parse(this.data.get('penning'))}
       balance={JSON.parse(this.data.get('balance'))}
       peers={JSON.parse(this.data.get('peers'))}
       csrf_token={JSON.parse(this.data.get('csrfToken'))}

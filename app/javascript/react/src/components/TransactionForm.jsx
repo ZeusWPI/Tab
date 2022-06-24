@@ -7,18 +7,68 @@ const url = function (path) {
   return (window.base_url || '') + "/" + path;
 };
 
+class ActionType {
+  static Take =  new ActionType(
+    "take",
+    "Take money",
+    "take",
+    "take it from",
+    "take",
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24"
+  stroke="currentColor" strokeWidth="2">
+    <path strokeLinecap="round" strokeLinejoin="round"
+  d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+)
+  static Request =  new ActionType(
+    "request",
+    "Request money",
+    "request",
+    "request it from",
+    "request",
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24"
+         stroke="currentColor" strokeWidth="2">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+    </svg>
+  )
+  static Give = new ActionType(
+    "give",
+    "Give money",
+    "give",
+    "give it to",
+    "give",
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 -mr-1" fill="none" viewBox="0 0 24 24"
+         stroke="currentColor" strokeWidth="2">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  )
+
+  constructor(identifier, buttonText, howMuchDoYouWantToText, whoDoYouWantToText, whyDoYouWantToText, svg) {
+    this.identifier = identifier;
+    this.buttonText = buttonText;
+    this.howMuchDoYouWantToText = howMuchDoYouWantToText;
+    this.whoDoYouWantToText = whoDoYouWantToText;
+    this.whyDoYouWantToText = whyDoYouWantToText;
+    this.svg = svg;
+  }
+
+  isGiving = () => this === ActionType.Give
+  isTaking = () => this === ActionType.Take
+  isRequesting = () => this === ActionType.Request
+}
+
 class Action extends React.Component {
-  buttonClass(b) {
-    const { giving } = this.props;
+  buttonClass(action) {
+    const { action: activeAction, penning } = this.props;
     const c = ['inline-flex items-center py-2 px-4 text-sm font-medium focus:outline-none border focus:z-10 focus:ring-4'];
 
-    if(b) {
-      c.push('rounded-r-lg');
-    } else {
+    if((penning && (action === ActionType.Take)) || (!penning && (action === ActionType.Request))) {
       c.push('rounded-l-lg')
+    } else if(action === ActionType.Give) {
+      c.push('rounded-r-lg')
     }
 
-    if (b === giving) {
+    if (action === activeAction) {
       c.push('bg-blue-700 text-white hover:bg-blue-800')
     } else {
       c.push('text-gray-900 ng-white border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-gray-200')
@@ -27,35 +77,30 @@ class Action extends React.Component {
     return c.join(' ');
   }
 
-  onClick(b) {
-    return this.props.setAction(b);
+  onClick(action) {
+    return this.props.setAction(action);
+  }
+
+  button(action) {
+    return <button
+      className={this.buttonClass(action)}
+      onClick={() => this.onClick(action)}
+      type={'button'}
+    >
+      { action !== ActionType.Give && action.svg }
+      { action.buttonText }
+      { action === ActionType.Give && action.svg }
+    </button>
   }
 
   render() {
+    const { penning } = this.props;
+
     return (
       <div className={'inline-flex rounded-md shadow-sm'}>
-        <button
-          className={this.buttonClass(false)}
-          onClick={() => this.onClick(false)}
-          type={'button'}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24"
-               stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-          </svg>
-          Request money
-        </button>
-        <button
-          className={this.buttonClass(true)}
-          onClick={() => this.onClick(true)}
-          type={'button'}
-        >
-          Send Money
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 -mr-1" fill="none" viewBox="0 0 24 24"
-               stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
-          </svg>
-        </button>
+        { penning && this.button(ActionType.Take)}
+        { this.button(ActionType.Request) }
+        { this.button(ActionType.Give) }
       </div>
     );
   }
@@ -67,10 +112,9 @@ class Amount extends React.Component {
   }
 
   format(ref) {
-    let t;
-    t = ref.target;
-    if (t.value) {
-      return t.value = parseFloat(t.value).toFixed(2);
+    const { target } = ref;
+    if (target.value) {
+      return target.value = parseFloat(target.value).toFixed(2);
     }
   }
 
@@ -186,7 +230,7 @@ class Submit extends React.Component {
   }
 
   render() {
-    const { giving, step, enabled } = this.props;
+    const { action, step, enabled } = this.props;
 
     return (
       <li className="mb-1 ml-6">
@@ -199,7 +243,7 @@ class Submit extends React.Component {
           onClick={() => this.onClick()}
           type="submit"
         >
-          { giving ? "Send money" : "Create request" }
+          { action.buttonText }
         </button>
       </li>
     );
@@ -236,7 +280,7 @@ class TransactionForm extends React.Component {
 
     this.state = {
       step: 1,
-      giving: null,
+      action: null,
       amount: null,
       peer: null,
       message: null
@@ -245,9 +289,9 @@ class TransactionForm extends React.Component {
     this.form = React.createRef();
   }
 
-  setAction(b) {
+  setAction(action) {
     this.setState({
-      giving: b
+      action: action
     });
 
     if (!(this.state.step > 1)) {
@@ -294,19 +338,19 @@ class TransactionForm extends React.Component {
   }
 
   errors() {
-    const { amount, giving, message, peer } = this.state;
+    const { amount, action, message, peer } = this.state;
     const { peers, user_name, balance } = this.props;
     const errors = {};
 
-    if (giving === null) {
-      errors['giving'] = 'Please select an action.';
+    if (action === null) {
+      errors['action'] = 'Please select an action.';
     }
 
     if (!amount) {
       errors['amount'] = 'Please fill in an amount.';
     } else if (parseFloat(amount) <= 0) {
       errors['amount'] = 'Please fill in a positive number.';
-    } else if (giving && amount && (parseFloat(amount) * 100 > balance)) {
+    } else if (action.isGiving() && amount && (parseFloat(amount) * 100 > balance)) {
       errors['amount'] = 'Insufficient funds.';
     }
 
@@ -316,9 +360,9 @@ class TransactionForm extends React.Component {
 
     if (!peer) {
       errors['peer'] = 'Please select a Zeus member.';
-    } else if (giving && peer === user_name) {
+    } else if (action.isGiving() && peer === user_name) {
       errors['peer'] = "No need to give yourself money, you've already got it.";
-    } else if (!giving && peer === user_name) {
+    } else if ((action.isTaking() || action.isRequesting()) && peer === user_name) {
       errors['peer'] = "No need to ask yourself money, you've already got it.";
     } else if (!peers.includes(peer)) {
       errors['peer'] = 'Please select a valid Zeus member.';
@@ -330,9 +374,9 @@ class TransactionForm extends React.Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const { giving, peer } = this.state;
+    const { action, peer } = this.state;
     const { user_name, csrf_token } = this.props;
     const errors = this.errors();
 
@@ -341,7 +385,8 @@ class TransactionForm extends React.Component {
     if (Object.keys(errors).length !== 0) {
       return;
     }
-    if (giving) {
+
+    if (action.isGiving()) {
       debtor = user_name;
       creditor = peer;
     } else {
@@ -361,6 +406,12 @@ class TransactionForm extends React.Component {
     creditor_input.setAttribute('value', creditor)
     this.form.current.appendChild(creditor_input)
 
+    const action_input = document.createElement('input')
+    action_input.setAttribute('type', 'hidden')
+    action_input.setAttribute('name', 'transaction[action]')
+    action_input.setAttribute('value', action.identifier)
+    this.form.current.appendChild(action_input)
+
     const authenticity_token_input = document.createElement('input')
     authenticity_token_input.setAttribute('type', 'hidden')
     authenticity_token_input.setAttribute('name', 'authenticity_token')
@@ -371,8 +422,8 @@ class TransactionForm extends React.Component {
   }
 
   render() {
-    const { step, giving, peer } = this.state;
-    const { peers } = this.props;
+    const { step, action, peer } = this.state;
+    const { peers, penning } = this.props;
     const errors = this.errors();
 
     return (
@@ -389,13 +440,14 @@ class TransactionForm extends React.Component {
             title={"What do you want to do?"}
           >
             <Action
-              giving={giving}
-              setAction={(b) => this.setAction(b)} />
+              action={action}
+              penning={penning}
+              setAction={(action) => this.setAction(action)} />
           </Step>
           { step >= 2 ?
             <Step
               step={2}
-              title={"How much do you want to " + (giving ? 'give' : 'receive') + "?"}
+              title={"How much do you want to " + action.howMuchDoYouWantToText + "?"}
               error={step > 2 ? errors['amount'] : void 0}
             >
               <Amount setAmount={(amount) => this.setAmount(amount) } />
@@ -404,7 +456,7 @@ class TransactionForm extends React.Component {
           { step >= 3 ?
             <Step
               step={3}
-              title={"Who do you want to " + (giving ? 'give it to' : 'receive it from') + "?"}
+              title={"Who do you want to " + action.whoDoYouWantToText + "?"}
               error={step > 3 ? errors['peer'] : void 0}
             >
               <Peer peer={peer} peers={peers} setPeer={(peer) => this.setPeer(peer)} />
@@ -413,7 +465,7 @@ class TransactionForm extends React.Component {
           { step >= 4 ?
             <Step
               step={4}
-              title={"Why do you want to " + (giving ? 'give' : 'receive') + " this?"}
+              title={"Why do you want to " + action.whyDoYouWantToText + " this?"}
               error={step > 4 ? errors['message'] : void 0}
             >
               <Message setMessage={(message) => this.setMessage(message)} />
@@ -421,7 +473,7 @@ class TransactionForm extends React.Component {
             : void 0 }
           { step >= 5 ?
             <Submit
-              giving={giving}
+              action={action}
               step={5}
               onClick={this.handleSubmit}
               type={"submit"}

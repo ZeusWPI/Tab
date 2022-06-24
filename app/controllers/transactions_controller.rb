@@ -7,10 +7,9 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
     @transaction.reverse if @transaction.amount.negative?
 
-    unless can? :create, @transaction
-      @transaction = Request.new @transaction.info
-      authorize!(:create, @transaction)
-    end
+    @transaction = Request.new(@transaction.info) if action_param[:action].to_sym == :request
+
+    authorize!(:create, @transaction)
 
     if @transaction.save
       flash[:success] =
@@ -32,11 +31,15 @@ class TransactionsController < ApplicationController
     t = params.require(:transaction).permit(:debtor, :creditor, :message, :euros, :cents)
 
     {
-      debtor: t[:debtor] ? User.find_by(name: t[:debtor]) : User.zeus,
-      creditor: t[:creditor] ? User.find_by(name: t[:creditor]) : User.zeus,
+      debtor: User.find_by(name: t[:debtor]),
+      creditor: User.find_by(name: t[:creditor]),
       issuer: current_user,
       amount: ((BigDecimal(t[:euros] || 0, 2) * 100) + t[:cents].to_i).to_i,
       message: t[:message],
     }
+  end
+
+  def action_param
+    params.require(:transaction).permit(:action)
   end
 end

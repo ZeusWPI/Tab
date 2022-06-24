@@ -8,6 +8,7 @@
       data-controller="transaction-form"
       data-transaction-form-user-name="<%= current_user.name.to_json %>"
       data-transaction-form-balance="<%= current_user.balance.to_json %>"
+      data-transaction-form-penning="<%= current_user.penning?.to_json %>"
       data-transaction-form-peers="<%= User.all.order(:name).pluck(:name).to_json %>"
       data-transaction-form-csrf-token="<%= form_authenticity_token.to_json %>"
     ></div>
