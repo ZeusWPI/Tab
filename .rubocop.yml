@@ -78,8 +78,7 @@ RSpec/MultipleMemoizedHelpers:
 
 RSpec/NestedGroups:
   Description: Checks for nested example groups.
-  Enabled: true
-  Max: 5
+  Enabled: false
 
 ## Rails
 
