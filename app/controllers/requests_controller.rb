@@ -15,7 +15,7 @@ class RequestsController < ApplicationController
 
     flash[:success] = "Request accepted!"
 
-    redirect_to root_path
+    redirect_to action: :index
   end
 
   def decline
@@ -23,7 +23,7 @@ class RequestsController < ApplicationController
 
     flash[:success] = "Request declined!"
 
-    redirect_to root_path
+    redirect_to action: :index
   end
 
   def cancel
@@ -31,7 +31,7 @@ class RequestsController < ApplicationController
 
     flash[:success] = "Request cancelled!"
 
-    redirect_to root_path
+    redirect_to action: :index
   end
 
   private

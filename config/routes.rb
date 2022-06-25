@@ -20,12 +20,12 @@ Rails.application.routes.draw do
 
   resources :transactions, only: [:create]
   resources :users, only: [:index, :show] do
-    resources :requests, only: [:index], shallow: true do
+    resources :requests, only: [:index] do
       post :confirm
       post :decline
       post :cancel
     end
-    resources :notifications, only: [:index], shallow: true do
+    resources :notifications, only: [:index] do
       post :read
     end
     resources :transactions, only: [:index]

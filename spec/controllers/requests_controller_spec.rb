@@ -12,7 +12,7 @@ RSpec.describe RequestsController, type: :controller do
         creditor_balance = request.creditor.balance
 
         sign_in request.debtor
-        post :confirm, params: { request_id: request.id }
+        post :confirm, params: { request_id: request.id, user_id: request.debtor.name }
 
         request.reload
 
@@ -27,7 +27,7 @@ RSpec.describe RequestsController, type: :controller do
         creditor_balance = request.creditor.balance
 
         sign_in request.creditor
-        post :confirm, params: { request_id: request.id }
+        post :confirm, params: { request_id: request.id, user_id: request.creditor.name }
 
         request.reload
 
@@ -42,7 +42,7 @@ RSpec.describe RequestsController, type: :controller do
         creditor_balance = request.creditor.balance
 
         sign_in request.issuer
-        post :confirm, params: { request_id: request.id }
+        post :confirm, params: { request_id: request.id, user_id: request.issuer.name }
 
         request.reload
 
