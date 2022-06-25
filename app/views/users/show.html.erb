@@ -39,12 +39,7 @@
       <div>
         Don't share this with anyone, you don't want people to pay with your money.
       </div>
-      <button data-action="clipboard#copy" class="inline-flex mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-        </svg>
-        Copy to clipboard
-      </button>
+      <%= render 'shared/copy_to_clipboard_button' %>
       <%= button_to reset_key_user_path(@user),
             { form: { data: { turbo_confirm: "Are you sure? This will cause all existing integrations to stop working." }},
               form_class: 'reset_key inline',
@@ -64,12 +59,7 @@ curl '<%= api_v1_transactions_url %>' \
   -H "Authorization: Token token=<%= @user.key %>" \
   -X POST \
   --data-raw 'transaction%5Bdebtor%5D=<%= @user.name %>&transaction%5Bcreditor%5D=silox&transaction%5Bmessage%5D=You script kiddie!&transaction%5Beuros%5D=5'</textarea>
-      <button data-action="clipboard#copy" class="inline-flex mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-        </svg>
-        Copy to clipboard
-      </button>
+      <%= render 'shared/copy_to_clipboard_button' %>
     </div>
   </div>
 </div>
