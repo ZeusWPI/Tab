@@ -15,7 +15,7 @@ class NotificationsController < ApplicationController
 
     flash[:success] = "Notification marked as read!"
 
-    redirect_to root_path
+    redirect_back_or_to root_path
   end
 
   private
