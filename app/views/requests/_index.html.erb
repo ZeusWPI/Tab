@@ -1,10 +1,4 @@
-<div class="p-4 mb-4 bg-white rounded-lg border shadow-md sm:p-8">
-  <div class="flex justify-between items-center mb-4">
-    <h5 class="text-xl font-bold leading-none text-gray-900">
-      <%= section_title %>
-    </h5>
-  </div>
-
+<%= render 'shared/big_titled_card', card_title: section_title do %>
   <div class="flow-root">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table class="w-full text-sm text-left text-gray-500">
@@ -75,4 +69,4 @@
       </table>
     </div>
   </div>
-</div>
+<% end %>

@@ -1,11 +1,8 @@
-<div class="p-4 mb-4 bg-white rounded-lg border shadow-md sm:p-8">
-  <div class="flex justify-between items-center mb-4">
-    <h5 class="text-xl font-bold leading-none text-gray-900">Notifications</h5>
-    <%= link_to "View all", user_notifications_path(current_user), class: "text-sm font-medium text-blue-600 hover:underline" %>
-  </div>
-  <div class="flow-root">
-    <ul role="list" class="divide-y divide-gray-200">
-      <% if @notifications.any? %>
+<%= render 'shared/dashboard_card',
+      card_title: "Notifications",
+      view_all_path: user_notifications_path(current_user) do %>
+  <ul role="list" class="divide-y divide-gray-200">
+    <% if @notifications.any? %>
       <% @notifications.each do |n| %>
         <li class="py-3 sm:py-4">
           <div class="flex items-center space-x-4">
@@ -25,9 +22,8 @@
           </div>
         </li>
       <% end %>
-      <% else %>
-        All caught up!
-      <% end %>
-    </ul>
-  </div>
-</div>
+    <% else %>
+      All caught up!
+    <% end %>
+  </ul>
+<% end %>
