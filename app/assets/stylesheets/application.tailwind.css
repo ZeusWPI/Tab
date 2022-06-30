@@ -3,3 +3,6 @@
 @import "tailwindcss/utilities";
 
 @import "datatables.tailwind.css";
+
+@import "../../../node_modules/tom-select/dist/css/tom-select.bootstrap5.min.css";
+@import "tom-select.tailwind.css";
