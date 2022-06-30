@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
       flash[:error] = "Something went wrong, hope this helps: #{@transaction.errors.full_messages}"
     end
 
-    redirect_to root_path
+    redirect_back_or_to root_path
   end
 
   private
