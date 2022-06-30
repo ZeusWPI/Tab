@@ -339,7 +339,7 @@ class TransactionForm extends React.Component {
 
   errors() {
     const { amount, action, message, peer } = this.state;
-    const { peers, user_name, balance } = this.props;
+    const { peers, user_name, balance, penning } = this.props;
     const errors = {};
 
     if (action === null) {
@@ -350,7 +350,7 @@ class TransactionForm extends React.Component {
       errors['amount'] = 'Please fill in an amount.';
     } else if (parseFloat(amount) <= 0) {
       errors['amount'] = 'Please fill in a positive number.';
-    } else if (action.isGiving() && amount && (parseFloat(amount) * 100 > balance)) {
+    } else if (!penning && action.isGiving() && amount && (parseFloat(amount) * 100 > balance)) {
       errors['amount'] = 'Insufficient funds.';
     }
 
