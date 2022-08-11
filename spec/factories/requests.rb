@@ -19,9 +19,9 @@
 FactoryBot.define do
   factory :request do
     status { :open }
-    association :issuer, factory: :user, name: "Issuer"
-    association :debtor, factory: :positive_user, name: "Debtor"
-    association :creditor, factory: :user, name: "Creditor"
+    association :issuer, factory: [:user, :with_api_key]
+    association :debtor, factory: [:positive_user, :with_api_key]
+    association :creditor, factory: [:user, :with_api_key]
     amount { 5 }
   end
 end

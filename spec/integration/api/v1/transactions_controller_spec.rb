@@ -207,7 +207,7 @@ RSpec.describe "api/v1/transactions", type: :request do
 
         run_and_add_example
 
-        context "when api user is debtor with not enough credit" do # rubocop:disable RSpec/EmptyExampleGroup
+        context "when api user is debtor with not enough credit" do
           let(:debtor) { api_user }
 
           let(:transaction) do
@@ -221,7 +221,7 @@ RSpec.describe "api/v1/transactions", type: :request do
           run_test!
         end
 
-        context "with different creditor" do # rubocop:disable RSpec/EmptyExampleGroup
+        context "with different creditor" do
           let(:creditor) { create(:user) }
 
           run_test!

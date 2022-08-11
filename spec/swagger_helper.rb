@@ -55,7 +55,7 @@ RSpec.configure do |config|
   config.swagger_format = :yaml
 end
 
-def run_and_add_example
+def run_and_add_example(&block)
   add_authorization
 
   before do |example|
@@ -70,7 +70,7 @@ def run_and_add_example
     }
   end
 
-  run_test!
+  run_test!(&block)
 end
 
 def add_authorization
