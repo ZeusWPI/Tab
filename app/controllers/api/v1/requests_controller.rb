@@ -8,33 +8,16 @@ module Api
       authorize_resource :request, id_param: :request_id, only: [:confirm, :decline, :cancel]
 
       def index
-        requests = current_user.requests.includes(:debtor, :creditor, :issuer)
+        @requests = current_user.requests.includes(:debtor, :creditor, :issuer)
 
-        if params.key?(:state)
-          return head :bad_request unless %w[open confirmed declined cancelled].include?(params[:state])
+        # If there is no param, return now.
+        return unless params.key?(:state)
 
-          # Dynamically call the pending or final scope.
-          requests = requests.send(params[:state])
-        end
+        # If there is a bad param, bail with 400.
+        return head :bad_request unless %w[open confirmed declined cancelled].include?(params[:state])
 
-        requests = requests.map do |r|
-          mapped = {
-            id: r.id,
-            debtor: r.debtor.name,
-            creditor: r.creditor.name,
-            time: r.updated_at,
-            amount: r.amount,
-            message: r.message,
-            issuer: r.issuer.name,
-            actions: []
-          }
-          mapped[:actions] << :confirm if can?(:confirm, r)
-          mapped[:actions] << :cancel if can?(:cancel, r)
-          mapped[:actions] << :decline if can?(:decline, r)
-          mapped
-        end
-
-        render json: requests
+        # Dynamically call the pending or final scope.
+        @requests = @requests.send(params[:state])
       end
 
       def confirm
