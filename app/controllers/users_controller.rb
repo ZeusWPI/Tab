@@ -13,7 +13,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.accessible_by(current_ability)
+    @sort_column = params[:order_by]
+    @sort_column = "balance" unless %w[name balance].include?(@sort_column)
+    @users = User.accessible_by(current_ability).order({ @sort_column => :asc })
   end
 
   def reset_key

@@ -7,8 +7,14 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
             <th scope="col" class="px-6 py-3">Id</th>
-            <th scope="col" class="px-6 py-3">Name</th>
-            <th scope="col" class="px-6 py-3">Balance</th>
+            <th scope="col" class="px-6 py-3">
+                <%= link_to 'Name', users_url(order_by: :name)  %>
+                <%= render 'shared/sort_icon' if @sort_column == 'name' %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <%= link_to 'Balance', users_url(order_by: :balance)  %>
+                <%= render 'shared/sort_icon' if @sort_column == 'balance' %>
+            </th>
           </tr>
         </thead>
         <tbody>
