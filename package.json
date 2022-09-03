@@ -23,6 +23,6 @@
     "build:css": "tailwindcss --postcss --verbose -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   },
   "devDependencies": {
-    "postcss-import": "^14.1.0"
+    "postcss-import": "^15.0.0"
   }
 }
