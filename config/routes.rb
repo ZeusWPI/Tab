@@ -35,9 +35,15 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
       resources :transactions, only: [:create]
+      resources :requests, only: [:index], shallow: true do
+        post :confirm
+        post :decline
+        post :cancel
+      end
 
       resources :users, only: [:index, :show] do
         resources :transactions, only: [:index]
+        resources :requests, only: [:index]
       end
     end
   end
