@@ -10,9 +10,9 @@ json.array! @requests do |r|
   json.issuer r.issuer.name
   json.actions do
     permissions = []
-    permissions << :confirm if can?(:confirm, r)
-    permissions << :cancel if can?(:cancel, r)
-    permissions << :decline if can?(:decline, r)
+    permissions << :confirm if can?(:confirm, r) && r.open?
+    permissions << :cancel if can?(:cancel, r) && r.open?
+    permissions << :decline if can?(:decline, r) && r.open?
     json.array! permissions
   end
 end
