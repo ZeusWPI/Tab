@@ -179,10 +179,17 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@orchidjs/sifter@^0.9.1":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-0.9.1.tgz#20580cb75bcc1de3c9b9c021e0e546eb59ff2813"
-  integrity sha512-bdW8vKTlWXfoAvUud0a4OeVPrtdvHH8gTshKqndzxAI6bXGPBejgry2wvIz0OZOqOuWuFAJWgNCjq/6S85U77A==
+"@orchidjs/sifter@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-1.0.1.tgz#9a401546d80e3592f78f0640290d51b82f89ca64"
+  integrity sha512-gciY+iuk2hBAyzsPBMCvGJa+JVrssWOit6Pveke4KqkY/6JTinvztAESmPDM0UJBPNmc1m1tC15VVKrZ3v8nrw==
+  dependencies:
+    "@orchidjs/unicode-variants" "^1.0.2"
+
+"@orchidjs/unicode-variants@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@orchidjs/unicode-variants/-/unicode-variants-1.0.2.tgz#3d4355fe9796ed00ca9709e6bd85caf4f6da8c53"
+  integrity sha512-Q0DDoAwywdCE3dOBl8PlMWci8OwEwZG22WxLB48xfLPpM1hC+gQRnUAKMEUBZqPN/Rk/FrdAcem4VQe8qfuPHQ==
 
 "@rails/actioncable@^7.0":
   version "7.0.3"
@@ -1084,12 +1091,13 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
-tom-select@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.0.3.tgz#3fe57cf5da82be94b4083fb44c9edda5f198cc6e"
-  integrity sha512-IHcVHVb4/+I+4pAuXjEFVoH97mOvjp8CQ45PemnapcoRY46LqmH07hBwvRIIEznsXqBlFgZH7Uw7Cjh45mNlTA==
+tom-select@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.2.0.tgz#4896ddc41ed9a5f0a9f543afcd0487377cd453a9"
+  integrity sha512-MNB2DCITQ6HFYQIIKaRC78AO3PU9AO+gMEAQh6OLvTspeQJOKDb4Of9ddak/GErhzIs2Q9KZklt4WjVh1pr4yQ==
   dependencies:
-    "@orchidjs/sifter" "^0.9.1"
+    "@orchidjs/sifter" "^1.0.1"
+    "@orchidjs/unicode-variants" "^1.0.2"
 
 util-deprecate@^1.0.2:
   version "1.0.2"
