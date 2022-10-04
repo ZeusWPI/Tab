@@ -5,11 +5,11 @@ Not to be confused with [Tap](https://zeus.ugent.be/tap).
 
 1. Run `bundle`
 2. Run `yarn`
-3. Run `./bin/dev`
-4. Browse to [http://localhost:3000](http://localhost:3000)
-5. Setup the database with `bundle exec rails db:setup`
-6. Execute all migrations with `bundle exec rails db:migrate`
-7. Seed the database with `bundle exec rails db:seed`
+3. Setup the database with `bundle exec rails db:setup`
+4. Execute all migrations with `bundle exec rails db:migrate`
+5. Seed the database with `bundle exec rails db:seed`
+6. Run `./bin/dev`
+7. Browse to [http://localhost:3000](http://localhost:3000)
 
 ## Adding clients
 
