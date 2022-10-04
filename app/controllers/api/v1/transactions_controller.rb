@@ -6,7 +6,12 @@ module Api
       load_and_authorize_resource :user, find_by: :name
 
       def index
-        transactions = @user.transactions.includes(:debtor, :creditor, :issuer)
+        query = @user.transactions
+
+        query = query.limit(params[:limit]) if params.include?(:limit)
+        query = query.offset(params[:start]) if params.include?(:start)
+
+        transactions = query.includes(:debtor, :creditor, :issuer)
 
         mapped_transactions = transactions.map do |t|
           {
