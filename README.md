@@ -7,7 +7,10 @@ Not to be confused with [Tap](https://zeus.ugent.be/tap).
 2. Run `yarn`
 3. Run `./bin/dev`
 4. Browse to [http://localhost:3000](http://localhost:3000)
- 
+5. Setup the database with `bundle exec rails db:setup`
+6. Execute all migrations with `bundle exec rails db:migrate`
+7. Seed the database with `bundle exec rails db:seed`
+
 ## Adding clients
 
 A client can see and modify balances of other users.
