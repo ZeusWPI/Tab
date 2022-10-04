@@ -30,6 +30,8 @@
                   <%= current_user.incoming_requests.open.count %>
                 </span>
               <% end %>
+            
+            <%= link_to "Top up", "https://zeus.gent/contact/?username=#{current_user.name}#payment-info", target: "_blank", class: "px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" %>
             <% end %>
 
             <% if current_user.penning %>
