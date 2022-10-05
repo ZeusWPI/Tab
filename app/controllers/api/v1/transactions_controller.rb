@@ -6,12 +6,11 @@ module Api
       load_and_authorize_resource :user, find_by: :name
 
       def index
-        query = @user.transactions
-
-        query = query.limit(params[:limit]) if params.include?(:limit)
-        query = query.offset(params[:start]) if params.include?(:start)
-
-        transactions = query.includes(:debtor, :creditor, :issuer)
+        transactions = @user.transactions
+                            .order("updated_at desc")
+                            .offset(params[:start])
+                            .limit(params[:limit])
+                            .includes(:debtor, :creditor, :issuer)
 
         mapped_transactions = transactions.map do |t|
           {
