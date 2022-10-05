@@ -27,6 +27,16 @@ RSpec.describe "api/v1/transactions", type: :request do
       description <<~DESCR
         Returns a list of your transactions.
       DESCR
+      parameter name: "limit",
+                in: :query,
+                type: :integer,
+                description: "Amount of transactions fetched",
+                required: false
+      parameter name: "start",
+                in: :query,
+                type: :integer,
+                description: "Amount of transactions to skip",
+                required: false
 
       response(200, "successful") do
         let(:name) { api_user.name }
@@ -36,14 +46,44 @@ RSpec.describe "api/v1/transactions", type: :request do
           create(:transaction, creditor: api_user)
         end
 
-        run_and_add_example
+        context "when no parameters are passed" do
+          run_and_add_example
 
-        it "returns transactions where api user is debtor" do
-          expect(JSON.parse(response.body)).to include(include("debtor" => name))
+          it "returns transactions where api user is debtor" do
+            expect(JSON.parse(response.body)).to include(include("debtor" => name))
+          end
+
+          it "returns transactions where api user is creditor" do
+            expect(JSON.parse(response.body)).to include(include("creditor" => name))
+          end
         end
 
-        it "returns transactions where api user is creditor" do
-          expect(JSON.parse(response.body)).to include(include("creditor" => name))
+        context "when a limit is added" do
+          before do
+            # Create some extra transactions
+            5.times.each { |_i| create(:transaction, creditor: api_user) }
+          end
+
+          describe "returns last 5 transactions" do
+            let(:limit) { 5 }
+
+            run_and_add_example do |response|
+              transactions = JSON.parse(response.body)
+              expect(transactions.length).to eq(5)
+              expect(transactions.first).to include("id" => 7)
+            end
+          end
+
+          describe "skips 1 transaction and returns 3" do
+            let(:limit) { 3 }
+            let(:start) { 1 }
+
+            run_and_add_example do |response|
+              transactions = JSON.parse(response.body)
+              expect(transactions.length).to eq(3)
+              expect(transactions.first).to include("id" => 6)
+            end
+          end
         end
       end
     end
