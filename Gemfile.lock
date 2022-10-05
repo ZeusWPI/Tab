@@ -326,7 +326,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.4)
+    sqlite3 (1.5.2-x86_64-darwin)
+    sqlite3 (1.5.2-x86_64-linux)
     sshkit (1.21.3)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -403,7 +404,7 @@ DEPENDENCIES
   rubocop-rspec
   selenium-webdriver
   sprockets-rails
-  sqlite3 (~> 1.4)
+  sqlite3 (~> 1.5)
   stimulus-rails
   turbo-rails
   tzinfo-data
