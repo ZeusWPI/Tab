@@ -11,6 +11,8 @@ Not to be confused with [Tap](https://zeus.ugent.be/tap).
 6. Run `./bin/dev`
 7. Browse to [http://localhost:3000](http://localhost:3000)
 
+Or, run ./setup.sh and go to step 6.
+
 ## Adding clients
 
 A client can see and modify balances of other users.
