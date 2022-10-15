@@ -115,6 +115,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+  # Make sure the database is in a clean state in between tests
+  gem "database_cleaner-active_record"
 end
 group :production do
   gem "mysql2", ">= 0.4.4", "< 0.6.0"
