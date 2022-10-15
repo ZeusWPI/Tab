@@ -60,8 +60,8 @@ RSpec.describe "api/v1/transactions", type: :request do
 
         context "when a limit is added" do
           before do
-            # Create some extra transactions
-            5.times.each { |_i| create(:transaction, creditor: api_user) }
+            # Create some extra transactions, note that there are already 2 in the spec
+            5.times { |i| create(:transaction, creditor: api_user, message: "transaction #{i}") }
           end
 
           describe "returns last 5 transactions" do
@@ -70,7 +70,7 @@ RSpec.describe "api/v1/transactions", type: :request do
             run_and_add_example do |response|
               transactions = JSON.parse(response.body)
               expect(transactions.length).to eq(5)
-              expect(transactions.first).to include("id" => 7)
+              expect(transactions.first).to include("message" => "transaction 4")
             end
           end
 
@@ -81,7 +81,7 @@ RSpec.describe "api/v1/transactions", type: :request do
             run_and_add_example do |response|
               transactions = JSON.parse(response.body)
               expect(transactions.length).to eq(3)
-              expect(transactions.first).to include("id" => 6)
+              expect(transactions.first).to include("message" => "transaction 3")
             end
           end
         end
