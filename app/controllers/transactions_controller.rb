@@ -12,14 +12,14 @@ class TransactionsController < ApplicationController
     authorize!(:create, @transaction)
 
     if @transaction.save
-      flash[:success] =
+      flash.now[:success] =
         if @transaction.is_a?(Transaction)
           "Transaction created!"
         else
           "Request made!"
         end
     else
-      flash[:error] = "Something went wrong, hope this helps: #{@transaction.errors.full_messages}"
+      flash.now[:error] = "Something went wrong, hope this helps: #{@transaction.errors.full_messages}"
     end
 
     redirect_back_or_to root_path
