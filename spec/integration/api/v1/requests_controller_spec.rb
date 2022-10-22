@@ -45,7 +45,7 @@ RSpec.describe "api/v1/requests", type: :request do
 
         describe "returns all requests when not filtering" do
           run_and_add_example do |response|
-            response_ids = JSON.parse!(response.body).map { |r| r["id"] }.to_a
+            response_ids = JSON.parse!(response.body).pluck("id").to_a
             expect(response_ids).to contain_exactly(debtor.id, creditor.id, issuer.id)
           end
         end
@@ -54,7 +54,7 @@ RSpec.describe "api/v1/requests", type: :request do
           let(:state) { "confirmed" }
 
           run_and_add_example do |response|
-            response_ids = JSON.parse!(response.body).map { |r| r["id"] }.to_a
+            response_ids = JSON.parse!(response.body).pluck("id").to_a
             expect(response_ids).to contain_exactly(issuer.id)
           end
         end

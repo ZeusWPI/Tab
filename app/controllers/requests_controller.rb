@@ -13,7 +13,7 @@ class RequestsController < ApplicationController
   def confirm
     @request.confirm!
 
-    flash[:success] = "Request accepted!"
+    flash.now[:success] = "Request accepted!"
 
     redirect_back_or_to root_path
   end
@@ -21,7 +21,7 @@ class RequestsController < ApplicationController
   def decline
     @request.decline!
 
-    flash[:success] = "Request declined!"
+    flash.now[:success] = "Request declined!"
 
     redirect_back_or_to root_path
   end
@@ -29,7 +29,7 @@ class RequestsController < ApplicationController
   def cancel
     @request.cancel!
 
-    flash[:success] = "Request cancelled!"
+    flash.now[:success] = "Request cancelled!"
 
     redirect_back_or_to root_path
   end
