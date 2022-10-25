@@ -75,6 +75,10 @@ gem "jsbundling-rails"
 gem "rswag-api"
 gem "rswag-ui"
 
+# Sentry
+gem "sentry-rails"
+gem "sentry-ruby"
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
