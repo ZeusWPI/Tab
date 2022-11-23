@@ -33,7 +33,6 @@
     <input id="api_key" value="<%= @user.key %>" data-clipboard-target="source" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" readonly="true">
     <div>
       Don't share this with anyone, you don't want people to pay with your money.
-      >>>>>>> b6598fe (Partials, partials, partials and deduplicate Transfer form)
     </div>
     <%= render 'shared/copy_to_clipboard_button' %>
     <%= button_to reset_key_user_path(@user),
