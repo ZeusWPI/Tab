@@ -9,7 +9,7 @@
     "datatables.net": "^1.12.1",
     "esbuild": "^0.15.12",
     "fuse.js": "^6.6.2",
-    "luxon": "^3.0.4",
+    "luxon": "^3.1.1",
     "postcss": "^8.4.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
