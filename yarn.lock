@@ -969,10 +969,10 @@ react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-select@^5.5.4:
-  version "5.5.4"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.5.4.tgz#da05b8b66d33f6fc1f92fdccd0fa50d7f4418554"
-  integrity sha512-lyr19joBUm/CNJgjZMBSnFvJ/MeHCmBYvQ050qYAP3EPa7Oenlnx9guhU+SW0goYgxLQyqwRvkFllQpFAp8tmQ==
+react-select@^5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.7.0.tgz#82921b38f1fcf1471a0b62304da01f2896cd8ce6"
+  integrity sha512-lJGiMxCa3cqnUr2Jjtg9YHsaytiZqeNOKeibv6WF5zbK/fPegZ1hg3y/9P1RZVLhqBTs0PfqQLKuAACednYGhQ==
   dependencies:
     "@babel/runtime" "^7.12.0"
     "@emotion/cache" "^11.4.0"
