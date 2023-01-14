@@ -7,7 +7,7 @@
     "autoprefixer": "^10.4.12",
     "datatables": "^1.10.18",
     "datatables.net": "^1.12.1",
-    "esbuild": "^0.15.12",
+    "esbuild": "^0.17.0",
     "fuse.js": "^6.6.2",
     "luxon": "^3.0.4",
     "postcss": "^8.4.18",
