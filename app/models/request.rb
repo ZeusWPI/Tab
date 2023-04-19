@@ -50,14 +50,14 @@ class Request < ApplicationRecord
   private
 
   def confirmed_message
-    "Your request for €#{amount / 100.0} for \"#{message}\" has been accepted by #{debtor.name}."
+    "Your request for Ƶ#{amount / 100.0} for \"#{message}\" has been accepted by #{debtor.name}."
   end
 
   def declined_message
-    "#{debtor.name} refuses to pay €#{amount / 100.0} for \"#{message}\"."
+    "#{debtor.name} refuses to pay Ƶ#{amount / 100.0} for \"#{message}\"."
   end
 
   def cancelled_message
-    "#{issuer.name} cancelled the request to pay #{debtor.name} €#{amount / 100.0} for \"#{message}\" to #{creditor.name}."
+    "#{issuer.name} cancelled the request to pay #{debtor.name} Ƶ#{amount / 100.0} for \"#{message}\" to #{creditor.name}."
   end
 end

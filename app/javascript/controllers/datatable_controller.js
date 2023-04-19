@@ -34,7 +34,7 @@ export default class extends Controller {
         {
           targets: 1,
           render: function(data, type, full, meta) {
-            return '€' + (data/100).toFixed(2);
+            return 'Ƶ' + (data/100).toFixed(2);
           }
         },
         {

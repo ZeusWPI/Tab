@@ -123,7 +123,7 @@ class Amount extends React.Component {
       <div className="relative z-0 w-full mb-6 group">
         <div className="flex">
           <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-            €
+            Ƶ
           </span>
           <input
             name={'transaction[euros]'}
