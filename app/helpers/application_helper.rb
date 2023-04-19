@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def euro(float)
-    number_to_currency float, unit: "€"
+    number_to_currency float, unit: "Ƶ"
   end
 
   def euro_from_cents(cents)
