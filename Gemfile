@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.3.1"
 
 # ed25519 ssh key support
 gem "bcrypt_pbkdf", ">= 1.0", "< 2.0"
@@ -78,6 +78,7 @@ gem "rswag-ui"
 # Sentry
 gem "sentry-rails"
 gem "sentry-ruby"
+gem "stackprof"
 
 group :development, :test do
   gem "factory_bot_rails"
