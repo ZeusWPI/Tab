@@ -171,6 +171,7 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
+    mini_portile2 (2.8.6)
     minitest (5.16.3)
     msgpack (1.6.0)
     multi_xml (0.6.0)
@@ -192,10 +193,9 @@ GEM
       net-protocol
       timeout
     net-ssh (7.0.1)
-    nio4r (2.5.8)
-    nokogiri (1.13.9-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.13.9-x86_64-linux)
+    nio4r (2.7.3)
+    nokogiri (1.13.9)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     oauth2 (2.0.2)
       faraday (>= 0.17.3, < 3.0)
@@ -336,11 +336,13 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.5.3-x86_64-darwin)
-    sqlite3 (1.5.3-x86_64-linux)
+    sqlite3 (1.7.3-arm64-darwin)
+    sqlite3 (1.7.3-x86_64-darwin)
+    sqlite3 (1.7.3-x86_64-linux)
     sshkit (1.21.3)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stackprof (0.2.26)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
     strscan (3.0.4)
@@ -374,6 +376,7 @@ GEM
     zeitwerk (2.6.1)
 
 PLATFORMS
+  arm64-darwin-23
   x86_64-darwin-21
   x86_64-linux
 
@@ -418,6 +421,7 @@ DEPENDENCIES
   sentry-ruby
   sprockets-rails
   sqlite3 (~> 1.5)
+  stackprof
   stimulus-rails
   turbo-rails
   tzinfo-data
@@ -425,7 +429,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.3.1p55
 
 BUNDLED WITH
-   2.3.18
+   2.5.10
