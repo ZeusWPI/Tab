@@ -80,7 +80,7 @@ class DataTable
       length: params.require(:length).to_i,
       columns: {}
     }
-    params.require(:columns).each do |_, column|
+    params.require(:columns).each_value do |column|
       type, *values = column.require(:search)[:value].split(":")
       value = values.join(":") unless values.empty?
       h = clean[:columns][column.require(:data).to_sym] = {
