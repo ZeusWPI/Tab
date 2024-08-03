@@ -6,7 +6,7 @@
     "@hotwired/turbo-rails": "^7.2.4",
     "autoprefixer": "^10.4.12",
     "datatables": "^1.10.18",
-    "datatables.net": "^1.12.1",
+    "datatables.net": "^2.1.3",
     "esbuild": "^0.15.12",
     "fuse.js": "^6.6.2",
     "luxon": "^3.0.4",
