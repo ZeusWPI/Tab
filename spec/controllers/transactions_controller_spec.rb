@@ -62,12 +62,12 @@ RSpec.describe TransactionsController, type: :controller do
                 transaction: {
                   debtor: debtor.name,
                   creditor: creditor.name,
-                  euros: 10.5,
+                  euros: 4.98,
                   message: "Omdat je een leuke jongen bent!",
                   action: "send"
                 }
               })
-            expect(Transaction.last.amount).to eq(1050)
+            expect(Transaction.last.amount).to eq(498)
           end
         end
 
