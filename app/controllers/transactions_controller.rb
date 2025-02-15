@@ -34,7 +34,7 @@ class TransactionsController < ApplicationController
       debtor: User.find_by(name: t[:debtor]),
       creditor: User.find_by(name: t[:creditor]),
       issuer: current_user,
-      amount: ((BigDecimal(t[:euros] || 0, 2) * 100) + t[:cents].to_i).to_i,
+      amount: ((BigDecimal(t[:euros]&.to_s || "0") * 100) + t[:cents].to_i).to_i,
       message: t[:message],
     }
   end

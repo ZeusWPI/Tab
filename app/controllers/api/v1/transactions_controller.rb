@@ -52,7 +52,7 @@ module Api
           debtor: t[:debtor] ? User.find_by(name: t[:debtor]) : User.zeus,
           creditor: t[:creditor] ? User.find_by(name: t[:creditor]) : User.zeus,
           issuer: current_user_or_client,
-          amount: ((BigDecimal(t[:euros] || 0, 2) * 100) + t[:cents].to_i).to_i,
+          amount: ((BigDecimal(t[:euros]&.to_s || "0") * 100) + t[:cents].to_i).to_i,
           message: t[:message],
         }.merge(current_client ? { id_at_client: t[:id_at_client] } : {})
       end

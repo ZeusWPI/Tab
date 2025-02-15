@@ -155,13 +155,13 @@ RSpec.describe "api/v1/transactions", type: :request do
 
           context "when sending floats as euros" do
             let(:transaction) do
-              { transaction: transaction_params.merge(euros: 9.70, cents: 0) }
+              { transaction: transaction_params.merge(euros: 4.98, cents: 0) }
             end
 
             it "handles floats properly" do
               transaction = Transaction.last
 
-              expect(transaction.amount).to eq(970)
+              expect(transaction.amount).to eq(498)
             end
           end
 
