@@ -12,8 +12,7 @@ RSpec.describe "api/v1/transactions", type: :request do
       debtor: debtor.name,
       creditor: creditor.name,
       message: Faker::Lorem.sentence,
-      euros: 1,
-      cents: 25,
+      cents: 250,
       id_at_client: 1
     }
   end
@@ -102,7 +101,7 @@ RSpec.describe "api/v1/transactions", type: :request do
 
         All parameters are optional with the following constraints and defaults:
            * When leaving the `debtor` or `creditor` empty, this will default to the Zeus user.
-           * At least one of `euros` and `cents` needs to be filled in
+           * `cents` must be an integer, never a string or float
            * When creating a transaction as client, the `id_at_client` is mandatory
       DESCR
 
@@ -124,15 +123,10 @@ RSpec.describe "api/v1/transactions", type: :request do
                 description: "Defaults to Zeus when empty"
               },
               message: { type: :string, nullable: true },
-              euros: {
-                type: :integer,
-                nullable: true,
-                description: "Required when `cents` empty"
-              },
               cents: {
                 type: :integer,
-                nullable: true,
-                description: "Required when `euros` empty"
+                nullable: false,
+                description: "Amount in cents"
               },
               id_at_client: {
                 type: :integer,
@@ -153,22 +147,31 @@ RSpec.describe "api/v1/transactions", type: :request do
         context "when api user is a penning" do
           run_and_add_example
 
-          context "when sending floats as euros" do
-            let(:transaction) do
-              { transaction: transaction_params.merge(euros: 4.98, cents: 0) }
-            end
+          it "creates a transaction" do
+            transaction = Transaction.last
 
-            it "handles floats properly" do
-              transaction = Transaction.last
-
-              expect(transaction.amount).to eq(498)
-            end
+            expect(transaction.amount).to eq(250)
+            expect(transaction.debtor).to eq(debtor)
+            expect(transaction.creditor).to eq(creditor)
           end
 
-          context "when creating a transaction" do
-            it "sets issuer" do
+          it "sets issuer" do
+            transaction = Transaction.last
+            expect(transaction.issuer).to eq(api_user)
+          end
+
+          context "when cents is a negative integer" do
+            let(:transaction) do
+              { transaction: transaction_params.merge(cents: -350) }
+            end
+
+            run_test!
+
+            it "creates a transaction and switches debtor and creditor" do
               transaction = Transaction.last
-              expect(transaction.issuer).to eq(api_user)
+              expect(transaction.amount).to eq(350)
+              expect(transaction.debtor).to eq(creditor)
+              expect(transaction.creditor).to eq(debtor)
             end
           end
         end
@@ -186,6 +189,22 @@ RSpec.describe "api/v1/transactions", type: :request do
             it "creates a transaction" do
               transaction = Transaction.last
               expect(transaction.issuer).to eq(api_user)
+            end
+
+            context "when cents is negative" do
+              let(:transaction) do
+                { transaction: transaction_params.merge(cents: -2) }
+              end
+
+              run_test!
+
+              it "creates a transaction where the creditor becomes debtor" do
+                request = Request.last
+                expect(request.issuer).to eq(api_user)
+                expect(request.debtor).to eq(creditor)
+                expect(request.creditor).to eq(debtor)
+                expect(request.amount).to eq(2)
+              end
             end
           end
 
@@ -251,7 +270,7 @@ RSpec.describe "api/v1/transactions", type: :request do
           let(:debtor) { api_user }
 
           let(:transaction) do
-            { transaction: transaction_params.merge(euros: 0, cents: 2) }
+            { transaction: transaction_params.merge(cents: 2) }
           end
 
           before do
@@ -265,6 +284,30 @@ RSpec.describe "api/v1/transactions", type: :request do
           let(:creditor) { create(:user) }
 
           run_test!
+        end
+      end
+
+      response(422, "unprocessable entity") do
+        let(:transaction) do
+          { transaction: transaction_params.merge(cents: 0.3) }
+        end
+
+        run_and_add_example
+
+        context "when cents is a float" do
+          it "returns an error" do
+            expect(JSON.parse(response.body)).to eq("errors" => [{ "detail" => "Cents must be an integer" }])
+          end
+        end
+
+        context "when cents is a string float" do
+          let(:transaction) do
+            { transaction: transaction_params.merge(cents: "2.50") }
+          end
+
+          it "returns an error" do
+            expect(JSON.parse(response.body)).to eq("errors" => [{ "detail" => "Cents must be an integer" }])
+          end
         end
       end
     end

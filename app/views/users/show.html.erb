@@ -53,7 +53,7 @@ curl '<%= api_v1_transactions_url %>' \
   -H "Accept: application/json"  \
   -H "Authorization: Token token=<%= @user.key %>" \
   -X POST \
-  --data-raw 'transaction%5Bdebtor%5D=<%= @user.name %>&transaction%5Bcreditor%5D=silox&transaction%5Bmessage%5D=You script kiddie!&transaction%5Beuros%5D=5'</textarea>
+  --data-raw 'transaction%5Bdebtor%5D=<%= @user.name %>&transaction%5Bcreditor%5D=silox&transaction%5Bmessage%5D=You script kiddie!&transaction%5Bcents%5D=5'</textarea>
     <%= render 'shared/copy_to_clipboard_button' %>
   </div>
 <% end %>
