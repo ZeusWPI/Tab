@@ -24,6 +24,7 @@ class Transaction < ApplicationRecord
   after_save :recalculate_balances!
 
   validates :id_at_client, presence: true, uniqueness: { scope: :issuer_id }, if: :client_transaction?
+  validates :amount, numericality: { only_integer: true }
 
   def reverse
     self.creditor, self.debtor = self.debtor, self.creditor

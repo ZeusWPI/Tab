@@ -101,8 +101,8 @@ RSpec.describe "api/v1/transactions", type: :request do
 
         All parameters are optional with the following constraints and defaults:
            * When leaving the `debtor` or `creditor` empty, this will default to the Zeus user.
-           * `cents` must be an integer, never a string or float
-           * When creating a transaction as client, the `id_at_client` is mandatory
+           * `cents` must be an integer, or a string representation of one, never a float (or string float).
+           * When creating a transaction as client, the `id_at_client` is mandatory.
       DESCR
 
       consumes "application/json"
@@ -142,6 +142,19 @@ RSpec.describe "api/v1/transactions", type: :request do
       response(201, "successful") do
         let(:transaction) do
           { transaction: transaction_params }
+        end
+
+        context "when cents is a string" do
+          run_and_add_example
+
+          let(:transaction) do
+            { transaction: transaction_params.merge(cents: "150") }
+          end
+
+          it "creates a transaction" do
+            transaction = Transaction.last
+            expect(transaction.amount).to eq(150)
+          end
         end
 
         context "when api user is a penning" do
@@ -296,7 +309,7 @@ RSpec.describe "api/v1/transactions", type: :request do
 
         context "when cents is a float" do
           it "returns an error" do
-            expect(JSON.parse(response.body)).to eq("errors" => [{ "detail" => "Cents must be an integer" }])
+            expect(JSON.parse(response.body)).to eq(["Amount must be an integer"])
           end
         end
 
@@ -306,7 +319,7 @@ RSpec.describe "api/v1/transactions", type: :request do
           end
 
           it "returns an error" do
-            expect(JSON.parse(response.body)).to eq("errors" => [{ "detail" => "Cents must be an integer" }])
+            expect(JSON.parse(response.body)).to eq(["Amount must be an integer"])
           end
         end
       end

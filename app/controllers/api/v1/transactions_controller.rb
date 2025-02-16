@@ -45,30 +45,18 @@ module Api
         end
       end
 
-      rescue_from CentsMustBeInteger do
-        render json: { errors: [{ detail: "Cents must be an integer" }] }, status: :unprocessable_entity
-      end
-
       private
 
       def transaction_params
         t = params.require(:transaction).permit(:debtor, :creditor, :message, :cents, :id_at_client)
 
-        validate_cents(t[:cents])
-
         {
           debtor: t[:debtor] ? User.find_by(name: t[:debtor]) : User.zeus,
           creditor: t[:creditor] ? User.find_by(name: t[:creditor]) : User.zeus,
           issuer: current_user_or_client,
-          amount: t[:cents].to_i,
+          amount: t[:cents],
           message: t[:message],
         }.merge(current_client ? { id_at_client: t[:id_at_client] } : {})
-      end
-
-      def validate_cents(cents)
-        return if cents.nil?
-
-        raise CentsMustBeInteger unless cents.to_s.match?(/^-?\d+$/)
       end
     end
   end
