@@ -21,8 +21,6 @@ class Request < ApplicationRecord
 
   enum status: { open: 0, confirmed: 1, declined: 2, cancelled: 3 }
 
-  validates :amount, numericality: { only_integer: true }
-
   def confirm!
     return unless open?
 
