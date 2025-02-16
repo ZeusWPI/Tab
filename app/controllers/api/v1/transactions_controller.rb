@@ -2,6 +2,8 @@
 
 module Api
   module V1
+    class CentsMustBeInteger < StandardError; end
+
     class TransactionsController < Api::V1::ApplicationController
       load_and_authorize_resource :user, find_by: :name
 
@@ -43,18 +45,30 @@ module Api
         end
       end
 
+      rescue_from CentsMustBeInteger do
+        render json: { errors: [{ detail: "Cents must be an integer" }] }, status: :unprocessable_entity
+      end
+
       private
 
       def transaction_params
-        t = params.require(:transaction).permit(:debtor, :creditor, :message, :euros, :cents, :id_at_client)
+        t = params.require(:transaction).permit(:debtor, :creditor, :message, :cents, :id_at_client)
+
+        validate_cents(t[:cents])
 
         {
           debtor: t[:debtor] ? User.find_by(name: t[:debtor]) : User.zeus,
           creditor: t[:creditor] ? User.find_by(name: t[:creditor]) : User.zeus,
           issuer: current_user_or_client,
-          amount: ((BigDecimal(t[:euros]&.to_s || "0") * 100) + t[:cents].to_i).to_i,
+          amount: t[:cents].to_i,
           message: t[:message],
         }.merge(current_client ? { id_at_client: t[:id_at_client] } : {})
+      end
+
+      def validate_cents(cents)
+        return if cents.nil?
+
+        raise CentsMustBeInteger unless cents.to_s.match?(/^-?\d+$/)
       end
     end
   end
