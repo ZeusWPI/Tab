@@ -107,7 +107,7 @@ group :development do
   gem "capistrano", "~> 3.17"
   gem "capistrano-asdf"
   gem "capistrano-passenger"
-  gem "capistrano-rails", "~> 1.6"
+  gem "capistrano-rails", "~> 1.7"
 
   # Rubocop so we're all on the same level <3
   gem "rubocop-rails"
