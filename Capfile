@@ -39,7 +39,7 @@ require "capistrano/rails"
 require "capistrano/passenger"
 require "capistrano/asdf"
 
-require 'capistrano/sidekiq'
+require "capistrano/sidekiq"
 install_plugin Capistrano::Sidekiq # Default sidekiq tasks
 install_plugin Capistrano::Sidekiq::Systemd
 
