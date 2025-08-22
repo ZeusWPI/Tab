@@ -19,7 +19,7 @@
 class Request < ApplicationRecord
   include BaseTransaction
 
-  enum status: { open: 0, confirmed: 1, declined: 2, cancelled: 3 }
+  enum :status, { open: 0, confirmed: 1, declined: 2, cancelled: 3 }
 
   def confirm!
     return unless open?

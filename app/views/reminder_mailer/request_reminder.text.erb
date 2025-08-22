@@ -1,0 +1,9 @@
+Beste <%= @user.name %>
+
+Je heb volgende requests nog openstaan op tab:
+
+<% @requests.each do |r| %>
+  - <%= r.creditor.name %>: Ƶ<%= r.amount / 100.0 %> voor <%= r.message %>
+<% end %>
+
+Betaal je requests op https://tab.zeus.gent

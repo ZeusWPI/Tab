@@ -79,6 +79,9 @@ gem "sentry-rails"
 gem "sentry-ruby"
 gem "stackprof"
 
+gem "sidekiq"
+gem "sidekiq-cron"
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
@@ -97,6 +100,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
+  # Open emails right as you send them in a new tab
+  gem "letter_opener"
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -108,6 +114,7 @@ group :development do
   gem "capistrano-asdf"
   gem "capistrano-passenger"
   gem "capistrano-rails", "~> 1.6"
+  gem "capistrano-sidekiq", require: false
 
   # Rubocop so we're all on the same level <3
   gem "rubocop-rails"

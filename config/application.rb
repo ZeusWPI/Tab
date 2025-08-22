@@ -15,13 +15,15 @@ module Tab
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
-    config.time_zone = 'Brussels'
+
+    config.active_job.queue_adapter = :sidekiq
+
+    config.time_zone = "Brussels"
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Which is the lowest balance you should be ashamed of.
     config.shameful_balance = 0 # In eurocents!
-    config.maximum_amount = 15000
+    config.maximum_amount = 15_000
     config.minimum_balance = 0
   end
 end
