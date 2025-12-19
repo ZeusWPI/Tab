@@ -4,6 +4,10 @@ source "https://rubygems.org"
 
 ruby "3.4.8"
 
+# These are no longer default gems in newer ruby versions
+gem "mutex_m"
+gem "benchmark"
+
 # ed25519 ssh key support
 gem "bcrypt_pbkdf", ">= 1.0", "< 2.0"
 gem "ed25519", ">= 1.2", "< 2.0"

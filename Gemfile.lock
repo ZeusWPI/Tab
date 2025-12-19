@@ -76,6 +76,7 @@ GEM
     bcrypt_pbkdf (1.1.1)
     bcrypt_pbkdf (1.1.1-arm64-darwin)
     bcrypt_pbkdf (1.1.1-x86_64-darwin)
+    benchmark (0.5.0)
     bigdecimal (3.1.9)
     bindex (0.8.1)
     bootsnap (1.18.4)
@@ -213,6 +214,7 @@ GEM
     msgpack (1.8.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
+    mutex_m (0.3.0)
     mysql2 (0.5.6)
     net-http (0.6.0)
       uri
@@ -483,6 +485,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt_pbkdf (>= 1.0, < 2.0)
+  benchmark
   bootsnap
   byebug
   cancancan
@@ -505,6 +508,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   letter_opener
+  mutex_m
   mysql2 (>= 0.4.4, < 0.6.0)
   omniauth-oauth2
   omniauth-rails_csrf_protection
