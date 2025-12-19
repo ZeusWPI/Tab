@@ -4,7 +4,7 @@ Not to be confused with [Tap](https://zeus.ugent.be/tap).
 ## Get started
 
 1. Run `bundle`
-2. Run `yarn`
+2. Run `npm i`
 3. Setup the database with `bundle exec rails db:setup`
 4. Execute all migrations with `bundle exec rails db:migrate`
 5. Seed the database with `bundle exec rails db:seed`
