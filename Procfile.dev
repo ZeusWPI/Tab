@@ -1,7 +1,7 @@
 rails: env RUBY_DEBUG_OPEN=true ./bin/rails server --binding=0.0.0.0 --port=3000
 
-js: npm run build:js -- --watch
-css: npm run build:css -- --watch
+js: npm run watch:js
+css: npm run watch:css
 
 sidekiq: bundle exec sidekiq
 redis: redis-server
