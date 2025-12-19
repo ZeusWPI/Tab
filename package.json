@@ -18,8 +18,7 @@
     "tom-select": "^2.4.3"
   },
   "scripts": {
-    "build": "node esbuild.config.js --minify",
-    "build:dev": "node esbuild.config.js",
+    "build:js": "esbuild ./app/javascript/application.js --loader:.js=jsx --public-path=/assets --bundle --minify --sourcemap --outdir=./app/assets/builds/",
     "build:css": "tailwindcss --postcss --verbose -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   },
   "devDependencies": {
