@@ -9,8 +9,8 @@ gem "mutex_m"
 gem "benchmark"
 
 # ed25519 ssh key support
-gem "bcrypt_pbkdf", ">= 1.0", "< 2.0"
-gem "ed25519", ">= 1.2", "< 2.0"
+gem "bcrypt_pbkdf"
+gem "ed25519"
 
 # Support .env files
 gem "dotenv-rails"
@@ -22,10 +22,10 @@ gem "rails", "~> 7.0.8"
 gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.5"
+gem "sqlite3"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.0"
+gem "puma"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -67,12 +67,12 @@ gem "omniauth-zeuswpi"
 gem "cancancan"
 
 # Friendly ids!
-gem "friendly_id", "~> 5.4.0"
+gem "friendly_id"
 
 gem "rolify"
 
 # Frontend stuff
-gem "cssbundling-rails", "~> 1.1"
+gem "cssbundling-rails"
 gem "jsbundling-rails"
 
 gem "rswag-api"
@@ -85,6 +85,10 @@ gem "stackprof"
 
 gem "sidekiq"
 gem "sidekiq-cron"
+
+group :production do
+  gem "mysql2"
+end
 
 group :development, :test do
   gem "factory_bot_rails"
@@ -115,10 +119,10 @@ group :development do
   # gem "spring"
 
   # Deployment
-  gem "capistrano", "~> 3.17"
+  gem "capistrano"
   gem "capistrano-asdf"
   gem "capistrano-passenger"
-  gem "capistrano-rails", "~> 1.6"
+  gem "capistrano-rails"
   gem "capistrano-sidekiq", require: false
 
   # Rubocop so we're all on the same level <3
@@ -137,7 +141,4 @@ group :test do
 
   # Make sure the database is in a clean state in between tests
   gem "database_cleaner-active_record"
-end
-group :production do
-  gem "mysql2", ">= 0.4.4", "< 0.6.0"
 end

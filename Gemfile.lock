@@ -483,37 +483,37 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  bcrypt_pbkdf (>= 1.0, < 2.0)
+  bcrypt_pbkdf
   benchmark
   bootsnap
   byebug
   cancancan
-  capistrano (~> 3.17)
+  capistrano
   capistrano-asdf
   capistrano-passenger
-  capistrano-rails (~> 1.6)
+  capistrano-rails
   capistrano-sidekiq
   capybara
-  cssbundling-rails (~> 1.1)
+  cssbundling-rails
   database_cleaner-active_record
   debug
   devise
   dotenv-rails
-  ed25519 (>= 1.2, < 2.0)
+  ed25519
   factory_bot_rails
   faker
   foreman
-  friendly_id (~> 5.4.0)
+  friendly_id
   importmap-rails
   jbuilder
   jsbundling-rails
   letter_opener
   mutex_m
-  mysql2 (>= 0.4.4, < 0.6.0)
+  mysql2
   omniauth-oauth2
   omniauth-rails_csrf_protection
   omniauth-zeuswpi
-  puma (~> 6.0)
+  puma
   rails (~> 7.0.8)
   rails-controller-testing
   rolify
@@ -529,7 +529,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-cron
   sprockets-rails
-  sqlite3 (~> 1.5)
+  sqlite3
   stackprof
   stimulus-rails
   turbo-rails
