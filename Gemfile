@@ -78,11 +78,6 @@ gem "jsbundling-rails"
 gem "rswag-api"
 gem "rswag-ui"
 
-# Sentry
-gem "sentry-rails"
-gem "sentry-ruby"
-gem "stackprof"
-
 gem "sidekiq"
 gem "sidekiq-cron"
 
