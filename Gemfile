@@ -4,6 +4,24 @@ source "https://rubygems.org"
 
 ruby "3.4.8"
 
+rails_version = "~> 7.0.0"
+
+# Rails core
+gem "railties", rails_version
+
+# Rails components
+gem "actioncable", rails_version
+gem "actionmailbox", rails_version
+gem "actionmailer", rails_version
+gem "actionpack", rails_version
+gem "actiontext", rails_version
+gem "actionview", rails_version
+gem "activejob", rails_version
+gem "activemodel", rails_version
+gem "activerecord", rails_version
+gem "activestorage", rails_version
+gem "activesupport", rails_version
+
 # These are no longer default gems in newer ruby versions
 gem "benchmark"
 gem "mutex_m"
@@ -14,9 +32,6 @@ gem "ed25519"
 
 # Support .env files
 gem "dotenv-rails"
-
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.8"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
