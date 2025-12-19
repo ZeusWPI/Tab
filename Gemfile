@@ -123,6 +123,9 @@ group :development do
   # Rubocop so we're all on the same level <3
   gem "rubocop-rails"
   gem "rubocop-rspec"
+
+  # For ./bin/dev
+  gem "foreman"
 end
 
 group :test do
