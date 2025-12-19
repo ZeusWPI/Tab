@@ -19,7 +19,6 @@ module Tab
     config.active_job.queue_adapter = :sidekiq
 
     config.time_zone = "Brussels"
-    # config.eager_load_paths << Rails.root.join("extras")
 
     # Which is the lowest balance you should be ashamed of.
     config.shameful_balance = 0 # In eurocents!
