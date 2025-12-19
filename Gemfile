@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.3.7"
+ruby "3.4.8"
 
 # ed25519 ssh key support
 gem "bcrypt_pbkdf", ">= 1.0", "< 2.0"
