@@ -4,6 +4,7 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.20",
+    "@tailwindcss/cli": "^4.1.18",
     "autoprefixer": "^10.4.23",
     "datatables": "^1.10.18",
     "datatables.net": "^2.3.5",
