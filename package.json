@@ -20,10 +20,10 @@
   },
   "scripts": {
     "build": "npm run build:js && npm run build:css",
-    "build:js": "esbuild ./app/assets/javascript/application.js --loader:.js=jsx --public-path=/assets --bundle --minify --sourcemap --outdir=./app/assets/builds/",
-    "build:css": "tailwindcss --input=./app/assets/stylesheets/application.tailwind.css --postcss --minify --map --verbose --output=./app/assets/builds/application.css",
-    "watch:js": "npm run build:js -- --watch=forever",
-    "watch:css": "npm run build:css -- --watch=always"
+    "build:js": "esbuild ./app/assets/javascript/application.js --loader:.js=jsx --public-path=/assets --outdir=./app/assets/builds/ --bundle --minify",
+    "watch:js": "esbuild ./app/assets/javascript/application.js --loader:.js=jsx --public-path=/assets --outdir=./app/assets/builds/ --bundle --watch=forever",
+    "build:css": "tailwindcss --input=./app/assets/stylesheets/application.tailwind.css --output=./app/assets/builds/application.css --postcss --minify --verbose",
+    "watch:css": "tailwindcss --input=./app/assets/stylesheets/application.tailwind.css --output=./app/assets/builds/application.css --postcss --verbose --watch=always"
   },
   "devDependencies": {
     "postcss-import": "^16.1.1"
