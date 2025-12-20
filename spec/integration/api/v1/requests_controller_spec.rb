@@ -2,7 +2,7 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/v1/requests" do
+RSpec.describe Api::V1::RequestsController do
   # Our user we use in most places.
   let(:user) { create(:positive_user, :with_api_key) }
   # Create a request where the user should pay.

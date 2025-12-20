@@ -2,7 +2,7 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/v1/users" do
+RSpec.describe Api::V1::UsersController do
   let(:api_user) { create(:penning, :with_api_key) }
 
   path "/api/v1/users" do

@@ -2,7 +2,7 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/v1/transactions" do
+RSpec.describe Api::V1::TransactionsController do
   let(:api_user) { create(:penning, :with_api_key) }
 
   let(:debtor) { create(:user) }
