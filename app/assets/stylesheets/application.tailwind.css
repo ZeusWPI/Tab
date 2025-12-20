@@ -1,7 +1,7 @@
 @import "tailwindcss";
-@config "./tailwind.config.js"
+@config "./tailwind.config.js";
 
-/* @import "datatables.tailwind.css"; */
+@import "./datatables.tailwind.css";
 
-/* @import "../../../node_modules/tom-select/dist/css/tom-select.bootstrap5.min.css"; */
-/* @import "tom-select.tailwind.css"; */
+@import "../../../node_modules/tom-select/dist/css/tom-select.bootstrap5.min.css";
+@import "./tom-select.tailwind.css";
