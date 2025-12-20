@@ -1,0 +1,24 @@
+# This compose file is meant for development and should not be used in production!
+services:
+  development:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+      target: development
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - "./:/tab"
+#      - "${HOME}/.ssh:/root/.ssh:ro"
+    tmpfs:
+      - /tab/tmp
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+      target: test
+    volumes:
+      - "./:/tab"
+    tmpfs:
+      - /tab/tmp

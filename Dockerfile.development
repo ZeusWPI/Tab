@@ -1,0 +1,63 @@
+# This is for development or CI only
+FROM docker.io/ruby:3.4.8-alpine3.23 AS common
+
+RUN apk update \
+    && apk upgrade \
+    && apk add \
+        build-base shared-mime-info mariadb-dev sqlite-dev yaml-dev tzdata imagemagick \
+        nodejs npm \
+        redis git vimdiff \
+    && rm -rfv /var/cache/apk/*
+
+# Diffs in red/green instead of blue/cyan
+RUN echo "colorscheme retrobox" >> /root/.vimrc
+ENV THOR_MERGE=vimdiff
+
+WORKDIR /tab
+
+COPY Gemfile Gemfile.lock ./
+RUN --mount=type=cache,target=vendor/cache bundle install && bundle cache
+
+COPY package.json package-lock.json* ./
+RUN --mount=type=cache,target=/root/.npm npm i
+RUN mv node_modules /node_modules
+
+
+FROM common as test
+
+ENV RAILS_ENV=test
+
+COPY --chmod=755 <<EOF /run-test.sh
+#!/bin/sh
+set -eu
+
+#[ -e node_modules ] && rm -rf node_modules
+#ln -s /node_modules node_modules
+
+bundle exec rake db:create
+bundle exec rake db:schema:load
+bundle exec rake
+EOF
+CMD ["/run-test.sh"]
+
+
+FROM common as development
+
+ENV RAILS_ENV=development
+EXPOSE 80
+
+COPY --chmod=755 <<EOF /run-development.sh
+#!/bin/sh
+set -eu
+
+[ -e node_modules ] && rm -rf node_modules
+ln -s /node_modules node_modules
+
+#bundle exec rake db:migrate
+
+./bin/dev || true
+
+echo "Rails exited, sleeping indefinitely so dev shells don't die."
+sleep inf
+EOF
+CMD ["/run-development.sh"]
