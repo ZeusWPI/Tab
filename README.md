@@ -1,17 +1,37 @@
-# [Tab](https://zeus.ugent.be/tab)
-Not to be confused with [Tap](https://zeus.ugent.be/tap). 
+# [Tab](https://tab.zeus.gent)
 
-## Get started
+💰 Yes. We have to drink. But we also have to pay. This does the paying part.
 
-1. Run `bundle`
-2. Run `npm i`
-3. Setup the database with `bundle exec rails db:setup`
-4. Execute all migrations with `bundle exec rails db:migrate`
-5. Seed the database with `bundle exec rails db:seed`
-6. Run `./bin/dev`
-7. Browse to [http://localhost:3000](http://localhost:3000)
+Not to be confused with [Tap](https://github.com/ZeusWPI/Tap).
 
-Or, run ./setup.sh and go to step 6.
+## Development
+
+To provide a consistent experience on every system, docker compose is used.
+
+### Using Docker and Make *(recommended)*
+
+#### Linux/Unix
+
+1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) (if not already included).
+2. Start the development server.
+    ```sh
+    make up
+    ```
+    > This will start a development server on http://localhost:3000.
+    > Cancelling this command will leave tap running in the background.
+    > You can stop it using `make down`.
+3. Create the database.
+    ```sh
+    make migrate
+    ```
+    > The development setup uses a SQLite 3 database, which can be found under `/db/development.sqlite3`.
+4. Start a development shell.
+    ```sh
+    make shell
+    ```
+    > Here you can invoke `./bin/rails` or `./bin/rake` for e.g. code generation.
+
+See the `Makefile` for all commands.
 
 ## Adding clients
 
@@ -22,11 +42,3 @@ to the server, `cd production/current`, then run `RAILS_ENV=production bundle ex
 Then you can add clients with `client = Client.create name: "Tap"`.
 
 If you want the client to be able to make transactions, run: `client.add_role :create_transactions` in the console.
-
-## Troubleshooting
-
-### My CSS classes aren't rendered
-
-This probably is a missing entry in Tailwinds configuration. Make sure your file path is included in the `content` array in `tailwind.config.js`.
-
-When Tailwind compiles CSS, it scans all files matching the `content` array to know which CSS classes to include.
