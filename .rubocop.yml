@@ -62,7 +62,6 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 
-
 ## Rspec
 
 # We decide how many lines.
