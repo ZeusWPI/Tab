@@ -38,9 +38,6 @@ gem "rswag-specs", group: [:development, :test]
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 
-# Rails component: Controllers that handle incoming emails.
-gem "actionmailbox", rails_version
-
 # Rails component: ERB template engine.
 gem "actionview", rails_version
 
