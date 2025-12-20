@@ -35,6 +35,7 @@ class DataTable
   end
 
   def query
+    # TODO: Implement ordering here
     q = @transactions.query.order(@table[:time].desc)
     q.where(predicate) if predicate
     q

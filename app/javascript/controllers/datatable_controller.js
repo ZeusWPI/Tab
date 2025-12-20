@@ -13,20 +13,25 @@ export default class extends Controller {
       ajax: $('#transactions').data('source'),
       processing: true,
 
-      // Unsupported by backend
-      lengthChange: false,
-      ordering: false,
-      searching: false,
+      lengthChange: true,
+      ordering: true, // Unsupported by backend
+      searching: true,
 
       responsive: true,
 
       // The control elements
       layout: {
         topStart: {
-          info: {}
+          info: {},
         },
         topEnd: {
-          paging: {}
+          paging: {},
+        },
+        bottomStart: {
+          pageLength: {},
+        },
+        bottomEnd: {
+          paging: {},
         },
       },
       language: {
