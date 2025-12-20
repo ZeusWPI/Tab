@@ -19,6 +19,7 @@
     "tom-select": "^2.4.3"
   },
   "scripts": {
+    "build": "npm run build:js && npm run build:css",
     "build:js": "esbuild ./app/javascript/application.js --loader:.js=jsx --public-path=/assets --bundle --minify --sourcemap --outdir=./app/assets/builds/",
     "build:css": "tailwindcss --input=./app/assets/stylesheets/application.tailwind.css --postcss --minify --verbose --output=./app/assets/builds/application.css",
     "watch:js": "npm run build:js -- --watch=forever",
