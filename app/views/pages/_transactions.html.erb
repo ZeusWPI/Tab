@@ -7,7 +7,7 @@
       <%- date = t[:time].is_a?(Time) ? t[:time] : Date.parse(t[:time]) %>
       <li class="py-3 sm:py-4">
         <div class="flex items-center space-x-4">
-          <div class="flex-shrink-0">
+          <div class="shrink-0">
             <%= date.strftime('%d') %>
             <%= Date::MONTHNAMES[date.month][0..2] %>
           </div>
