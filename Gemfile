@@ -54,9 +54,6 @@ gem "stimulus-rails"
 # Rails component: File upload support.
 gem "activestorage", rails_version
 
-# Rails component: WebSocket support.
-gem "actioncable", rails_version
-
 # Rails component: Send emails.
 gem "actionmailer", rails_version
 
