@@ -43,11 +43,6 @@ gem "actionview", rails_version
 
 # Rails component: Static assets.
 gem "sprockets-rails"
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
-# Frontend stuff
-gem "cssbundling-rails"
-gem "jsbundling-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
