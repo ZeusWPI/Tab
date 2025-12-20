@@ -100,8 +100,11 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 gem "foreman", group: :development
 
 # Linting
+gem "rubocop-capybara", group: :development
+gem "rubocop-factory_bot", group: :development
 gem "rubocop-rails", group: :development
 gem "rubocop-rspec", group: :development
+gem "rubocop-rspec_rails", group: :development
 
 # Debugging
 # Call 'byebug' anywhere in the code to stop execution and get a debugger console
