@@ -14,6 +14,7 @@
 
 class User < ApplicationRecord
   extend FriendlyId
+
   friendly_id :name, use: :finders
 
   devise :timeoutable, :omniauthable, omniauth_providers: %i[zeuswpi]

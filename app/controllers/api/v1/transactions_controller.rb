@@ -7,7 +7,7 @@ module Api
 
       def index
         transactions = @user.transactions
-                            .order("updated_at desc")
+                            .order(updated_at: :desc)
                             .offset(params[:start])
                             .limit(params[:limit])
                             .includes(:debtor, :creditor, :issuer)
