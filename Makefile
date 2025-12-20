@@ -32,9 +32,6 @@ seed:
 swagger:
 	$(dc) exec development bundle exec rake rswag
 
-webpack:
-	$(dc) exec development bundle exec rake javascript:build
-
 lint:
 	$(dc) up --build -t1 -d development
 	$(dc) exec development bundle exec rubocop -A
