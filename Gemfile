@@ -54,9 +54,6 @@ gem "jsbundling-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
-# Rails component: Rich text support and WYSIWYG web editor.
-gem "actiontext", rails_version
-
 # Rails component: File upload support.
 gem "activestorage", rails_version
 
