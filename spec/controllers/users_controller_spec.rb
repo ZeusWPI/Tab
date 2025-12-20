@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe UsersController do
   let(:user) { create(:penning) }
 
   before do

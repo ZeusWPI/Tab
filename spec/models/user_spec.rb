@@ -14,8 +14,8 @@ require "rails_helper"
 #  updated_at :datetime         not null
 #
 
-RSpec.describe User, type: :model do
-  let(:user) { create :user }
+RSpec.describe User do
+  let(:user) { create(:user) }
 
   it "has a valid factory" do
     expect(user).to be_valid

@@ -7,6 +7,11 @@ plugins:
   - rubocop-rspec
   - rubocop-rspec_rails
 
+## Bundler
+
+Bundler/OrderedGems:
+  Enabled: false
+
 ## Layout
 
 Layout/LineLength:

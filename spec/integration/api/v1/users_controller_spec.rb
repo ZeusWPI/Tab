@@ -2,7 +2,7 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/v1/users", type: :request do
+RSpec.describe "api/v1/users" do
   let(:api_user) { create(:penning, :with_api_key) }
 
   path "/api/v1/users" do

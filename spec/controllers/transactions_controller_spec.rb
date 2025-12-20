@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe TransactionsController, type: :controller do
+RSpec.describe TransactionsController do
   describe "creating transaction" do
     context "when user is regular user" do
       context "when user is debtor" do

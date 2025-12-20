@@ -2,11 +2,11 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/v1/transactions", type: :request do
+RSpec.describe "api/v1/transactions" do
   let(:api_user) { create(:penning, :with_api_key) }
 
-  let(:debtor) { create :user }
-  let(:creditor) { create :user }
+  let(:debtor) { create(:user) }
+  let(:creditor) { create(:user) }
   let(:transaction_params) do
     {
       debtor: debtor.name,

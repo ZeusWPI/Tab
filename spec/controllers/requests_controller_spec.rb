@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe RequestsController, type: :controller do
+RSpec.describe RequestsController do
   describe "accepting request" do
     let(:request) { create(:request, amount: 10) }
 

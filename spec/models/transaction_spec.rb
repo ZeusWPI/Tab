@@ -18,7 +18,7 @@ require "rails_helper"
 #  id_at_client :integer
 #
 
-RSpec.describe Transaction, type: :model do
+RSpec.describe Transaction do
   it "has a valid factory" do
     expect(create(:transaction)).to be_valid
   end

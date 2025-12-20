@@ -2,13 +2,13 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/v1/requests", type: :request do
+RSpec.describe "api/v1/requests" do
   # Our user we use in most places.
-  let(:user) { create :positive_user, :with_api_key }
+  let(:user) { create(:positive_user, :with_api_key) }
   # Create a request where the user should pay.
-  let!(:debtor) { create :request, debtor: user }
+  let!(:debtor) { create(:request, debtor: user) }
   # Create a request where the user wants money.
-  let!(:creditor) { create :request, creditor: user }
+  let!(:creditor) { create(:request, creditor: user) }
   # Create a request issued by the user, but not to itself.
   # Note that this is probably not supported by the application
   # logic, as you would expect the debtor or the creditor to be
@@ -16,11 +16,11 @@ RSpec.describe "api/v1/requests", type: :request do
   # This could be used in the future if some other client than
   # a user can issue requests (e.g. Haldis), but this is not
   # the case at the moment.
-  let!(:issuer) { create :request, issuer: user, status: :confirmed }
+  let!(:issuer) { create(:request, issuer: user, status: :confirmed) }
 
   before do
     # An unrelated request
-    create :request
+    create(:request)
   end
 
   path "/api/v1/users/{name}/requests" do

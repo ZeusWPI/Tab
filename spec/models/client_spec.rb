@@ -13,7 +13,7 @@ require "rails_helper"
 #  updated_at :datetime         not null
 #
 
-RSpec.describe Client, type: :model do
+RSpec.describe Client do
   let(:client) { create(:client) }
 
   it "has a valid factory" do
