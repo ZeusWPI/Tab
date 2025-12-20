@@ -29,6 +29,9 @@ migrate:
 seed:
 	$(dc) exec development bundle exec rake db:seed
 
+swagger:
+	$(dc) exec development bundle exec rake rswag
+
 webpack:
 	$(dc) exec development bundle exec rake javascript:build
 

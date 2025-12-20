@@ -25,6 +25,11 @@ To provide a consistent experience on every system, docker compose is used.
     make migrate
     ```
     > The development setup uses a SQLite 3 database, which can be found under `/db/development.sqlite3`.
+4. Generate openapi spec.
+    ```sh
+    make swagger
+    ```
+    > Required for the http://localhost:3000/api-docs page.
 4. Start a development shell.
     ```sh
     make shell
