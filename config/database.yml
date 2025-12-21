@@ -21,5 +21,11 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_general_ci
+  host: '<%= ENV["MARIADB_HOST"] %>'
+  port: '<%= ENV["MARIADB_PORT"] %>'
+  username: '<%= ENV["MARIADB_USER"] %>'
+  password: '<%= ENV["MARIADB_PASSWORD"] %>'
+  database: '<%= ENV["MARIADB_DATABASE"] %>'
