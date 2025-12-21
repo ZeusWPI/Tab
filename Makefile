@@ -47,4 +47,4 @@ shell:
 	$(dc) exec development sh
 
 
-.PHONY: build up down start stop restart logs seed webpack lint test deploy shell
+.PHONY: build up down start stop restart logs migrate seed swagger lint test deploy shell
