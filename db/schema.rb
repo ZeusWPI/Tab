@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2022_06_07_182804) do
+ActiveRecord::Schema[8.1].define(version: 2022_06_07_182804) do
   create_table "clients", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "key", null: false
     t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_clients_on_key"
     t.index ["name"], name: "index_clients_on_name", unique: true
@@ -29,23 +29,23 @@ ActiveRecord::Schema[8.0].define(version: 2022_06_07_182804) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
     t.string "message"
     t.boolean "read", default: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "requests", force: :cascade do |t|
-    t.integer "debtor_id", null: false
-    t.integer "creditor_id", null: false
-    t.string "issuer_type", null: false
-    t.integer "issuer_id", null: false
     t.integer "amount", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.integer "creditor_id", null: false
+    t.integer "debtor_id", null: false
+    t.integer "issuer_id", null: false
+    t.string "issuer_type", null: false
     t.string "message"
     t.integer "status", default: 0
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creditor_id"], name: "index_requests_on_creditor_id"
     t.index ["debtor_id"], name: "index_requests_on_debtor_id"
@@ -53,10 +53,10 @@ ActiveRecord::Schema[8.0].define(version: 2022_06_07_182804) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.string "resource_type"
-    t.integer "resource_id"
     t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "resource_id"
+    t.string "resource_type"
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
@@ -64,15 +64,15 @@ ActiveRecord::Schema[8.0].define(version: 2022_06_07_182804) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "debtor_id", null: false
-    t.integer "creditor_id", null: false
-    t.string "issuer_type", null: false
-    t.integer "issuer_id", null: false
     t.integer "amount", default: 0, null: false
-    t.string "message"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "creditor_id", null: false
+    t.integer "debtor_id", null: false
     t.integer "id_at_client"
+    t.integer "issuer_id", null: false
+    t.string "issuer_type", null: false
+    t.string "message"
+    t.datetime "updated_at", null: false
     t.index ["creditor_id"], name: "index_transactions_on_creditor_id"
     t.index ["debtor_id"], name: "index_transactions_on_debtor_id"
     t.index ["issuer_id", "id_at_client"], name: "index_transactions_on_issuer_id_and_id_at_client"
@@ -80,12 +80,12 @@ ActiveRecord::Schema[8.0].define(version: 2022_06_07_182804) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
     t.integer "balance", default: 0, null: false
-    t.boolean "penning", default: false, null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "key"
+    t.string "name"
+    t.boolean "penning", default: false, null: false
+    t.datetime "updated_at", null: false
     t.index ["balance"], name: "index_users_on_balance"
     t.index ["name"], name: "index_users_on_name", unique: true
   end
