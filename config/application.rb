@@ -23,6 +23,13 @@ module Tab
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
 
+    # https://island94.org/2024/11/keep-your-secrets-yml-in-rails-7-2
+    config.secrets = config_for(:secrets) # loads from config/secrets.yml
+    config.secret_key_base = config.secrets[:secret_key_base]
+    def secrets
+      config.secrets
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

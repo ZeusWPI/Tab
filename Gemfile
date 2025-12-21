@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.4.8"
 
-rails_version = "~> 7.1.0"
+rails_version = "~> 7.2.0"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
