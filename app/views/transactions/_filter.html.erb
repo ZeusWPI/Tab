@@ -61,7 +61,7 @@
             <%= grouped_collection_select nil, nil, [User, Client], :all, :name, :name, :name,
                 { include_blank: true },
                 { data: { controller: 'select', placeholder: "Filter on Issuer", width: 265 },
-                class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5" } %>
+                class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300" } %>
           </div>
           <div data-input-type="text" data-filter-name="Peer" class="input-listen relative w-full mb-6 group">
             <label for="peer" class="block mb-2 text-sm font-medium text-gray-900">Peer</label>
@@ -69,7 +69,7 @@
               <%= select_tag nil,
                 options_from_collection_for_select(User.all.order(:name), :name, :name),
                 include_blank: true,
-                class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5",
+                class: "value-thing rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300",
                 data: { controller: 'select', placeholder: "Filter on Peer" } %>
             </div>
           </div>
