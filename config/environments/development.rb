@@ -6,7 +6,7 @@ Rails.application.configure do
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
+  config.enable_reloading = true
 
   # Do not eager load code on boot.
   config.eager_load = false
@@ -33,6 +33,11 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true # false
+
+  config.action_mailer.perform_caching = true # false
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -48,6 +53,9 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  # Highlight code that enqueued background job in logs.
+  config.active_job.verbose_enqueue_logs = true
+
   # Suppress logger output for asset requests.
   config.assets.quiet = false # true
 
@@ -56,6 +64,9 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Raise error when a before_action's only/except options reference missing actions
+  config.action_controller.raise_on_missing_callback_actions = false # true
 
   # Open letters right as you send them in a new tab
   config.action_mailer.delivery_method = :letter_opener
