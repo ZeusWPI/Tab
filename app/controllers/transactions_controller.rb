@@ -28,7 +28,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    t = params.require(:transaction).permit(:debtor, :creditor, :message, :euros, :cents)
+    t = params.expect(transaction: [:debtor, :creditor, :message, :euros, :cents])
 
     {
       debtor: User.find_by(name: t[:debtor]),
@@ -40,6 +40,6 @@ class TransactionsController < ApplicationController
   end
 
   def action_param
-    params.require(:transaction).permit(:action)
+    params.expect(transaction: [:action])
   end
 end

@@ -39,14 +39,14 @@ module Api
         if @transaction.save
           render json: @transaction, status: :created
         else
-          render json: @transaction.errors.full_messages, status: :unprocessable_entity
+          render json: @transaction.errors.full_messages, status: :unprocessable_content
         end
       end
 
       private
 
       def transaction_params
-        t = params.require(:transaction).permit(:debtor, :creditor, :message, :euros, :cents, :id_at_client)
+        t = params.expect(transaction: [:debtor, :creditor, :message, :euros, :cents, :id_at_client])
 
         {
           debtor: t[:debtor] ? User.find_by(name: t[:debtor]) : User.zeus,
