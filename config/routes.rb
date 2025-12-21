@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   require "sidekiq/web"
   require "sidekiq/cron/web"
   Sidekiq::Web.use(Rack::Auth::Basic) do |username, password|
-    username == Rails.application.secrets.sidekiq_username && password == Rails.application.secrets.sidekiq_password
+    username == Rails.application.secrets.sidekiq_admin_username &&
+      password == Rails.application.secrets.sidekiq_admin_password
   end
   mount Sidekiq::Web => "/sidekiq"
 
