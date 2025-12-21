@@ -17,6 +17,52 @@ Bundler/OrderedGems:
 Layout/LineLength:
   Max: 144
 
+## Metrics
+
+Metrics/AbcSize:
+  Enabled: false
+
+# Do not complain about blocks that are too long.
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+## Rails
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/SaveBang:
+  Enabled: true
+
+## Rspec
+
+# Allow using "use_test!" from RSwag
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
+# We decide how many lines.
+RSpec/ExampleLength:
+  Enabled: false
+
+# We decide how many expectations.
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Description: Checks for nested example groups.
+  Enabled: false
 
 ## Style
 
@@ -50,54 +96,6 @@ Style/SymbolArray:
 
 Style/TrailingCommaInHashLiteral:
   Enabled: false
-
-
-## Metrics
-
-Metrics/AbcSize:
-  Enabled: false
-
-# Do not complain about blocks that are too long.
-Metrics/BlockLength:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-## Rspec
-
-# We decide how many lines.
-RSpec/ExampleLength:
-  Enabled: false
-
-# We decide how many expectations.
-RSpec/MultipleExpectations:
-  Enabled: false
-
-RSpec/MultipleMemoizedHelpers:
-  Enabled: false
-
-RSpec/NestedGroups:
-  Description: Checks for nested example groups.
-  Enabled: false
-
-# Allow using "use_test!" from RSwag
-RSpec/EmptyExampleGroup:
-  Enabled: false
-
-## Rails
-
-Rails/I18nLocaleTexts:
-  Enabled: false
-
-Rails/SaveBang:
-  Enabled: true
 
 ## Miscellaneous
 
