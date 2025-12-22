@@ -1,32 +1,21 @@
+---
 version: 2
+.common: &common
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "11:00"
+    timezone: Europe/Brussels
+  open-pull-requests-limit: 10
 updates:
 - package-ecosystem: bundler
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "11:00"
-    timezone: Europe/Brussels
-  open-pull-requests-limit: 10
-  reviewers:
-  - TomNaessens
+  <<: *common
 - package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "11:00"
-    timezone: Europe/Brussels
-  open-pull-requests-limit: 10
-  reviewers:
-  - TomNaessens
+  <<: *common
+- package-ecosystem: docker
+  <<: *common
+- package-ecosystem: docker-compose
+  <<: *common
 - package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "11:00"
-    timezone: Europe/Brussels
-  open-pull-requests-limit: 10
-  reviewers:
-  - TomNaessens
+  <<: *common
