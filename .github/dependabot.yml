@@ -1,21 +1,25 @@
 ---
 version: 2
-.common: &common
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "11:00"
-    timezone: Europe/Brussels
-  open-pull-requests-limit: 10
+multi-ecosystem-groups:
+  deps:
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "11:00"
+      timezone: "Europe/Brussels"
 updates:
-- package-ecosystem: bundler
-  <<: *common
-- package-ecosystem: npm
-  <<: *common
-- package-ecosystem: docker
-  <<: *common
-- package-ecosystem: docker-compose
-  <<: *common
-- package-ecosystem: github-actions
-  <<: *common
+- package-ecosystem: "bundler"
+  directory: "/"
+  multi-ecosystem-group: "deps"
+- package-ecosystem: "npm"
+  directory: "/"
+  multi-ecosystem-group: "deps"
+- package-ecosystem: "docker"
+  directory: "/"
+  multi-ecosystem-group: "deps"
+- package-ecosystem: "docker-compose"
+  directory: "/"
+  multi-ecosystem-group: "deps"
+- package-ecosystem: "github-actions"
+  directory: "/"
+  multi-ecosystem-group: "deps"
