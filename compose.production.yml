@@ -1,0 +1,28 @@
+# Example production compose file
+services:
+  tab:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    restart: unless-stopped
+    env_file: .env.production
+    ports:
+      - "127.0.0.1:3000:80" # XXX: Remove this
+    volumes:
+      - ./log/:/tab/log/
+    tmpfs:
+      - /tab/tmp
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: docker.io/library/mariadb:11.8
+    restart: unless-stopped
+    env_file: .env.production
+
+  redis:
+    image: docker.io/library/redis:8-alpine
+    restart: unless-stopped
+
+  # XXX: Add https proxy here...
