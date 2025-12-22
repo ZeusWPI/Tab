@@ -1,0 +1,22 @@
+name: "ruby: lint"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ruby-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Install the Ruby version in .ruby-version"
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: "Run rubocop"
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rubocop
