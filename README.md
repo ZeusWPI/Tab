@@ -18,7 +18,7 @@ To provide a consistent experience on every system, docker compose is used.
     make up
     ```
     > This will start a development server on http://localhost:3000.
-    > Cancelling this command will leave tap running in the background.
+    > Cancelling this command will leave tab running in the background.
     > You can stop it using `make down`.
 3. Create the database.
     ```sh
