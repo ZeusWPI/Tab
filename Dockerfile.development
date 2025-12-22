@@ -4,7 +4,7 @@ FROM docker.io/ruby:3.4.8-alpine3.23 AS common
 RUN apk update \
     && apk upgrade \
     && apk add \
-        build-base shared-mime-info mariadb-dev sqlite-dev yaml-dev tzdata imagemagick \
+        build-base shared-mime-info mariadb-dev sqlite-dev yaml-dev tzdata \
         nodejs npm \
         redis git vimdiff \
     && rm -rfv /var/cache/apk/*

@@ -1,0 +1,86 @@
+FROM docker.io/ruby:3.4.8-alpine3.23 AS base
+
+RUN apk update \
+    && apk upgrade \
+    && apk add \
+        build-base shared-mime-info mariadb-dev sqlite-dev yaml-dev tzdata \
+        nodejs npm \
+    && rm -rfv /var/cache/apk/*
+
+# These are equivalent to always setting --deployment, --path, and --without when relevant.
+ENV BUNDLE_DEPLOYMENT="1"
+# Don't install to vendor/bundle.
+ENV BUNDLE_PATH="/usr/local/bundle"
+ENV BUNDLE_WITHOUT="development"
+
+ENV RAILS_ENV="production"
+
+WORKDIR /tab
+
+
+FROM base AS builder
+
+RUN apk add --no-cache redis
+
+COPY Gemfile Gemfile.lock ./
+RUN --mount=type=cache,target=vendor/cache bundle install && bundle cache
+RUN bundle exec bootsnap precompile --gemfile
+
+COPY package.json package-lock.json* ./
+RUN --mount=type=cache,target=/root/.npm npm ci
+
+COPY --parents \
+    ./app/ \
+    ./bin/ \
+    ./config/ \
+    ./db/ \
+    ./lib/ \
+    ./log/.keep \
+    ./public/ \
+    ./spec/ \
+    ./config.ru \
+    ./LICENSE.txt \
+    ./Rakefile \
+    ./
+
+RUN npm run build:js
+RUN npm run build:css
+
+RUN bundle exec bootsnap precompile app/ lib/
+RUN <<"EOF"
+redis-server &
+export TAB_SECRET_KEY_BASE=1
+./bin/rails assets:precompile
+./bin/rails rswag
+kill %1
+EOF
+
+
+FROM base AS runner
+
+COPY --from=builder "${BUNDLE_PATH}" "${BUNDLE_PATH}"
+COPY --from=builder /tab /tab
+
+EXPOSE 80
+
+COPY --chmod=755 <<"EOF" /entrypoint.sh
+#!/bin/sh
+set -eu
+
+# Enable jemalloc for reduced memory usage and latency.
+LD_PRELOAD=/usr/lib/libjemalloc.so.2
+
+until ./bin/rails db:version 2>/dev/null; do
+    echo "Waiting for database to start..."
+    sleep .1
+done
+
+# Create or migrate the database
+./bin/rails db:prepare
+
+bundle exec sidekiq &
+
+exec "${@}"
+EOF
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["./bin/rails", "server", "--binding=0.0.0.0", "--port=80"]
