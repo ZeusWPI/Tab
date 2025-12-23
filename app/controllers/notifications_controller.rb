@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
   authorize_resource :notification, only: :read
 
   def index
-    @notifications = @user.notifications.group_by(&:read)
+    @notifications = @user.notifications.order(updated_at: :desc).group_by(&:read)
   end
 
   def read
