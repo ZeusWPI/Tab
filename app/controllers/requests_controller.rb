@@ -7,7 +7,7 @@ class RequestsController < ApplicationController
   authorize_resource :request, id_param: :request_id, only: [:confirm, :decline, :cancel]
 
   def index
-    @requests = @user.requests.group_by(&:status)
+    @requests = @user.requests.order(updated_at: :desc).group_by(&:status)
   end
 
   def confirm
