@@ -10,16 +10,21 @@ multi-ecosystem-groups:
 updates:
 - package-ecosystem: "bundler"
   directory: "/"
+  patterns: ["*"]
   multi-ecosystem-group: "deps"
 - package-ecosystem: "npm"
   directory: "/"
+  patterns: ["*"]
   multi-ecosystem-group: "deps"
 - package-ecosystem: "docker"
   directory: "/"
+  patterns: ["*"]
   multi-ecosystem-group: "deps"
 - package-ecosystem: "docker-compose"
   directory: "/"
+  patterns: ["*"]
   multi-ecosystem-group: "deps"
 - package-ecosystem: "github-actions"
   directory: "/"
+  patterns: ["*"]
   multi-ecosystem-group: "deps"
