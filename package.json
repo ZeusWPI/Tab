@@ -3,7 +3,7 @@
   "private": "true",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.20",
+    "@hotwired/turbo-rails": "^8.0.23",
     "@tailwindcss/cli": "^4.1.18",
     "datatables": "^1.10.18",
     "datatables.net": "^2.3.6",
