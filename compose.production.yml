@@ -17,7 +17,7 @@ services:
       - redis
 
   db:
-    image: docker.io/library/mariadb:12.1
+    image: docker.io/library/mariadb:12.2
     restart: unless-stopped
     env_file: .env.production
 
