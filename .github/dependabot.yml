@@ -1,30 +1,52 @@
 ---
 version: 2
-multi-ecosystem-groups:
-  deps:
-    schedule:
-      interval: "weekly"
-      day: "saturday"
-      time: "11:00"
-      timezone: "Europe/Brussels"
 updates:
 - package-ecosystem: "bundler"
   directory: "/"
-  patterns: ["*"]
-  multi-ecosystem-group: "deps"
-- package-ecosystem: "npm"
+  ignore:
+    - dependency-name: "bulma-rails"
+      update-types: ["version-update:semver-major"]
+    - dependency-name: "font-awesome-sass"
+      update-types: ["version-update:semver-major"]
+  schedule:
+    interval: "weekly"
+    day: "saturday"
+    time: "11:00"
+    timezone: "Europe/Brussels"
+  open-pull-requests-limit: 20
+
+- package-ecosystem: npm
   directory: "/"
-  patterns: ["*"]
-  multi-ecosystem-group: "deps"
+  schedule:
+    interval: "weekly"
+    day: "saturday"
+    time: "11:00"
+    timezone: "Europe/Brussels"
+  open-pull-requests-limit: 20
+
 - package-ecosystem: "docker"
   directory: "/"
-  patterns: ["*"]
-  multi-ecosystem-group: "deps"
+  schedule:
+    interval: "weekly"
+    day: "saturday"
+    time: "11:00"
+    timezone: "Europe/Brussels"
+  open-pull-requests-limit: 20
+
 - package-ecosystem: "docker-compose"
   directory: "/"
-  patterns: ["*"]
-  multi-ecosystem-group: "deps"
+  schedule:
+    interval: "weekly"
+    day: "saturday"
+    time: "11:00"
+    timezone: "Europe/Brussels"
+  open-pull-requests-limit: 20
+
 - package-ecosystem: "github-actions"
   directory: "/"
-  patterns: ["*"]
-  multi-ecosystem-group: "deps"
+  schedule:
+    interval: "weekly"
+    day: "saturday"
+    time: "11:00"
+    timezone: "Europe/Brussels"
+  open-pull-requests-limit: 20
