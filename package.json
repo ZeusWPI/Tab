@@ -6,7 +6,7 @@
     "@hotwired/turbo-rails": "^8.0.20",
     "@tailwindcss/cli": "^4.1.18",
     "datatables": "^1.10.18",
-    "datatables.net": "^2.3.6",
+    "datatables.net": "^2.3.7",
     "esbuild": "^0.27.2",
     "fuse.js": "^7.1.0",
     "luxon": "^3.7.2",
