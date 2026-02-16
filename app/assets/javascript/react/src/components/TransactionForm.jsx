@@ -2,6 +2,7 @@ import React from "react";
 
 import Select from 'react-select';
 import Fuse from 'fuse.js';
+import { evaluate } from "mathjs";
 
 const url = function (path) {
   return (window.base_url || '') + "/" + path;
@@ -101,36 +102,45 @@ class Action extends React.Component {
     );
   }
 }
-
 class Amount extends React.Component {
-  onChange = (ref) => {
-    return this.props.setAmount(ref.target.value);
+  handleKeyDown = (ev) => {
+    if (ev.key === 'Enter') {
+      this.calculate(ev);
+    }
   }
 
-  format(ref) {
-    const { target } = ref;
-    if (target.value) {
-      return target.value = parseFloat(target.value).toFixed(2);
+  calculate = (ev) => {
+    try {
+      const result = evaluate(ev.target.value);
+      this.props.setAmount(result.toFixed(2));
+
+      ev.target.value = result.toFixed(2);
+    } catch (err) {
+      this.props.setAmount(null);
+      console.error("Invalid expression", err);
     }
   }
 
   render() {
-    return(
+    return (
       <div className="relative z-0 w-full mb-6 group">
         <div className="flex">
           <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
             Ƶ
           </span>
           <input
-            name={'transaction[euros]'}
-            onBlur={this.format}
-            onChange={this.onChange}
-            placeholder={'0.00'}
-            type={'number'}
-            step="0.01"
+            name="transaction[euros]"
+            type="text" 
+            placeholder="0.00"
+            onBlur={this.calculate}
+            onChange={this.props.setAmount}
+            onKeyDown={this.handleKeyDown}
             className="block flex-initial p-2 w-1/2 sm:text-sm rounded-none rounded-r-lg bg-white border border-gray-200 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border-gray-300"
           />
         </div>
+        <p className="mt-1 text-xs text-gray-500 italic">
+          Type a formula to do calculations (10 + 5 * 2)
+        </p>
       </div>
     );
   }
