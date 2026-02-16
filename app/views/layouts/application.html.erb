@@ -14,6 +14,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script src='/scripts/zapp-iframe.js' async></script>
   </head>
 
   <body class="h-full">
@@ -42,6 +43,16 @@
       <% end %>
 
     </div>
+
+    <!-- Zapp Dropdown iframe needs to be directly relative to body -->
+    <!-- local testing:  -->
+    <!-- production: https://zapp.zeus.gent/zapp-iframe/dropdown.html -->
+
+    <iframe sandbox="allow-scripts allow-popups allow-same-origin"
+      id="zappdropdown"
+      src="https://zapp.zeus.gent/zapp-iframe/dropdown.html"
+      style="border-style: none; z-index: 200; position: absolute; left: 0; top: 0; height: 0vh; width: 0vw; overflow: hidden; visibility: hidden;"
+    ></iframe>
 
     <footer class="p-4 bg-white shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
       <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© <%= Date.current.year %> <a href="https://zeus.gent" class="hover:underline">Zeus WPI</a>. All Rights Reserved.
