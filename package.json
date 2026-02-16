@@ -15,7 +15,7 @@
     "react-dom": "^19.2.3",
     "react-select": "^5.10.2",
     "tailwindcss": "^4.1.18",
-    "tom-select": "^2.4.3"
+    "tom-select": "^2.5.1"
   },
   "scripts": {
     "build:js": "esbuild ./app/assets/javascript/application.js --loader:.js=jsx --public-path=/assets --outdir=./app/assets/builds/ --bundle --minify",
