@@ -112,13 +112,3 @@ gem "selenium-webdriver", group: :test
 gem "webdrivers", group: :test
 # Make sure the database is in a clean state in between tests
 gem "database_cleaner-active_record", group: :test
-
-# Deployment
-gem "capistrano", group: :development
-gem "capistrano-asdf", group: :development
-gem "capistrano-passenger", group: :development
-gem "capistrano-rails", group: :development
-gem "capistrano-sidekiq", group: :development, require: false
-# ed25519 ssh key support
-gem "bcrypt_pbkdf", group: :development
-gem "ed25519", group: :development
