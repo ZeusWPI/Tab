@@ -34,7 +34,7 @@ RSpec.describe Api::V1::RequestsController do
 
     get("get requests") do
       tags "Requests"
-      security [bearer_auth: []]
+      security [{ bearer_auth: [] }]
       description <<~DESCR
         Returns a list of your requests, optionally filtered by status.
       DESCR
@@ -65,7 +65,7 @@ RSpec.describe Api::V1::RequestsController do
   path "/api/v1/requests/{request_id}/confirm" do
     post("confirm a request") do
       tags "Requests"
-      security [bearer_auth: []]
+      security [{ bearer_auth: [] }]
       description <<~DESCR
         Confirms a request.
 
@@ -149,7 +149,7 @@ RSpec.describe Api::V1::RequestsController do
   path "/api/v1/requests/{request_id}/cancel" do
     post("cancel a request") do
       tags "Requests"
-      security [bearer_auth: []]
+      security [{ bearer_auth: [] }]
       description <<~DESCR
         Cancel a request.
 
@@ -231,7 +231,7 @@ RSpec.describe Api::V1::RequestsController do
   path "/api/v1/requests/{request_id}/decline" do
     post("decline a request") do
       tags "Requests"
-      security [bearer_auth: []]
+      security [{ bearer_auth: [] }]
       description <<~DESCR
         Declines a request.
 

@@ -23,7 +23,7 @@ RSpec.describe Api::V1::TransactionsController do
 
     get("get transactions") do
       tags "Transactions"
-      security [bearer_auth: []]
+      security [{ bearer_auth: [] }]
       description <<~DESCR
         Returns a list of your transactions.
       DESCR
@@ -92,7 +92,7 @@ RSpec.describe Api::V1::TransactionsController do
   path "/api/v1/transactions" do
     post("create transaction") do
       tags "Transactions"
-      security [bearer_auth: []]
+      security [{ bearer_auth: [] }]
       description <<~DESCR
         Creates a new transaction.
 

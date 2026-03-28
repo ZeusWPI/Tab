@@ -8,7 +8,7 @@ RSpec.describe Api::V1::UsersController do
   path "/api/v1/users" do
     get("list users") do
       tags "Users"
-      security [bearer_auth: []]
+      security [{ bearer_auth: [] }]
       description <<~DESCR
         Returns a list of users accessible to you.
 
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::UsersController do
 
     get("show user") do
       tags "Users"
-      security [bearer_auth: []]
+      security [{ bearer_auth: [] }]
       description <<~DESCR
         Returns a specific users information accessible to you.
 
