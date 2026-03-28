@@ -222,7 +222,7 @@ GEM
     omniauth-rails_csrf_protection (2.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    omniauth-zeuswpi (2.0.0)
+    omniauth-zeuswpi (1.1.0)
       omniauth-oauth2 (~> 1.7.1)
     orm_adapter (0.5.0)
     parallel (1.27.0)
@@ -460,7 +460,7 @@ DEPENDENCIES
   mysql2
   omniauth-oauth2
   omniauth-rails_csrf_protection
-  omniauth-zeuswpi
+  omniauth-zeuswpi (= 1.1.0)
   puma
   rails-controller-testing
   railties (~> 8.1.0)
