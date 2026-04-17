@@ -1,7 +1,7 @@
 <%= render 'shared/dashboard_card',
       card_title: "Requests",
       view_all_path: user_requests_path(current_user) do %>
-  <ul role="list" class="divide-y divide-gray-200">
+  <ul role="list">
     <% if @requests.any? %>
       <% @requests.each do |r| %>
         <li class="py-3 sm:py-4">
@@ -34,6 +34,12 @@
           </div>
         </li>
       <% end %>
+      <li class="py-4 border-t-2 border-gray-900 mt-2">
+        <div class="flex items-center justify-between font-bold text-gray-900">
+          <span>Total</span>
+          <span><%= euro_from_cents @total_incoming_amount %></span>
+        </div>
+      </li>
     <% else %>
       None!
     <% end %>
