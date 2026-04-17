@@ -1,4 +1,5 @@
-# app/controllers/pages_controller.rb
+# frozen_string_literal: true
+
 class PagesController < ApplicationController
   def landing
     query = TransactionsQuery.new(current_user)
