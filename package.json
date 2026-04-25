@@ -14,7 +14,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.5",
     "react-select": "^5.10.2",
-    "tailwindcss": "^4.2.2",
+    "tailwindcss": "^4.2.4",
     "tom-select": "^2.6.0"
   },
   "scripts": {
