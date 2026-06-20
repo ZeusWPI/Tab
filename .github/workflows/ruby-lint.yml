@@ -8,7 +8,7 @@ jobs:
   ruby-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: "Install the Ruby version in .ruby-version"
         uses: ruby/setup-ruby@v1
